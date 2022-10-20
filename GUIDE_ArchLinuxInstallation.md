@@ -1,34 +1,41 @@
 # Arch Linux Installation Guide
 
-> Nuno Penim, 2021
+> Saboor Bilal, 2022
+> Copied off Nuno's guide with my own preferences :) https://github.com/nunopenim/nunopenim
 
 ## Disclaimer
 
-I am not responsible for any data loss that might occur. This guide will tell you how to install Arch Linux as **the single OS in your machine**. Back up your stuff, and don't use this guide if you are looking for a dual boot.
+I am not responsible for any data loss that might occur.<br>
+This guide will tell you how to install Arch Linux as the single OS in your machine.
 
-You can use this guide freely as a base for a guide of your own to do other setup options (such as a Dual Boot version), if you give me proper credits.
+Dual-booting will be added to this guide soon, so unless you can interpret this guide to dual-boot like I personally did, this isn't recommended for dual-boot
 
+Back up your stuff, unless you're like me and don't care much about your data.
+
+You can use this guide freely as a base for a guide of your own to do other setup options (such as a Dual Boot version), if you give me and Nuno proper credits.<br>
 Thank you.
 
 ## Preface
 
 Congratulations, if you are reading this, you found a very special document I wrote not only to help myself, but to help other like minded individuals.
 
-After this, you should have a full working Arch Linux installation, running the Gnome DE and with GDM. If this is not what you are here for, Google how to do your specific Setup. I will not answer any pull requests.
+After this, you should have a full working Arch Linux installation, running the Plasma DE and with SDDM, because plasma is superior.
 
-This was done specifically in a 2020 Asus VivoBook X521IA (M533IA), with an AMD Ryzen 7 4700U, 16GiB of RAM and a 1TB NVMe SSD. It should work on any other machine though, with UEFI support. If you are looking for a BIOS/CSM version, you can check out my [older guide](https://github.com/nunopenim/nunopenim/blob/main/GUIDE_ArchLinuxInstallationBIOS-CSM.md)
+This was done specifically in a Dell G5 5090 with an Intel i5-9400, 16GiB of RAM and a 256GB NVMe SSD.
+It should work on any other machine with UEFI support though. Fuck your legacy BIOS, UEFI ftw.
 
-Every problem you run into can be solved either by looking in the [Arch Wiki](https://wiki.archlinux.org/), or by searching in the [Forum](https://bbs.archlinux.org/). Currently, everything in my machine works fine, except Suspending. This is due to AMD's new s2idle not being yet supported fully by the stable version of the Linux Kernel (although, soon enough it will be), and this laptop not having deep sleep. External peripherals, such as my Wi-Fi printer work fine, however!
+Every problem you run into can be solved either by looking in the [Arch Wiki](https://wiki.archlinux.org/), or by searching in the [Forum](https://bbs.archlinux.org/), or simply, Google.
 
 ## Installation instructions and Steps
 
-### Step 0: Backup your data
-
-Or prepare it to be migrated. We will format your SSD entirely, so... yeah
-
 ### Step 1: Download the Arch Linux ISO file
 
-The title pretty much explains it. To do it, access [https://archlinux.org/download/](https://archlinux.org/download/) and download the most recent ISO file. I recommend using BitTorrent, but it's up to you.
+The title pretty much explains it.
+
+To do it, access https://archlinux.org/download and download the most recent ISO file.
+
+OR you may use the specific ISO I am using for this guide if the above doesn't end up working correctly with this guide.<br>
+https://smhsmh.club/files/archlinux-2022.07.01-x86_64.iso
 
 ### Step 2: Make a bootable flash drive.
 
@@ -52,11 +59,13 @@ Fully shutdown your PC. Insert (if not yet there) the Arch Linux USB you made in
 
 #### Step 5a: The right keyboard layout
 
-If you ever used the Linux terminal, by now you realized this blank Terminal screen is a terminal like any other, and probably did some simple commands (because you have an ADHD level like mine - that's okay, you are still beautiful) and realized the keyboard layout might not be the correct one for you (unless you are in the US).
+If you ever used the Linux terminal, by now you realized this blank Terminal screen is a terminal like any other, and probably did some simple commands (because you have an ADHD level like nuno - that's okay, you are still beautiful) and realized the keyboard layout might not be the correct one for you (unless you are in the US).
 
 To get to the point, the command ```ls /usr/share/kbd/keymaps/i386/**/*.map.gz``` will **show you the avaliable keyboard layouts**. It can be a never ending list, use the keyboard **Page Up** and **Page Down** keys to navigate. After figuring out some possible keyboard layout candidates, load one and test. You can do such via the ```loadkeys``` command. 
 
-As an example, I need the QWERTY European Portuguese keyboard layout. I located two possible candidates: ```pt-latin1.map.gz``` and ```pt-latin9.map.gz```. I ran ```loadkeys pt-latin1``` and tested using some characters in the terminal. Since it was the correct layout for me, I proceeded. If the first keyboard layout you have is not the suitable one, just run ```loadkeys``` again, with another keyboard layout.
+As an example, Nuno needed the QWERTY European Portuguese keyboard layout. He located two possible candidates: ```pt-latin1.map.gz``` and ```pt-latin9.map.gz```. ran ```loadkeys pt-latin1``` and tested using some characters in the terminal. Since it was the correct layout for him, he proceeded. If the first keyboard layout you have is not the suitable one, just run ```loadkeys``` again, with another keyboard layout.
+
+Personally, I live in Canada so this doesn't matter for me
 
 #### Step 5b: Wi-Fi connection
 
