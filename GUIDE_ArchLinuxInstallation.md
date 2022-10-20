@@ -239,7 +239,8 @@ Everything should be done now. Exit the chroot by typing ```exit```. Shutdown th
 There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the SDDM login window, you may login.<br>
 (If not, you fucked up, nice! Check troubleshooting for a quickfix).
 
-Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.
+Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.<br>
+The default desktop is *really* ugly, in my opinion. Search up how to make KDE Plasma look good because this DE is *REALLY* customizable, you can make it look however beautiful or ugly as you want (check out r/unixporn or r/unixgore, that's all I have to say)
 
 ### Step 13 (optional): Configuring the SWAP partition in the FSTAB
 
