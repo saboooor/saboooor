@@ -242,7 +242,16 @@ There are a few tweaks you might need to do. Start up your machine and boot. If 
 Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.<br>
 The default desktop is *really* ugly, in my opinion. Search up how to make KDE Plasma look good because this DE is *REALLY* customizable, you can make it look however beautiful or ugly as you want (check out r/unixporn or r/unixgore, that's all I have to say)
 
-### Step 13 (optional): Configuring the SWAP partition in the FSTAB
+### Step 13 (optional): Installing a proprietary graphics driver (Really for NVIDIA)
+
+The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass and I recommend you steer away from it as far as you can.<br>
+To install the NVIDIA driver, do ```pacman -Syu nvidia```
+
+Why is this optional and not mandatory? Well, the NVIDIA driver, as smooth as it is to use on linux, is sometimes a bit buggy, since it is not open-source so people can't fix stuff themselves and build their own versions of the driver, but this really doesn't matter as much as you may think, I personally use the proprietary driver and it works just fine.
+
+Why is this driver not used by default with Arch? Well, because Arch is FOSS (Free and Open-Source Software), and nouveau is the open-source driver arch decided to use
+
+### Step 14 (optional): Configuring the SWAP partition in the FSTAB
 
 If you have made a SWAP partition (in step 6b), it is recommended to add it to the FSTAB file. To do this, open KDE Partition Manager and select your Swap partition. You will see a field named UUID. Keep this UUID handy (check below).
 
@@ -256,7 +265,7 @@ Make sure you get the UUID right, otherwise your system won't boot!
 After this, save by doing the **CTRL+O**, Enter/Return and **CTRL+X** ritual that we have used a lot during this Guide.<br>
 Finally, reboot your system and you are all set!
 
-### Step 14 (optional): Installing an AUR Helper
+### Step 15 (optional): Installing an AUR Helper
 
 An AUR helper allows you to automate your search and installation of packages in the [Arch Linux User Repository (AUR)](https://aur.archlinux.org/). This repository is a community driven repository that contains [PKGBUILD](https://wiki.archlinux.org/index.php/PKGBUILD) files, which allow you to build a package using the [makepkg](https://wiki.archlinux.org/index.php/Makepkg) utility, and then installing it with pacman, as if it was any other Arch Linux package. The AUR will allow you to have even more packages available for use and installation (such as the JetBrains IDEs, Android Studio, Flutter, and other utilities that I love to use).
 
