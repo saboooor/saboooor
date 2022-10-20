@@ -10,6 +10,8 @@ This guide will tell you how to install Arch Linux as the single OS in your mach
 
 Dual-booting will be added to this guide soon, so unless you can interpret this guide to dual-boot like I personally did, this isn't recommended for dual-boot
 
+This guide will be updated to also use BTRFS, until then, this will use ext4.
+
 Back up your stuff, unless you're like me and don't care much about your data.
 
 You can use this guide freely as a base for a guide of your own to do other setup options (such as a Dual Boot version), if you give me and Nuno proper credits.<br>
@@ -89,15 +91,21 @@ For a full list of options and operations inside the IWCTL utility, type ```help
 
 We will use the ```fdisk``` utility for this. List all the disks, by using ```fdisk -l```. Currently, it should appear both the USB Drive and the internal drive(s). Keep in mind the name of the proper one. In my case it was ```/dev/nvme0n1``` (as I mentioned earlier, it can also be ```/dev/sda``` or similar if you are using a SATA SSD).
 
-Run fdisk with the destination drive. In my case it was ```/dev/nvme0n1```, so I executed as ```fdisk /dev/nvme0n1```. Type ```d``` and press Enter/Return until all the partitions are deleted.
+Run fdisk with the destination drive. In my case it was ```/dev/nvme0n1```, so I executed as ```fdisk /dev/nvme0n1```
 
-With the disk fully wiped now, type ```g``` and press Enter/Return. This will create a new GPT partition table. Create a **new primary partition** by typing ```n``` and pressing Enter/Return. Make it 500MB. This can be done by selecting the initial sector, then in the final sector typing +500M. After creating, type ```t```, and then type ```l``` (lowercase L), and find the number correspondent to the EFI/ESP partition. Type this number and press Enter/Return. This will change the partition type to EFI System, instead of Linux.
+IF YOU HAVE UNALLOCATED SPACE READY FOR A UEFI DUAL-BOOT, SKIP THS SECTION<br>
+Type ```d``` and press Enter/Return until all the partitions are deleted.<br>
+With the disk fully wiped now, type ```g``` and press Enter/Return. This will create a new GPT partition table.
+
+Create a **new primary partition** by typing ```n``` and pressing Enter/Return. Make it 500MB. This can be done by selecting the initial sector, then in the final sector typing +500M. After creating, type ```t```, and then set it to ```1``` for EFI System, if the partition type doesn't show as an EFI System, this guide is probably out of date.
+
+If this guide is out of date as stated above, yell at me. Until then, type ```t```, and then type ```l``` (lowercase L), and find the number correspondent to the EFI/ESP partition. Type this number and press Enter/Return. This should return as an EFI system
 
 Create a new partition, using ```n```, select the needed size (I recommend using the remaining SSD space, unless you are setting up with a SWAP partition, see 6b). After this, you should have your drive with 2 partitions, a 500MB EFI, and a second one with the remaining space, where you will install the operating system. 
 
 #### Step 6b (Optional): Setting up a SWAP partition
 
-To setup a swap space, you need to know two things: Your drive size, and your RAM size. Knowing your drive size (for example 1TB, in my case) subtract 500MB, from the EFI partition, and then subtract your RAM size plus an extra gigabyte, for tolerance. 
+To setup a swap space, you need to know two things: Your drive size, and your RAM size. Knowing your drive size (for example 1TB, in Nuno's case) subtract 500MB, from the EFI partition, and then subtract your RAM size plus an extra gigabyte, for tolerance.
 
 In my case, 1024GB (which is 1TB) - 0.5GB - 17GB = 1006.5GB (I will round it to 1006GB only) 
 
@@ -111,7 +119,14 @@ Next, let's use the remaining space as SWAP. For this, type ```n``` to make a ne
 
 Type ```w``` to write all the changes to the disk, and exit fdisk.
 
-Assuming you are back in the Arch terminal, format the new partitions. The first one (EFI) should be FAT32: do it using ```mkfs.fat -F32 /dev/nvme0n1p1```. The second one (Root) should be EXT4. You can do this using the command ```mkfs.ext4 /dev/nvme0n1p2```. If you have set up correctly a swap partition, as explained in 6b, you should format it with ```mkswap /dev/nvme0n1p3```. At this point you can also call ```swapon /dev/nvme0n1p3```, if you really want to enable SWAP during the installation, although not needed.
+Assuming you are back in the Arch terminal, format the new partitions. The first one (EFI) should be FAT32: do it using ```mkfs.fat -F32 /dev/nvme0n1pX```<br>
+**(X as the number of the EFI partition, if you're not dualbooting, it's 1)**
+
+The second one (Root) should be EXT4. You can do this using the command ```mkfs.ext4 /dev/nvme0n1pX```<br>
+**(X as the number of the Root partition, if you're not dualbooting, it's 2)**
+
+If you have set up correctly a swap partition, as explained in 6b, you should format it with ```mkswap /dev/nvme0n1pX```. At this point you can also call ```swapon /dev/nvme0n1pX```, if you really want to enable SWAP during the installation, although not needed.<br>
+**(X as the number of the SWAP partition, if you're not dualbooting, it's 3)**
 
 Now you are ready to install Arch Linux!
 
@@ -119,11 +134,15 @@ Now you are ready to install Arch Linux!
 
 If you reached this far, you have a very strong willpower. I admire you, and I won't stop you.
 
-Anyway, type ```pacman -Syy```. This will sync the PacMan repositories. Similar to how Debian and Debian-based distros syncronize package lists with ```apt-get update```.
+Anyway, type ```pacman -Syy```. This will sync the pacman repositories.<br>
+Similar to how Debian and Debian-based distros syncronize package lists with apt-get update.
 
-After PacMan did it's thing, mount your newly made root partition (I will assume it's ```/dev/nvme0n1p2```, from the previous step). You can do this by typing ```mount /dev/nvme0n1p2 /mnt```.
+After pacman did it's thing, mount your newly made root partition. You can do this by typing ```mount /dev/nvme0n1pX /mnt```.<br>
+**(X as the number of the Root partition, if you're not dualbooting, it's 2)**
 
-We are ready! Type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano```. This will install Arch Linux, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager (used by the most common DE - if you are going for a terminal only version, DHCPCD is easier to configure!), nano, because... you will need a text editor. You can use vim instead of nano if you want, but having a CLI text editor is an important tool and requirement.
+We are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano```.<br>
+This will install Arch, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager, nano, because... you will need a text editor.<br>
+You can use vim instead of nano if you want, but having a CLI text editor is an important tool and requirement.
 
 This step will take a while depending on your Internet connection.
 
@@ -141,7 +160,7 @@ Good, now you have the correct File System parameters for Arch to boot.
 
 Now we will configure the System itself. Start by chrooting into it, by doing ```arch-chroot /mnt```. This is your system now, it no longer is the Live CD/USB. Your keyboard *might* be in the default settings, if such, refer to Step 5a again! Networking should still work fine, though.
 
-We will start by configuring the Timezone. Run the ```timedatectl list-timezones``` command to list all available timezones. In my case, I will use ```Europe/Lisbon```. After you find the correct timezone for you, you can set it by running the command ```timedatectl set-timezone <TZ>```. In my case: ```timedatectl set-timezone Europe/Lisbon```.
+We will start by configuring the Timezone. Run the ```timedatectl list-timezones``` command to list all available timezones. In my case, I will use ```America/Edmonton```. After you find the correct timezone for you, you can set it by running the command ```timedatectl set-timezone <TZ>```. In my case: ```timedatectl set-timezone America/Edmonton```.
 
 The next step will be setting the default Language/Locale. Run ```nano /etc/locale.gen``` to open the ```/etc/locale.gen``` file (or use the text editor you installed in Step 7). In this file, uncomment your prefered Language and Locale settings (delete the # in front), in my case, I selected ```en_US.UTF-8```. Save and quit the editor. In Nano this is done with **CTRL+O**, Enter/Return, and **CTRL+X**
 
@@ -151,14 +170,15 @@ These settings can be changed later on, so don't worry if you think they are not
 
 #### Step 8c: Network configurations
 
-Every computer needs a hostname, to be identified in a network. With nano, create and edit the ```/etc/hostname``` file. Do this with ```nano /etc/hostname```. Inside write the hostname you want, in my case it was ```nuno-arch```. Save and exit with the **CTRL+O**, Enter/Return and **CTRL+X** trick.
+Every computer needs a hostname, to be identified in a network. With nano, create and edit the ```/etc/hostname``` file. Do this with ```nano /etc/hostname```. Inside write the hostname you want, in my case it was ```saboor-arch```. Save and exit with the **CTRL+O**, Enter/Return and **CTRL+X** trick.
 
-You will also need a hosts file. Create it with the command ```touch /etc/hosts```. Open it with nano, in a similar fashion of the previous file. Bellow it's my hosts configuration. I recommend you to use a similar one, but replacing ```nuno-arch``` with the hostname you chose previously!
+You will also need a hosts file. Create it with the command ```touch /etc/hosts```. Open it with nano, in a similar fashion of the previous file.<br>
+Below is an example of a hosts configuration.
 
 ```
 127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	nuno-arch #replace this!
+127.0.1.1	<Your hostname here> #replace this!
 ```
 
 Networkwise, you should be done!
@@ -171,33 +191,44 @@ This is a simple, yet important step, due to security. To do such, type ```passw
 
 We will use the GRUB bootloader. A quick reminder, **this guide is only for UEFI mode**.
 
-You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub efibootmgr```. Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1p1 /boot/efi```. After this, install GRUB to this directory: ```grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi```.
+You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub efibootmgr```
+
+Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1pX /boot/efi```
+**(X as the number of the EFI partition, if you're not dualbooting, it's 1)**
+
+After this, install GRUB to this directory: ```grub-install --target=x86_64-efi --bootloader-id=ArchLinux --efi-directory=/boot/efi```.
 
 Finally, generate a boot configuration: ```grub-mkconfig -o /boot/grub/grub.cfg```
 
 ### Step 9: Creating a user account and configuring SUDO
 
-In this step, we will create a user account. Run the command ```useradd -m <usr>``` to create a new account, replacing <usr> with the desired username (in my specific case, it is ```useradd -m nuno```, which creates a new account named "nuno"). The -m flag will also create a Home directory for you, which saves the hassle of setting it up after.
+In this step, we will create a user account. Run the command ```useradd -m <usr>``` to create a new account, replacing <usr> with the desired username.<br>
+The -m flag will also create a Home directory for you, which saves the hassle of setting it up after.
 
-After creating the user, set up a password for this new user, using the ```passwd``` command. For example, with my account, it would be ```passwd nuno```. It is similar to step 8d.
+After creating the user, set up a password for this new user, using the ```passwd <usr>``` command. It is similar to step 8d.
 
 Now that you have a new user, we will configure SUDO, since you shouldn't be using the root account at all. Start by installing it with pacman: ```pacman -Syu sudo```.
 
-SUDO comes with a special editor called ```visudo```, to allow us to edit it's configurations without damaging sudo. However visudo needs to be configured to use a CLI text editor. In our case, as with the rest of this guide, we will use ```nano``` as our text editor. To use nano as the visudo editor, run the command ```EDITOR=nano visudo```.
+SUDO comes with a special editor called ```visudo```, to allow us to edit it's configurations without damaging sudo. However visudo needs to be configured to use a CLI text editor. In our case, as with the rest of this guide, we will use ```nano``` as our text editor.<br>
+To use edit with visudo on nano, run the command ```EDITOR=nano visudo```.
 
-To add your newly created user to the sudoers, all you need to do is locate the line that says ```root ALL=(ALL) ALL``` and bellow add the line ```<usr> ALL=(ALL) ALL```, where <usr> is the username you created. As an example, in my case it would be ```nuno ALL=(ALL) ALL```. Save and exit, using the **CTRL+O**, Enter/Return and **CTRL+X** trick, that you should know by now.
+To add your newly created user to the sudoers, all you need to do is locate the line that says ```root ALL=(ALL) ALL```<br>
+Below add the line ```<usr> ALL=(ALL) ALL```, where <usr> is the username you created.<br>
+Save and exit, using the **CTRL+O**, Enter/Return and **CTRL+X** trick, that you should know by now.
 
 Congratulations, you now have a sudo user.
 
-### Step 10: Installing the X environment and Gnome
+### Step 10: Installing the X display server and KDE Plasma
 
 Almost there, now all that is missing is the DE and WM. Firstly, install the X enviroment. You can do it running the command ```pacman -Syu xorg```.
 
-Now install Gnome, with the command ```pacman -Syu gnome```. The Gnome package contains gdm, so you don't have to worry about it.
+Now install KDE Plasma, with the command ```pacman -Syu sddm plasma```.
 
-After it finishes installing, create symlinks for the service to start up automatically. This can be done with the command ```systemctl enable gdm.service```.
+After it finishes installing, create symlinks for the service to start up automatically.<br>
+This can be done with the command ```systemctl enable sddm.service```.
 
-I also recommend enabling NetworkManager, since it might be disabled by default, otherwise you will not have networking. This can be done with the command ```systemctl enable NetworkManager.service```.
+I also recommend enabling NetworkManager, since it might be disabled by default, otherwise you will not have networking.<br>
+This can be done with the command ```systemctl enable NetworkManager.service```.
 
 ### Step 11: Finishing up
 
@@ -205,29 +236,24 @@ Everything should be done now. Exit the chroot by typing ```exit```. Shutdown th
 
 ### Step 12: The first boot
 
-There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the GDM login window (If not, check troubleshooting for a quickfix). Login
+There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the SDDM login window, you may login.<br>
+(If not, you fucked up, nice! Check troubleshooting for a quickfix).
 
-Try running the terminal, from the activities menu. If it works, you are good to go! Have fun.
-
-If it fails to launch however, don't panic. I know Linux OSes need their terminal, but don't panic. Go to ```Gnome Settings > Region & Language```. It probably is saying some of the configurations are invalid (remember Step 8b?). Tweak these to suit your needs and reboot. Now the terminal should open. Have fun!
+Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.
 
 ### Step 13 (optional): Configuring the SWAP partition in the FSTAB
 
-If you have made a SWAP partition (in step 6b), it is recommended to add it to the FSTAB file. To do this, open Gnome Disks and select your Swap partition. You will see a field named UUID. Keep this UUID handy (check bellow).
+If you have made a SWAP partition (in step 6b), it is recommended to add it to the FSTAB file. To do this, open KDE Partition Manager and select your Swap partition. You will see a field named UUID. Keep this UUID handy (check below).
 
-![](screens/gnome_disks.png)
-
-With this in mind (or in the clipboard), open a new terminal window and type ```sudo nano /etc/fstab```. Under the single entry that is in the file, add a new one with the following format: 
+With this in mind (or in the clipboard), open a new terminal window and type ```sudo nano /etc/fstab```.<br>
+Under the single entry that is in the file, add a new one with the following format: 
 
 ``UUID=<YOURUUID>	swap	swap	defaults	0 0``
 
-The picture bellow illustrates how it should look in the end.
-
-![](screens/nano.png)
-
 Make sure you get the UUID right, otherwise your system won't boot!
 
-After this, save by doing the **CTRL+O**, Enter/Return and **CTRL+X** ritual that we have used a lot during this Guide. Finally, reboot your system and you are all set!
+After this, save by doing the **CTRL+O**, Enter/Return and **CTRL+X** ritual that we have used a lot during this Guide.<br>
+Finally, reboot your system and you are all set!
 
 ### Step 14 (optional): Installing an AUR Helper
 
@@ -245,17 +271,14 @@ To use yay, type in the terminal ```yay -S <packagename>``` to install a package
 
 ## Final notes
 
-With this guide, it should have been possible for you to have a running Arch Linux installation. Any smaller problems can be solved with help from the Wiki or the Foruns. You can also search in Google, you will likely find your issue and how to solve it. Don't forget to always read the community guidelines and how to report an issue in the foruns!
+With this guide, it should have been possible for you to have a running Arch Linux installation. Any smaller problems can be solved with help from the Wiki or the Forums. You can also search in Google, you will likely find your issue and how to solve it. Don't forget to always read the community guidelines and how to report an issue in the forums!
 
-Gnome contains it's own store, which brings the flatpak package manager. You can use it, but I don't think it's that well optimized for Arch Linux. To remove the Gnome store, use ```sudo pacman -R gnome-software```. Consider installing an [AUR Helper](https://wiki.archlinux.org/index.php/AUR_helpers), such as ```yay```. With this tool you will have access to the AUR, and can install a lot of ported/original packages (most of the Jetbrains IDEs are there!).
-
-Remember to have fun. Don't bloat Arch too much, otherwise it loses it's purposes (Yeah you can start with the yabayabayaba Gnome is a RAM hog, but I don't really care, I like it). Cheers everyone.
+Remember to have fun. Don't bloat Arch too much, otherwise it loses it's purposes, maybe even freestyle and become the megachad i3 user. Cheers everyone.
 
 ## Troubleshooting
 
-- You can boot to a black screen with a blinking cursor. However you can do Alt+F2 and back to Alt+F1, and Gnome/GDM should now boot fine. This is an issue related to X.org and the ```amdgpu``` driver (probably can happen with nvidia too) not loading on the correct time. Look it up on Arch Wiki, or even Google. This issue is everywhere and you shouldn't have an hard time figuring it :) 
-
-- AMD's s2idle does not work well. To get around this issue, and because this laptop does not have deep sleep, I use hibernate or shutdown instead. This laptop contains a NVMe drive, which is significantly faster, so this is less of an hassle. I recommend setting up a swap partition, in order to hibernation to work correctly. You can also use a swap file, but I discourage it.
+- You can boot to a black screen with a blinking cursor. However you can do Alt+F2 and back to Alt+F1, and Plasma/SDDM should now boot fine.<br>
+This is an issue related to X.org and the ```amdgpu``` or ```nvidia``` driver not loading on the correct time. Look it up on Arch Wiki, or even Google. This issue is everywhere and you shouldn't have an hard time figuring it :)
 
 ## Special Thanks
 
@@ -263,3 +286,4 @@ Remember to have fun. Don't bloat Arch too much, otherwise it loses it's purpose
  - [Arch Linux Wiki](https://wiki.archlinux.org/), for helping me figure out what I needed and how it worked.
  - Some Threads in the [Arch Linux Forum](https://bbs.archlinux.org/), for helping me solving some issues, like how to get my printer working.
  - [balenaEtcher](https://www.balena.io/etcher/), for their amazing flashing software.
+ - [Nuno Penim](https://github.com/nunopenim/nunopenim/blob/main/GUIDE_ArchLinuxInstallation.md), for a template of this guide
