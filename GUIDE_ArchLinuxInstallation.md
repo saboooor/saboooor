@@ -223,7 +223,7 @@ Congratulations, you now have a sudo user.
 
 Almost there, now all that is missing is the DE and WM. Firstly, install the X enviroment. You can do it running the command ```pacman -Syu xorg```.
 
-Now install KDE Plasma, with the command ```pacman -Syu sddm plasma```.
+Now install KDE Plasma, with the command ```pacman -Syu sddm plasma konsole```.
 
 After it finishes installing, create symlinks for the service to start up automatically.<br>
 This can be done with the command ```systemctl enable sddm.service```.
@@ -242,6 +242,8 @@ There are a few tweaks you might need to do. Start up your machine and boot. If 
 
 Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.<br>
 The default desktop is *really* ugly, in my opinion. Search up how to make KDE Plasma look good because this DE is *REALLY* customizable, you can make it look however beautiful or ugly as you want (check out r/unixporn or r/unixgore, that's all I have to say)
+
+You may find that this installation of KDE is really barebones and doesn't have much apps, check out step 15 to install your own apps, or simply open konsole and do ```sudo pacman -Syu kde-applications``` (Warning: This is really bloated and I chose to leave this out for that reason!)
 
 ### Step 13 (optional): Installing a proprietary graphics driver (Really for NVIDIA)
 
