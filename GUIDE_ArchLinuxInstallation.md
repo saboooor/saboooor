@@ -237,7 +237,7 @@ Everything should be done now. Exit the chroot by typing ```exit```. Shutdown th
 
 ### Step 12: The first boot
 
-There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the SDDM login window, you may login.<br>
+There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the SDDM login window. Go to the top-right dropdown where it shows 'Plasma (X11)' and set it to 'Plasma (Wayland)'. Now you may login.<br>
 (If not, you fucked up, nice! Check troubleshooting for a quickfix).
 
 Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.<br>
@@ -249,6 +249,9 @@ You may find that this installation of KDE is really barebones and doesn't have 
 
 The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass and I recommend you steer away from it as far as you can.<br>
 To install the NVIDIA driver, do ```pacman -Syu nvidia nvidia-settings egl-wayland```
+
+**There's also one more thing to setup, and that is to enable DRM modesetting. This will allow you to use wayland with NVIDIA proprietary drivers**<br>
+To do so, open Konsole, edit /etc/default/grub with ```sudo nano /etc/default/grub```, find GRUB_CMDLINE_LINUX_DEFAULT and after quiet, add a space and then ```nvidia-drm.modeset=1```. Finally leave the editor like you did before and once again type ```sudo grub-mkconfig -o /boot/grub/grub.cfg```
 
 Why is this optional and not mandatory? Well, the NVIDIA driver, as smooth as it is to use on linux, is sometimes a bit buggy, since it is not open-source so people can't fix stuff themselves and build their own versions of the driver, but this really doesn't matter as much as you may think, I personally use the proprietary driver and it works just fine.
 
