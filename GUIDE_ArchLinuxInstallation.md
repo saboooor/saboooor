@@ -84,7 +84,7 @@ For a full list of options and operations inside the IWCTL utility, type ```help
 
 **Warning: possible loss of data after this. Final warning: This setup is for UEFI machines, not BIOS/CSM**
 
-#### Step 6a: Setting up EFI and Root Partitions
+#### Step 6a: Setting up Partitions
 
 We will use the ```fdisk``` utility for this. List all the disks, by using ```fdisk -l```. Currently, it should appear both the USB Drive and the internal drive(s). Keep in mind the name of the proper one. In my case it was ```/dev/nvme0n1``` (as I mentioned earlier, it can also be ```/dev/sda``` or similar if you are using a SATA SSD).
 
@@ -99,28 +99,19 @@ After creating, take note of the partition number that is shown, usually this is
 
 Type ```t```, and press Enter/Return twice. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
 
-#### Step 6b: Don't Create SWAP
+##### Optional: Create SWAP<br>
+Skip this block of text if you don't want SWAP<br>
+For this, type ```n``` to make a new partition, and press Enter/Return. Make it the size of your RAM, unless you have over 8GB then make it half of your ram. type +4G for 4 gigabytes as your final sector, just like how you made the EFI partition 500MB.<br>
+After this, type ```t``` to change the partition type, and ```l``` (lowercase L), to check all the possible types. Find an option named SWAP, Linux SWAP or similar (at the time of writting, it is option 82, if I am not mistaken). Type this number in the type selector.<br>
+After creating, take note of the partition number that is shown, usually this is 2, **we will use this number as \<Z\> later in the guide**
 
 Create a new partition, using ```n```, select the needed size (I recommend using the remaining drive space by just pressing Enter/Return).<br>
-After creating, take note of the partition number that is shown, usually this is 2, **we will use this number as \<Y\> later in the guide**
+After creating, take note of the partition number that is shown, usually this is 2, or 3 if you have a SWAP partition, **we will use this number as \<Y\> later in the guide**
 
 After this, you should have your drive with 2 partitions, a 500MB EFI, which has the partition number of \<X\><br>
-And a second one with the remaining space, which has the partition number \<Y\> where you will install the operating system. 
+And a second one with the remaining space, which has the partition number \<Y\> where you will install the operating system.
 
-#### Step 6b: Create SWAP
-
-To setup a swap space, you need to know two things: Your drive size, and your RAM size. Knowing your drive size (for example 1TB, in Nuno's case) subtract 500MB, from the EFI partition, and then subtract your RAM size plus an extra gigabyte, for tolerance.
-
-As an example, 1024GB (which is 1TB) - 0.5GB - 17GB = 1006.5GB (I will round it to 1006GB only)<br>
-So the system partition should have this size. The remaining will be SWAP.
-
-Create a new partition, using ```n```, select primary, put the beginning after the EFI partition (by just pressing Enter/Return). The end sector should be +YOURSIZE. In my case, I would do +1006G.<br>
-After creating, take note of the partition number that is shown, usually this is 2, **we will use this number as \<Y\> later in the guide**
-
-Next, let's use the remaining space as SWAP. For this, type ```n``` to make a new partition, and press Enter/Return twice. After this, type ```t``` to change the partition type, and ```l``` (lowercase L), to check all the possible types. Find an option named SWAP, Linux SWAP or similar (at the time of writting, it is option 82, if I am not mistaken). Type this number in the type selector. If everything went well with no errors, move to step 6c.<br>
-After creating, take note of the partition number that is shown, usually this is 3, **we will use this number as \<Z\> later in the guide**
-
-#### Step 6c: Finishing up and formatting the drives
+#### Step 6b: Finishing up and formatting the drives
 
 Type ```w``` to write all the changes to the disk, and exit fdisk.
 
