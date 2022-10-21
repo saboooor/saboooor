@@ -95,9 +95,9 @@ Type ```d``` and press Enter/Return until all the partitions are deleted.<br>
 With the disk fully wiped now, type ```g``` and press Enter/Return. This will create a new GPT partition table.
 
 Create a **new primary partition** by typing ```n``` and pressing Enter/Return. Make it 500MB. This can be done by selecting the initial sector, then in the final sector typing +500M.<br>
-After creating, take note of the partition number that is shown, usually this is 1, **we will use this number as 'X' later in the guide**
+After creating, take note of the partition number that is shown, usually this is 1, **we will use this number as <X> later in the guide**
 
-Type ```t```, and press Enter/Return, type the number indicated as X and press Enter/Return. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
+Type ```t```, and press Enter/Return, type the number <X> and press Enter/Return. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
 
 Create a new partition, using ```n```, select the needed size (I recommend using the remaining drive space, unless you are setting up with a SWAP partition, see 6b). After this, you should have your drive with 2 partitions, a 500MB EFI, and a second one with the remaining space, where you will install the operating system. 
 
