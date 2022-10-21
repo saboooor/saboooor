@@ -161,7 +161,8 @@ Good, now you have the correct File System parameters for Arch to boot.
 
 Now we will configure the System itself. Start by chrooting into it, by doing ```arch-chroot /mnt```. This is your system now, it no longer is the Live CD/USB. Your keyboard *might* be in the default settings, if such, refer to Step 5a again! Networking should still work fine, though.
 
-We will start by configuring the Timezone. Run the ```timedatectl list-timezones``` command to list all available timezones. In my case, I will use ```America/Edmonton```. After you find the correct timezone for you, you can set it by running the command ```timedatectl set-timezone <TZ>```. In my case: ```timedatectl set-timezone America/Edmonton```.
+We will start by configuring the Timezone. [Here's a list of time zones you may choose from](https://manpages.ubuntu.com/manpages/xenial/man3/DateTime::TimeZone::Catalog.3pm.html). In my case, I will use ```America/Edmonton```.<br>
+After you find the correct timezone for you, you can set it by running the command ```ln -sf /usr/share/zoneinfo/<TZ> /etc/localtime```. In my case: ```ln -sf /usr/share/zoneinfo/America/Edmonton /etc/localtime```.
 
 The next step will be setting the default Language/Locale. Run ```nano /etc/locale.gen``` to open the ```/etc/locale.gen``` file (or use the text editor you installed in Step 7). In this file, uncomment your prefered Language and Locale settings (delete the # in front), in my case, I selected ```en_US.UTF-8```. Save and quit the editor. In Nano this is done with **CTRL+O**, Enter/Return, and **CTRL+X**
 
