@@ -99,32 +99,36 @@ After creating, take note of the partition number that is shown, usually this is
 
 Type ```t```, and press Enter/Return, type the number \<X\> and press Enter/Return. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
 
-Create a new partition, using ```n```, select the needed size (I recommend using the remaining drive space, unless you are setting up with a SWAP partition, see 6b). After this, you should have your drive with 2 partitions, a 500MB EFI, and a second one with the remaining space, where you will install the operating system. 
+#### Step 6b: Don't Create SWAP
 
-#### Step 6b (Optional): Setting up a SWAP partition
+Create a new partition, using ```n```, select the needed size (I recommend using the remaining drive space by just pressing Enter/Return).<br>
+After creating, take note of the partition number that is shown, usually this is 2, **we will use this number as \<Y\> later in the guide**
+
+After this, you should have your drive with 2 partitions, a 500MB EFI, which has the partition number of \<X\><br>
+And a second one with the remaining space, which has the partition number \<Y\> where you will install the operating system. 
+
+#### Step 6b: Create SWAP
 
 To setup a swap space, you need to know two things: Your drive size, and your RAM size. Knowing your drive size (for example 1TB, in Nuno's case) subtract 500MB, from the EFI partition, and then subtract your RAM size plus an extra gigabyte, for tolerance.
 
-In my case, 1024GB (which is 1TB) - 0.5GB - 17GB = 1006.5GB (I will round it to 1006GB only) 
-
+As an example, 1024GB (which is 1TB) - 0.5GB - 17GB = 1006.5GB (I will round it to 1006GB only)<br>
 So the system partition should have this size. The remaining will be SWAP.
 
-Assuming right now you only have the EFI partition in the drive, create a new partition, by typing ```n```, select primary, put the beginning after the EFI partition (by just pressing Enter/Return). The end sector should be +YOURSIZE. In my case, I would do +1006G. 
+Create a new partition, using ```n```, select primary, put the beginning after the EFI partition (by just pressing Enter/Return). The end sector should be +YOURSIZE. In my case, I would do +1006G.<br>
+After creating, take note of the partition number that is shown, usually this is 2, **we will use this number as \<Y\> later in the guide**
 
-Next, let's use the remaining space as SWAP. For this, type ```n``` to make a new partition, and press enter/return to use all the default values. After this, type ```t``` to change the partition type, and ```l``` (lowercase L), to check all the possible types. Find an option named SWAP, Linux SWAP or similar (at the time of writting, it is option 82, if I am not mistaken). Type this number in the type selector. If everything went well with no errors, move to step 6c.
+Next, let's use the remaining space as SWAP. For this, type ```n``` to make a new partition, and press enter/return to use all the default values. After this, type ```t``` to change the partition type, and ```l``` (lowercase L), to check all the possible types. Find an option named SWAP, Linux SWAP or similar (at the time of writting, it is option 82, if I am not mistaken). Type this number in the type selector. If everything went well with no errors, move to step 6c.<br>
+After creating, take note of the partition number that is shown, usually this is 3, **we will use this number as \<Z\> later in the guide**
 
 #### Step 6c: Finishing up and formatting the drives
 
 Type ```w``` to write all the changes to the disk, and exit fdisk.
 
-Assuming you are back in the Arch terminal, format the new partitions. The first one (EFI) should be FAT32: do it using ```mkfs.fat -F32 /dev/nvme0n1pX```<br>
-**(X as the number of the EFI partition, if you're not dualbooting, it's 1)**
+Assuming you are back in the Arch terminal, format the new partitions. The first one (EFI) should be FAT32: do it using ```mkfs.fat -F32 /dev/nvme0n1p<X>```
 
-The second one (Root) should be EXT4. You can do this using the command ```mkfs.ext4 /dev/nvme0n1pX```<br>
-**(X as the number of the Root partition, if you're not dualbooting, it's 2)**
+The second one (Root) should be EXT4. You can do this using the command ```mkfs.ext4 /dev/nvme0n1p<Y>```<br>
 
-If you have set up correctly a swap partition, as explained in 6b, you should format it with ```mkswap /dev/nvme0n1pX```. At this point you can also call ```swapon /dev/nvme0n1pX```, if you really want to enable SWAP during the installation, although not needed.<br>
-**(X as the number of the SWAP partition, if you're not dualbooting, it's 3)**
+If you have set up correctly a swap partition, as explained in 6b, you should format it with ```mkswap /dev/nvme0n1p<Z>```. At this point you can also call ```swapon /dev/nvme0n1p<Z>```, if you really want to enable SWAP during the installation, although not needed.
 
 Now you are ready to install Arch Linux!
 
@@ -135,8 +139,7 @@ If you reached this far, you have a very strong willpower. I admire you, and I w
 Anyway, type ```pacman -Syy```. This will sync the pacman repositories.<br>
 Similar to how Debian and Debian-based distros syncronize package lists with apt-get update.
 
-After pacman did it's thing, mount your newly made root partition. You can do this by typing ```mount /dev/nvme0n1pX /mnt```.<br>
-**(X as the number of the Root partition, if you're not dualbooting, it's 2)**
+After pacman did it's thing, mount your newly made root partition. You can do this by typing ```mount /dev/nvme0n1p<Y> /mnt```.<br>
 
 We are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano```.<br>
 This will install Arch, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager, nano, because... you will need a text editor.<br>
@@ -176,7 +179,7 @@ Below is an example of a hosts configuration.
 ```
 127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	<Your hostname here> #replace this!
+127.0.1.1	<Your hostname here>
 ```
 
 Networkwise, you should be done!
@@ -191,8 +194,7 @@ We will use the GRUB bootloader. A quick reminder, **this guide is only for UEFI
 
 You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub efibootmgr```
 
-Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1pX /boot/efi```
-**(X as the number of the EFI partition, if you're not dualbooting, it's 1)**
+Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1p<X> /boot/efi```
 
 After this, install GRUB to this directory: ```grub-install --target=x86_64-efi --bootloader-id=ArchLinux --efi-directory=/boot/efi```.
 
