@@ -223,7 +223,7 @@ Congratulations, you now have a sudo user.
 
 Almost there, now all that is missing is the DE and WM. Firstly, install the X enviroment. You can do it running the command ```pacman -Syu xorg```.
 
-Now install KDE Plasma, with the command ```pacman -Syu sddm plasma konsole```.
+Now install KDE Plasma, with the command ```pacman -Syu sddm plasma plasma-wayland-session kde-system kde-utilities kde-network kde-multimedia tesseract-data-eng```.
 
 After it finishes installing, create symlinks for the service to start up automatically.<br>
 This can be done with the command ```systemctl enable sddm.service```.
@@ -248,7 +248,7 @@ You may find that this installation of KDE is really barebones and doesn't have 
 ### Step 13 (optional): Installing a proprietary graphics driver (Really for NVIDIA)
 
 The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass and I recommend you steer away from it as far as you can.<br>
-To install the NVIDIA driver, do ```pacman -Syu nvidia```
+To install the NVIDIA driver, do ```pacman -Syu nvidia egl-wayland```
 
 Why is this optional and not mandatory? Well, the NVIDIA driver, as smooth as it is to use on linux, is sometimes a bit buggy, since it is not open-source so people can't fix stuff themselves and build their own versions of the driver, but this really doesn't matter as much as you may think, I personally use the proprietary driver and it works just fine.
 
