@@ -36,9 +36,6 @@ The title pretty much explains it.
 
 To do it, access https://archlinux.org/download and download the most recent ISO file.
 
-OR you may use the specific ISO I am using for this guide if the above doesn't end up working correctly with this guide.<br>
-https://smhsmh.club/files/archlinux-2022.07.01-x86_64.iso
-
 ### Step 2: Make a bootable flash drive.
 
 I recommend using [Etcher](https://www.balena.io/etcher/) for this step. Download the suitable version for you (Windows, macOS or Linux). The Linux version is usually an AppImage file, which runs (or should run) on all distros. If you are geeky, you could use dd on Linux, works too.
@@ -97,11 +94,12 @@ IF YOU HAVE UNALLOCATED SPACE READY FOR A UEFI DUAL-BOOT, SKIP THS SECTION<br>
 Type ```d``` and press Enter/Return until all the partitions are deleted.<br>
 With the disk fully wiped now, type ```g``` and press Enter/Return. This will create a new GPT partition table.
 
-Create a **new primary partition** by typing ```n``` and pressing Enter/Return. Make it 500MB. This can be done by selecting the initial sector, then in the final sector typing +500M. After creating, type ```t```, and then set it to ```1``` for EFI System, if the partition type doesn't show as an EFI System, this guide is probably out of date.
+Create a **new primary partition** by typing ```n``` and pressing Enter/Return. Make it 500MB. This can be done by selecting the initial sector, then in the final sector typing +500M.<br>
+After creating, take note of the partition number that is shown, usually this is 1, **we will use this number as 'X' later in the guide**
 
-If this guide is out of date as stated above, yell at me. Until then, type ```t```, and then type ```l``` (lowercase L), and find the number correspondent to the EFI/ESP partition. Type this number and press Enter/Return. This should return as an EFI system
+Type ```t```, and press Enter/Return, type the number indicated as X and press Enter/Return. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
 
-Create a new partition, using ```n```, select the needed size (I recommend using the remaining SSD space, unless you are setting up with a SWAP partition, see 6b). After this, you should have your drive with 2 partitions, a 500MB EFI, and a second one with the remaining space, where you will install the operating system. 
+Create a new partition, using ```n```, select the needed size (I recommend using the remaining drive space, unless you are setting up with a SWAP partition, see 6b). After this, you should have your drive with 2 partitions, a 500MB EFI, and a second one with the remaining space, where you will install the operating system. 
 
 #### Step 6b (Optional): Setting up a SWAP partition
 
