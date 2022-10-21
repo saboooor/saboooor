@@ -97,7 +97,7 @@ With the disk fully wiped now, type ```g``` and press Enter/Return. This will cr
 Create a **new primary partition** by typing ```n``` and pressing Enter/Return. Make it 500MB. This can be done by selecting the initial sector, then in the final sector typing +500M.<br>
 After creating, take note of the partition number that is shown, usually this is 1, **we will use this number as \<X\> later in the guide**
 
-Type ```t```, and press Enter/Return, type the number \<X\> and press Enter/Return. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
+Type ```t```, and press Enter/Return twice. Now it will ask you for a partition type or alias, this is ```1``` for EFI System.
 
 #### Step 6b: Don't Create SWAP
 
@@ -117,7 +117,7 @@ So the system partition should have this size. The remaining will be SWAP.
 Create a new partition, using ```n```, select primary, put the beginning after the EFI partition (by just pressing Enter/Return). The end sector should be +YOURSIZE. In my case, I would do +1006G.<br>
 After creating, take note of the partition number that is shown, usually this is 2, **we will use this number as \<Y\> later in the guide**
 
-Next, let's use the remaining space as SWAP. For this, type ```n``` to make a new partition, and press enter/return to use all the default values. After this, type ```t``` to change the partition type, and ```l``` (lowercase L), to check all the possible types. Find an option named SWAP, Linux SWAP or similar (at the time of writting, it is option 82, if I am not mistaken). Type this number in the type selector. If everything went well with no errors, move to step 6c.<br>
+Next, let's use the remaining space as SWAP. For this, type ```n``` to make a new partition, and press Enter/Return twice. After this, type ```t``` to change the partition type, and ```l``` (lowercase L), to check all the possible types. Find an option named SWAP, Linux SWAP or similar (at the time of writting, it is option 82, if I am not mistaken). Type this number in the type selector. If everything went well with no errors, move to step 6c.<br>
 After creating, take note of the partition number that is shown, usually this is 3, **we will use this number as \<Z\> later in the guide**
 
 #### Step 6c: Finishing up and formatting the drives
