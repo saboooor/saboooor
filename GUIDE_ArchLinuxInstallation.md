@@ -248,7 +248,7 @@ You may find that this installation of KDE is really barebones and doesn't have 
 ### Step 13 (optional): Installing a proprietary graphics driver (Really for NVIDIA)
 
 The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass and I recommend you steer away from it as far as you can.<br>
-To install the NVIDIA driver, do ```pacman -Syu nvidia egl-wayland```
+To install the NVIDIA driver, do ```pacman -Syu nvidia nvidia-settings egl-wayland```
 
 Why is this optional and not mandatory? Well, the NVIDIA driver, as smooth as it is to use on linux, is sometimes a bit buggy, since it is not open-source so people can't fix stuff themselves and build their own versions of the driver, but this really doesn't matter as much as you may think, I personally use the proprietary driver and it works just fine.
 
