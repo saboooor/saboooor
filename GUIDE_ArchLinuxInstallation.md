@@ -129,6 +129,8 @@ BTRFS comes with a few steps to set up the filesystem.
 
 We will start by mounting your newly made root partition. You can do this by typing ```mount /dev/nvme0n1p<Y> /mnt```.
 
+After this there will be a few repetitive commands, so to avoid typing them out you can press the Up arrow key to auto-fill the last command you did.
+
 Now, do these commands to create subvolumes for the different parts of the Linux system:<br>
 ```
 btrfs su cr /mnt/@
