@@ -137,7 +137,7 @@ btrfs su cr /mnt/@var
 btrfs su cr /mnt/@opt
 btrfs su cr /mnt/@tmp
 umount /mnt
-```<br>
+```
 These subvolumes are mainly named after system directories which have specific functions:<br>
 @ - This is the main root subvolume on top of which all subvolumes will be mounted.<br>
 @home - This is the home directory. This consists of most of your data including Desktop and Downloads.<br>
