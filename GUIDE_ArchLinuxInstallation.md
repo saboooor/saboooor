@@ -164,7 +164,7 @@ If you reached this far, you have a very strong willpower. I admire you, and I w
 Anyway, type ```pacman -Syy```. This will sync the pacman repositories.<br>
 Similar to how Debian and Debian-based distros syncronize package lists with apt-get update.
 
-After pacman did its thing, we are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano btrfs-progs```.<br>
+After pacman did its thing, we are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager network-manager-applet nano btrfs-progs```.<br>
 This will install Arch, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager, BTRFS utilities, nano, because... you will need a text editor.<br>
 You can use vim instead of nano if you want, but having a CLI text editor is an important tool and requirement.
 
@@ -230,7 +230,7 @@ This is a simple, yet important step, due to security. To do such, type ```passw
 
 We will use the GRUB bootloader. A quick reminder, **this guide is only for UEFI mode**.
 
-You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub efibootmgr```
+You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub grub-btrfs efibootmgr os-prober```
 
 Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1p<X> /boot/efi```
 
