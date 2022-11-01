@@ -117,7 +117,7 @@ Type ```w``` to write all the changes to the disk, and exit fdisk.
 
 Assuming you are back in the Arch terminal, format the new partitions. The first one (EFI) should be FAT32: do it using ```mkfs.fat -F32 /dev/nvme0n1p<X>```
 
-The second one (Root) should be EXT4. You can do this using the command ```mkfs.ext4 /dev/nvme0n1p<Y>```<br>
+The second one (Root) should be BTRFS. You can do this using the command ```mkfs.btrfs /dev/nvme0n1p<Y>```<br>
 
 If you have set up correctly a swap partition, as explained in 6b, you should format it with ```mkswap /dev/nvme0n1p<Z>```. At this point you can also call ```swapon /dev/nvme0n1p<Z>```, if you really want to enable SWAP during the installation, although not needed.
 
