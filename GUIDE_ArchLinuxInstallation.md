@@ -230,7 +230,7 @@ This is a simple, yet important step, due to security. To do such, type ```passw
 
 For BTRFS to work properly in the kernel, you need to add it to mkinitcpio
 
-To do so, do ```nano /etc/mkinitcpio.conf``` and then add btrfs in MODULES=() and then save and exit as you did before, and then recreate the image with ```mkinitcpio -p linux```
+To do so, do ```nano /etc/mkinitcpio.conf``` and then add ```btrfs``` in ```MODULES=()``` it should look like ```MODULES=(btrfs)```, and then save and exit as you did before, and then recreate the image with ```mkinitcpio -p linux```
 
 #### Step 8c: Bootloader configuration
 
