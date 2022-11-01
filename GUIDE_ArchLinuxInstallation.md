@@ -149,11 +149,11 @@ These subvolumes are mainly named after system directories which have specific f
 
 Now do these commands to mount the subvolumes:<br>
 ```
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@ /dev/nvme0n1p<Y> /mnt
+mount -o noatime,commit=120,compress=zstd,space_cache=v2,subvol=@ /dev/nvme0n1p<Y> /mnt
 mkdir /mnt/{boot,home,var,opt,tmp,.snapshots}
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@home /dev/nvme0n1p<Y> /mnt/home
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@opt /dev/nvme0n1p<Y> /mnt/opt
-mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@tmp /dev/nvme0n1p<Y> /mnt/tmp
+mount -o noatime,commit=120,compress=zstd,space_cache=v2,subvol=@home /dev/nvme0n1p<Y> /mnt/home
+mount -o noatime,commit=120,compress=zstd,space_cache=v2,subvol=@opt /dev/nvme0n1p<Y> /mnt/opt
+mount -o noatime,commit=120,compress=zstd,space_cache=v2,subvol=@tmp /dev/nvme0n1p<Y> /mnt/tmp
 mount -o subvol=@var /dev/nvme0n1p<Y> /mnt/var
 ```
 
