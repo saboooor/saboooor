@@ -164,11 +164,25 @@ If you reached this far, you have a very strong willpower. I admire you, and I w
 Anyway, type ```pacman -Syy```. This will sync the pacman repositories.<br>
 Similar to how Debian and Debian-based distros syncronize package lists with apt-get update.
 
-After pacman did its thing, we are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano```.<br>
-This will install Arch, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager, nano, because... you will need a text editor.<br>
+After pacman did its thing, we are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano btrfs-progs```.<br>
+This will install Arch, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager, BTRFS utilities, nano, because... you will need a text editor.<br>
 You can use vim instead of nano if you want, but having a CLI text editor is an important tool and requirement.
 
 This step will take a while depending on your Internet connection.
+
+After it has finished, there's another package for AMD and Intel CPUs which you should install to ensure stability.
+
+For intel CPUs:
+```
+pacstrap /mnt intel-ucode
+```
+
+For AMD CPUs:
+```
+pacstrap /mnt amd-ucode
+```
+
+For others, you may skip this part.
 
 ### Step 8: Configuring the System
 
