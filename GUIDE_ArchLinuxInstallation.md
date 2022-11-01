@@ -123,6 +123,12 @@ If you have set up correctly a swap partition, as explained in 6b, you should fo
 
 Now you are ready to install Arch Linux!
 
+#### Step 6c: Mounting the root partition and doing final BTRFS steps
+
+BTRFS comes with a few steps to set up the filesystem.
+
+We will start by mounting your newly made root partition. You can do this by typing ```mount /dev/nvme0n1p<Y> /mnt```.
+
 ### Step 7: Install Arch Linux (Finally, eh?)
 
 If you reached this far, you have a very strong willpower. I admire you, and I won't stop you.
@@ -130,9 +136,7 @@ If you reached this far, you have a very strong willpower. I admire you, and I w
 Anyway, type ```pacman -Syy```. This will sync the pacman repositories.<br>
 Similar to how Debian and Debian-based distros syncronize package lists with apt-get update.
 
-After pacman did it's thing, mount your newly made root partition. You can do this by typing ```mount /dev/nvme0n1p<Y> /mnt```.<br>
-
-We are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano```.<br>
+After pacman did its thing, we are ready! To finally install arch on your root partition type ```pacstrap /mnt base base-devel linux linux-firmware linux-headers networkmanager nano```.<br>
 This will install Arch, the Linux Kernel, Firmware and Headers, some extra libraries for developers, NetworkManager, nano, because... you will need a text editor.<br>
 You can use vim instead of nano if you want, but having a CLI text editor is an important tool and requirement.
 
