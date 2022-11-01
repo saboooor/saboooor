@@ -226,7 +226,13 @@ Networkwise, you should be done!
 
 This is a simple, yet important step, due to security. To do such, type ```passwd``` and use a memorable password. That's it.
 
-#### Step 8e: Bootloader configuration
+#### Step 8e: Adding btrfs module to mkinitcpio
+
+For BTRFS to work properly in the kernel, you need to add it to mkinitcpio
+
+To do so, do ```nano /etc/mkinitcpio.conf``` and then add btrfs in MODULES=() and then save and exit as you did before, and then recreate the image with ```mkinitcpio -p linux```
+
+#### Step 8c: Bootloader configuration
 
 We will use the GRUB bootloader. A quick reminder, **this guide is only for UEFI mode**.
 
