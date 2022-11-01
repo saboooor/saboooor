@@ -129,6 +129,32 @@ BTRFS comes with a few steps to set up the filesystem.
 
 We will start by mounting your newly made root partition. You can do this by typing ```mount /dev/nvme0n1p<Y> /mnt```.
 
+Now, do these commands to create subvolumes for the different parts of the Linux system:<br>
+```
+btrfs su cr /mnt/@
+btrfs su cr /mnt/@home
+btrfs su cr /mnt/@var
+btrfs su cr /mnt/@opt
+btrfs su cr /mnt/@tmp
+umount /mnt
+```<br>
+These subvolumes are mainly named after system directories which have specific functions:<br>
+@ - This is the main root subvolume on top of which all subvolumes will be mounted.<br>
+@home - This is the home directory. This consists of most of your data including Desktop and Downloads.<br>
+@var - Contains logs, temp. files, caches, games, etc.<br>
+@opt - Contains third party products<br>
+@tmp - Contains certain temperory files and caches
+
+Now do these commands to mount the subvolumes:<br>
+```
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@ /dev/nvme0n1p<Y> /mnt
+mkdir /mnt/{boot,home,var,opt,tmp,.snapshots}
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@home /dev/nvme0n1p<Y> /mnt/home
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@opt /dev/nvme0n1p<Y> /mnt/opt
+mount -o noatime,commit=120,compress=zstd,space_cache,subvol=@tmp /dev/nvme0n1p<Y> /mnt/tmp
+mount -o subvol=@var /dev/nvme0n1p<Y> /mnt/var
+```
+
 ### Step 7: Install Arch Linux (Finally, eh?)
 
 If you reached this far, you have a very strong willpower. I admire you, and I won't stop you.
