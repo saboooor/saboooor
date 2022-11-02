@@ -10,8 +10,6 @@ This guide will tell you how to install Arch Linux as the single OS in your mach
 
 Dual-booting will be added to this guide soon, so unless you can interpret this guide to dual-boot like I personally did, this isn't recommended for dual-boot
 
-This guide will be updated to also use BTRFS, until then, this will use ext4.
-
 Back up your stuff, unless you're like me and don't care much about your data.
 
 You can use this guide freely as a base for a guide of your own to do other setup options (such as a Dual Boot version), if you give me and Nuno proper credits.<br>
