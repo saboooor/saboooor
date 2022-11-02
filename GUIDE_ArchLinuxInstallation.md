@@ -264,7 +264,7 @@ Congratulations, you now have a sudo user.
 
 Almost there, now all that is missing is the DE and WM. Firstly, install the X enviroment. You can do it running the command ```pacman -Syu xorg```.
 
-Now install KDE Plasma, with the command ```pacman -Syu sddm plasma plasma-wayland-session kde-system kde-utilities kde-network kde-multimedia tesseract-data-eng```.
+Now install KDE Plasma, with the command ```pacman -Syu sddm plasma plasma-wayland-session kde-system kde-utilities kde-network tesseract-data-eng```.
 
 After it finishes installing, create symlinks for the service to start up automatically.<br>
 This can be done with the command ```systemctl enable sddm.service```.
