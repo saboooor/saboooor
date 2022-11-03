@@ -312,7 +312,11 @@ Make sure you get the UUID right, otherwise your system won't boot!
 After this, save by doing the **CTRL+O**, Enter/Return and **CTRL+X** ritual that we have used a lot during this Guide.<br>
 Finally, reboot your system and you are all set!
 
-### Step 15 (optional): Installing an AUR Helper
+### Step 15 (optional): Accessing Windows (NTFS) partitions
+
+If you have Windows (NTFS) partitions you'd like to mount and access on your linux installation, you may install ```ntfs-3g``` with pacman.
+
+### Step 16 (optional): Installing an AUR Helper
 
 An AUR helper allows you to automate your search and installation of packages in the [Arch Linux User Repository (AUR)](https://aur.archlinux.org/). This repository is a community driven repository that contains [PKGBUILD](https://wiki.archlinux.org/index.php/PKGBUILD) files, which allow you to build a package using the [makepkg](https://wiki.archlinux.org/index.php/Makepkg) utility, and then installing it with pacman, as if it was any other Arch Linux package. The AUR will allow you to have even more packages available for use and installation (such as the JetBrains IDEs, Android Studio, Flutter, and other utilities that I love to use).
 
