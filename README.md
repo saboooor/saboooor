@@ -7,4 +7,6 @@
   <img width="57%" align="right" alt="stats" src="https://github-readme-stats.vercel.app/api?username=saboooor&show_icons=true&hide_border=true&count_private=true&theme=tokyonight&bg_color=00000000&custom_title=Statistics">
 </div>
 
-<img width="80%" align="center" alt="@saboooor's Holopin badges" src="https://holopin.me/saboooor" />
+<div>
+  <img align="center" alt="@saboooor's Holopin badges" src="https://holopin.me/saboooor" />
+</div>
