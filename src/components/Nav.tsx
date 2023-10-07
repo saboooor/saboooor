@@ -81,7 +81,7 @@ export const Brand = component$(() => {
   return (
     <div class="flex items-center justify-start">
       <Link href="/" class="transition ease-in-out text-gray-300 hover:bg-gray-800 hover:text-white drop-shadow-2xl px-2 py-2 rounded-lg text-lg flex gap-3 items-center whitespace-nowrap">
-        <img class="h-8 w-8 rounded-md" src="https://avatars.githubusercontent.com/u/42164502" alt="sab's pfp" />
+        <img width={32} height={32} class="h-8 w-8 rounded-md" src="https://avatars.githubusercontent.com/u/42164502" alt="sab's pfp" />
         <span class="font-bold">Sab's Portfolio</span>
         <div class={`${location.isNavigating ? '-ml-2' : '-ml-10 opacity-0'} transition-all`}>
           <LoadingIcon/>
