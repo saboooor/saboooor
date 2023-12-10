@@ -8,7 +8,7 @@ export default component$(() => {
     <section class="flex mx-auto max-w-6xl px-6 items-center" style={{ minHeight: 'calc(100dvh - 64px)' }}>
       <div class="text-left space-y-5">
         <div class="flex relative justify-start mb-5" style="width: 100%;">
-          <img class="rounded-2xl ease-in-out filter drop-shadow-2xl" src={`https://avatars.githubusercontent.com/u/42164502`} style={{ maxWidth: '50%' }} alt="sab's pfp" />
+          <img width={256} height={256} class="rounded-2xl ease-in-out filter drop-shadow-2xl" src={`https://avatars.githubusercontent.com/u/42164502`} style={{ maxWidth: '50%' }} alt="sab's pfp" />
         </div>
         <h1 class="font-bold text-red-500 text-2xl sm:text-5xl">
           404: Page not found
