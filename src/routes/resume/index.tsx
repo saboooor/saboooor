@@ -25,12 +25,15 @@ export default component$(() => {
             EXPERIENCE
           </h1>
           <p class="mt-5 text-lg text-gray-400">
-            <span class="font-bold text-gray-50">Web Developer</span> — <a href="https://burgersonfleek.ca" class="underline">burgersonfleek.ca</a><br/>
-            Nov 2020 - Present<br/>
-            Coded and maintained website with Qwik & TailwindCSS and deployed to Cloudflare Pages
+            <span class="font-bold text-gray-50">2nd Cook</span> — <a href="https://atlassteakandfish.com" class="underline">Atlas Steak + Fish</a><br/>
+            Dec 2023 - Present<br/>
           </p>
           <p class="mt-5 text-lg text-gray-400">
-            <span class="font-bold text-gray-50">Cook</span> — Burgers on Fleek<br/>
+            <span class="font-bold text-gray-50">Web Developer</span> — <a href="https://burgersonfleek.ca" class="underline">burgersonfleek.ca</a><br/>
+            Nov 2020 - Present<br/>
+          </p>
+          <p class="mt-5 text-lg text-gray-400">
+            <span class="font-bold text-gray-50">Cook</span> — <a href="https://burgersonfleek.ca" class="underline">Burgers On Fleek</a><br/>
             June 2023 - August 2023
           </p>
           <h1 class="mt-10 font-bold text-indigo-400 text-2xl">
@@ -60,7 +63,10 @@ export default component$(() => {
             Effective and efficient problem solving.
           </p>
           <p class="text-lg text-gray-400">
-            Proficient short term memory.
+            Fast Paced.
+          </p>
+          <p class="text-lg text-gray-400">
+            Quick Learner.
           </p>
           <h1 class="mt-10 font-bold text-indigo-400 text-2xl">
             CERTIFICATIONS
