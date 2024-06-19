@@ -246,8 +246,8 @@ Now that you have a new user, we will configure SUDO, since you shouldn't be usi
 SUDO comes with a special editor called ```visudo```, to allow us to edit it's configurations without damaging sudo. However visudo needs to be configured to use a CLI text editor. In our case, as with the rest of this guide, we will use ```nano``` as our text editor.<br>
 To use edit with visudo on nano, run the command ```EDITOR=nano visudo```.
 
-To add your newly created user to the sudoers, all you need to do is locate the line that says ```root ALL=(ALL:ALL) ALL```<br>
-Below add the line ```<usr> ALL=(ALL:ALL) ALL```, where <usr> is the username you created.<br>
+To add your newly created user to the sudoers, all you need to do is locate the line that says ```# %wheel ALL=(ALL:ALL) ALL```<br> and remove the # to uncomment it.
+Add your user to the 'wheel group' with the command ```usermod -aG wheel <usr>```
 Save and exit, using the **CTRL+O**, Enter/Return and **CTRL+X** trick, that you should know by now.
 
 Congratulations, you now have a sudo user.
