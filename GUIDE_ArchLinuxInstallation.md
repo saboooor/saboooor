@@ -131,11 +131,7 @@ After this there will be a few repetitive commands, so to avoid typing them out 
 
 Now, do these commands to create subvolumes for the different parts of the Linux system:<br>
 ```
-btrfs su cr /mnt/@
-btrfs su cr /mnt/@home
-btrfs su cr /mnt/@var
-btrfs su cr /mnt/@opt
-btrfs su cr /mnt/@tmp
+btrfs su cr /mnt/@{,home,var,opt,tmp}
 umount /mnt
 ```
 These subvolumes are mainly named after system directories which have specific functions:<br>
@@ -232,15 +228,11 @@ To do so, do ```nano /etc/mkinitcpio.conf``` and then add ```btrfs``` in ```MODU
 
 #### Step 8c: Bootloader configuration
 
-We will use the GRUB bootloader. A quick reminder, **this guide is only for UEFI mode**.
+We will use the systemd-boot, which is preinstalled with the 'base' package. A quick reminder, **this guide is only for UEFI mode**.
 
-You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub grub-btrfs efibootmgr os-prober```
+We will start with creating the directory to mount the EFI partition and mounting it: ```mkdir /boot/efi && mount /dev/nvme0n1p<X> /boot/efi```
 
-Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1p<X> /boot/efi```
-
-After this, install GRUB to this directory: ```grub-install --target=x86_64-efi --bootloader-id=ArchLinux --efi-directory=/boot/efi```.
-
-Finally, generate a boot configuration: ```grub-mkconfig -o /boot/grub/grub.cfg```
+After this, install the bootloader: ```bootctl install```.
 
 ### Step 9: Creating a user account and configuring SUDO
 
@@ -249,7 +241,7 @@ The -m flag will also create a Home directory for you, which saves the hassle of
 
 After creating the user, set up a password for this new user, using the ```passwd <usr>``` command. It is similar to step 8d.
 
-Now that you have a new user, we will configure SUDO, since you shouldn't be using the root account at all. Start by installing it with pacman: ```pacman -Syu sudo```.
+Now that you have a new user, we will configure SUDO, since you shouldn't be using the root account at all.
 
 SUDO comes with a special editor called ```visudo```, to allow us to edit it's configurations without damaging sudo. However visudo needs to be configured to use a CLI text editor. In our case, as with the rest of this guide, we will use ```nano``` as our text editor.<br>
 To use edit with visudo on nano, run the command ```EDITOR=nano visudo```.
