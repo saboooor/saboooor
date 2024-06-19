@@ -247,16 +247,16 @@ SUDO comes with a special editor called ```visudo```, to allow us to edit it's c
 To use edit with visudo on nano, run the command ```EDITOR=nano visudo```.
 
 To add your newly created user to the sudoers, all you need to do is locate the line that says ```# %wheel ALL=(ALL:ALL) ALL```<br> and remove the # to uncomment it.
-Add your user to the 'wheel group' with the command ```usermod -aG wheel <usr>```
 Save and exit, using the **CTRL+O**, Enter/Return and **CTRL+X** trick, that you should know by now.
+Add your user to the 'wheel' group with the command ```usermod -aG wheel <usr>```
 
 Congratulations, you now have a sudo user.
 
-### Step 10: Installing the X display server and KDE Plasma
+### Step 10: Installing KDE Plasma
 
-Almost there, now all that is missing is the DE and WM. Firstly, install the X enviroment. You can do it running the command ```pacman -Syu xorg```.
+Almost there, now all that is missing is the DE (Desktop Environment) and WM (Window Manager).
 
-Now install KDE Plasma, with the command ```pacman -Syu sddm plasma plasma-wayland-session kde-system kde-utilities kde-network tesseract-data-eng```.
+Now install KDE Plasma, with the command ```pacman -Syu sddm plasma kde-system kde-utilities kde-network tesseract-data-eng```.
 
 After it finishes installing, create symlinks for the service to start up automatically.<br>
 This can be done with the command ```systemctl enable sddm.service```.
