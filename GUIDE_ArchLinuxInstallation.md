@@ -286,7 +286,7 @@ Why are these drivers not used by default with Arch? Because Arch is FOSS (Free 
 You have 2 options, install the proprietary NVIDIA driver or the NVK driver which is still a work in progress but works great as an open source driver
 
 #### Step 13a: Install the proprietary driver
-To install the NVIDIA driver, do ```pacman -Syu nvidia nvidia-settings egl-wayland```
+To install the NVIDIA driver, do ```pacman -Syu nvidia nvidia-settings```
 
 **There's also one more thing to setup, and that is to enable DRM modesetting. This will allow you to use wayland with NVIDIA proprietary drivers**<br>
 To do so, open Konsole, edit /etc/default/grub with ```sudo nano /etc/default/grub```, find GRUB_CMDLINE_LINUX_DEFAULT and after quiet, add a space and then ```nvidia-drm.modeset=1```. Finally leave the editor like you did before and once again type ```sudo grub-mkconfig -o /boot/grub/grub.cfg```
