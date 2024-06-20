@@ -270,25 +270,29 @@ Everything should be done now. Exit the chroot by typing ```exit```. Shutdown th
 
 ### Step 12: The first boot
 
-There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the SDDM login window. Go to the top-right dropdown where it shows 'Plasma (X11)' and set it to 'Plasma (Wayland)'. Now you may login.<br>
+There are a few tweaks you might need to do. Start up your machine and boot. If everything worked fine, you are now greeted by the SDDM login window. Now you may login.<br>
 (If not, you fucked up, nice! Check troubleshooting for a quickfix).
 
 Try running the terminal, which is named Konsole. If it works, you are good to go! Have fun.<br>
-The default desktop is *really* ugly, in my opinion. Search up how to make KDE Plasma look good because this DE is *REALLY* customizable, you can make it look however beautiful or ugly as you want (check out r/unixporn or r/unixgore, that's all I have to say)
+The default desktop looks alright, but KDE Plasma is *REALLY* customizable, you can make it look however beautiful or ugly as you want (check out r/unixporn or r/unixgore, that's all I have to say)
 
 You may find that this installation of KDE is really barebones and doesn't have much apps, check out step 15 to install your own apps, or simply open konsole and do ```sudo pacman -Syu kde-applications``` (Warning: This is really bloated and I chose to leave this out for that reason!)
 
-### Step 13 (optional): Installing a proprietary graphics driver (Really for NVIDIA)
+### Step 13 (NVIDIA): Installing a better graphics driver
 
 The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass and I recommend you steer away from it as far as you can.<br>
+Why are these drivers not used by default with Arch? Because Arch is FOSS (Free and Open-Source Software), and nouveau is the open-source driver arch decided to use, NVK is still in development and isn't fully rounded out yet
+
+You have 2 options, install the proprietary NVIDIA driver or the NVK driver which is still a work in progress but works great as an open source driver
+
+#### Step 13a: Install the proprietary driver
 To install the NVIDIA driver, do ```pacman -Syu nvidia nvidia-settings egl-wayland```
 
 **There's also one more thing to setup, and that is to enable DRM modesetting. This will allow you to use wayland with NVIDIA proprietary drivers**<br>
 To do so, open Konsole, edit /etc/default/grub with ```sudo nano /etc/default/grub```, find GRUB_CMDLINE_LINUX_DEFAULT and after quiet, add a space and then ```nvidia-drm.modeset=1```. Finally leave the editor like you did before and once again type ```sudo grub-mkconfig -o /boot/grub/grub.cfg```
 
-Why is this optional and not mandatory? Well, the NVIDIA driver, as smooth as it is to use on linux, is sometimes a bit buggy, since it is not open-source so people can't fix stuff themselves and build their own versions of the driver, but this really doesn't matter as much as you may think, I personally use the proprietary driver and it works just fine.
-
-Why is this driver not used by default with Arch? Well, because Arch is FOSS (Free and Open-Source Software), and nouveau is the open-source driver arch decided to use
+#### Step 13b: Install NVK
+wip
 
 ### Step 14 (optional): Configuring the SWAP partition in the FSTAB
 
