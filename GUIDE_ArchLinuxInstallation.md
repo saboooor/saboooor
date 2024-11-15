@@ -46,7 +46,7 @@ Disable Secure Boot! That's all I have to say. If you use a SATA SSD, set SATA m
 
 As for peripherials such as the Web Camera, I recommend activating everything. It is not a requirement, but it is needed to make sure everything works correctly. After the installation, you can disable the ones you don't use again.
 
-**Note for SATA SSD users:** You probably still can use this guide, but ahead in the guide, when I mention something like ```/dev/nvme0n1```, in your case it should be ```/dev/sda``` or similar. The guide is made for NVMe M.2 drives, because this is the future.
+**Note for SATA SSD users:** You probably still can use this guide, but ahead in the guide, when I mention something like ```/dev/nvme0n1```, in your case it should be ```/dev/sda``` or similar. The guide is made for NVMe M.2 drives, because we no longer live in the 10s
 
 ### Step 4: Booting into the Live USB environment
 
