@@ -280,8 +280,8 @@ You may find that this installation of KDE is really barebones and doesn't have 
 
 ### Step 13 (NVIDIA): Installing a better graphics driver
 
-The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass and I recommend you steer away from it as far as you can.<br>
-Why are these drivers not used by default with Arch? Because Arch is FOSS (Free and Open-Source Software), and nouveau is the open-source driver arch decided to use, NVK is still in development and isn't fully rounded out yet
+The current open-source NVIDIA driver that comes with Arch (nouveau) is absolutely ass because it had to be reverse engineered because at the time nvidia didnt play well with open sourcing their drivers, and I recommend you steer away from it as far as you can.<br>
+Why are these drivers not used by default with Arch? Because Arch is FOSS (Free and Open-Source Software), and nouveau is the open-source driver which is the most stable for now, NVK is still in development and isn't fully rounded out yet
 
 You have 2 options, install the proprietary NVIDIA driver or the NVK driver which is still a work in progress but works great as an open source driver
 
