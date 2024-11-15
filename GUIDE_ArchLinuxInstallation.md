@@ -21,8 +21,8 @@ Congratulations, if you are reading this, you found a very special document I wr
 
 After this, you should have a full working Arch Linux installation, running the Plasma DE and with SDDM, because plasma is superior.
 
-This was done specifically in a Dell G5 5090 with an Intel i5-9400, 16GiB of RAM and a 256GB NVMe SSD.
-It should work on any other machine with UEFI support though. Fuck your legacy BIOS, UEFI ftw.
+This was done specifically on a pc with a Ryzen 7900X, 32 GiB of RAM and a 1TB NVMe SSD.
+It should work on any other machine with UEFI support though.
 
 Every problem you run into can be solved either by looking in the [Arch Wiki](https://wiki.archlinux.org/), or by searching in the [Forum](https://bbs.archlinux.org/), or simply, Google.
 
