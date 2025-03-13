@@ -1,28 +1,20 @@
 # Arch Linux Installation Guide
 
-> Saboor Bilal, 2022
-> Copied off Nuno's guide with my own preferences :) https://github.com/nunopenim/nunopenim
+Most of this guide was taken from
+https://github.com/nunopenim/nunopenim/blob/main/GUIDE_ArchLinuxInstallation.md
 
 ## Disclaimer
 
-I am not responsible for any data loss that might occur.<br>
+I am not responsible for any data loss that might occur. You are on your own to back up your important files.<br>
 This guide will tell you how to install Arch Linux as the single OS in your machine.
 
-Dual-booting will be added to this guide soon, so unless you can interpret this guide to dual-boot like I personally did, this isn't recommended for dual-boot
-
-Back up your stuff, unless you're like me and don't care much about your data.
-
-You can use this guide freely as a base for a guide of your own to do other setup options (such as a Dual Boot version), if you give me and Nuno proper credits.<br>
-Thank you.
+Dual-booting will be added to this guide soon, so unless you can interpret this guide to dual-boot like I personally did, this isn't recommended for dual-boot.
 
 ## Preface
 
-Congratulations, if you are reading this, you found a very special document I wrote not only to help myself, but to help other like minded individuals.
+Congratulations, if you are reading this, you found a very special document I wrote not only to help myself, but to help other like minded individuals. After this, you should have a fully working Arch Linux installation.
 
-After this, you should have a full working Arch Linux installation, running the Plasma DE and with SDDM, because plasma is superior.
-
-This was done specifically on a pc with a Ryzen 7900X, 32 GiB of RAM and a 1TB NVMe SSD.
-It should work on any other machine with UEFI support though.
+This was done specifically on a pc with a Ryzen 7900X, RX 9070, 32 GiB of RAM, and a 1TB NVMe SSD. It should work on any other machine with UEFI support though.
 
 Every problem you run into can be solved either by looking in the [Arch Wiki](https://wiki.archlinux.org/), or by searching in the [Forum](https://bbs.archlinux.org/), or simply, Google.
 
@@ -32,13 +24,14 @@ Every problem you run into can be solved either by looking in the [Arch Wiki](ht
 
 The title pretty much explains it.
 
-To do it, access https://archlinux.org/download and download the most recent ISO file.
+To do it, access https://archlinux.org/download and scroll down to find your closest mirror and download the ISO file.
 
 ### Step 2: Make a bootable flash drive.
 
-I recommend using [Etcher](https://www.balena.io/etcher/) for this step. Download the suitable version for you (Windows, macOS or Linux). The Linux version is usually an AppImage file, which runs (or should run) on all distros. If you are geeky, you could use dd on Linux, works too.
+I recommend using [Etcher](https://www.balena.io/etcher/) for this step. Download the suitable version for you (Windows, macOS or Linux). The Linux version is usually an AppImage file, which runs (or should run) on all distros.
+I personally use [Ventoy](https://github.com/ventoy/Ventoy), which lets me load multiple ISOs in one USB drive.
 
-Always keep this flash drive around after, maybe label it. It will be important as it might be the only way you can solve any possible boot issues in the future.
+Always keep this flash drive around after. It will be important as it might be the only way you can solve any possible boot issues in the future.
 
 ### Step 3: Configure your machine
 
