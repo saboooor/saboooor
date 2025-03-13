@@ -1,5 +1,7 @@
 # Arch Linux Installation Guide
 
+This guide will be moved to a more interactive website to make things easier
+
 Most of this guide was taken from
 https://github.com/nunopenim/nunopenim/blob/main/GUIDE_ArchLinuxInstallation.md
 
