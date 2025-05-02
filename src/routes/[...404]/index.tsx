@@ -1,45 +1,47 @@
 import { component$ } from '@builder.io/qwik';
 import { DocumentHead, Link } from '@builder.io/qwik-city';
-
-import { ChevronBack } from 'qwik-ionicons';
+import { LogoLuminescent } from '@luminescent/ui-qwik';
 
 export default component$(() => {
   return (
-    <section class="flex mx-auto max-w-6xl px-6 items-center" style={{ minHeight: 'calc(100dvh - 64px)' }}>
-      <div class="text-left space-y-5">
-        <div class="flex relative justify-start mb-5" style="width: 100%;">
-          <img width={256} height={256} class="rounded-2xl ease-in-out filter drop-shadow-2xl" src={`https://avatars.githubusercontent.com/u/42164502`} style={{ maxWidth: '50%' }} alt="sab's pfp" />
+    <section class="flex flex-col mx-auto max-w-xl px-4 justify-center min-h-[calc(100svh)] pt-24">
+      <h1 class="relative text-gray-100 text-3xl sm:text-6xl font-bold animate-in fade-in slide-in-from-top-8 anim-duration-1000">
+        <div style="filter: drop-shadow(0 0 3rem #CB6CE6);">
+          <div class="font-semibold flex items-center gap-2 sm:gap-5 text-[#f0ccfb] fill-[#f0ccfb] select-none" style="filter: drop-shadow(0 0 5rem #CB6CE6);">
+            <LogoLuminescent width={200} class="mt-2 hidden sm:flex" />
+            <LogoLuminescent width={100} class="mt-1 flex sm:hidden" />
+          </div>
         </div>
-        <h1 class="font-bold text-red-500 text-2xl sm:text-5xl">
-          404: Page not found
-        </h1>
-        <p class="text-lg sm:text-2xl text-gray-400">
-          Whoops! You've hit a dead-end. 
-        </p>
-        <div class="grid sm:flex gap-3 pt-4">
-          <Link href="/" class="flex justify-center sm:justify-start transition rounded-2xl shadow-lg backdrop-blur-lg bg-purple-900/80 hover:bg-purple-900 border border-purple-900 px-6 py-3 font-bold text-purple-100 md:py-4 md:px-8 text-sm md:text-lg whitespace-nowrap gap-4 items-center">
-            <ChevronBack width='24'/> Go back home
-          </Link>
-        </div>
+      </h1>
+      <h1 class="font-bold text-red-500 text-2xl sm:text-5xl mt-16">
+        404: Page not found
+      </h1>
+      <p class="text-lg sm:text-2xl text-gray-400 my-6">
+        Whoops! You've hit a dead-end.
+      </p>
+      <div class="grid sm:flex gap-3 pt-4">
+        <Link href="/" class="lum-btn">
+          Go back home
+        </Link>
       </div>
     </section>
   );
 });
 
 export const head: DocumentHead = {
-  title: '404',
+  title: '404: Page not found',
   meta: [
     {
       name: 'description',
-      content: 'Welcome to sab\'s website idk'
+      content: 'Whoops! You\'ve hit a dead-end.',
     },
     {
       name: 'og:description',
-      content: 'Welcome to sab\'s website idk'
+      content: 'Whoops! You\'ve hit a dead-end.',
     },
     {
       name: 'og:image',
-      content: 'https://avatars.githubusercontent.com/u/42164502'
-    }
-  ]
-}
+      content: 'https://avatars.githubusercontent.com/u/86643576',
+    },
+  ],
+};
