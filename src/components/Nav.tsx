@@ -14,16 +14,13 @@ export default component$(() => {
   return (
     <Nav>
       <MainNav>
-        <NavButton href="/" extraClass={{ 'hidden sm:flex': true }}>
-          <HomeOutline width="24" class="fill-current" /> HOME
-        </NavButton>
         <NavButton href="/resume" extraClass={{ 'hidden sm:flex': true }}>
           <BookOutline width="24" class="fill-current" /> RESUME
         </NavButton>
-        <NavButton external icon href="https://github.com/LuminescentDev/SimplyMC" title="GitHub" extraClass={{ 'hidden sm:flex': true }}>
+        <NavButton external icon href="https://github.com/saboooor" title="GitHub" extraClass={{ 'hidden sm:flex': true }}>
           <LogoGithub width="24" class="fill-green-100" />
         </NavButton>
-        <NavButton external icon href="https://discord.simplymc.art" title="Discord" extraClass={{ 'hidden sm:flex': true }}>
+        <NavButton external icon href="https://mc.luminescent.dev/discord" title="Discord" extraClass={{ 'hidden sm:flex': true }}>
           <LogoDiscord width="24" class="fill-indigo-200" />
         </NavButton>
         <NavButton external icon href="https://paypal.me/youhavebeenyoted" title="PayPal" extraClass={{ 'hidden sm:flex': true }}>
@@ -43,17 +40,14 @@ export default component$(() => {
         </button>
       </MainNav>
       <MobileNav store={store}>
-        <NavButton store={store} href="/">
-          <HomeOutline width="24" class="fill-current" /> HOME
-        </NavButton>
         <NavButton store={store} href="/resume">
           <BookOutline width="24" class="fill-current" /> RESUME
         </NavButton>
         <div class="flex justify-evenly">
-          <NavButton external icon href="https://github.com/LuminescentDev/SimplyMC" title="GitHub">
+          <NavButton external icon href="https://github.com/saboooor" title="GitHub">
             <LogoGithub width="24" class="fill-green-100" />
           </NavButton>
-          <NavButton external icon href="https://discord.simplymc.art" title="Discord">
+          <NavButton external icon href="https://mc.luminescent.dev/discord" title="Discord">
             <LogoDiscord width="24" class="fill-indigo-200" />
           </NavButton>
           <NavButton external icon href="https://paypal.me/youhavebeenyoted" title="PayPal">

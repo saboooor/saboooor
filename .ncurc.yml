@@ -1,0 +1,2 @@
+reject:
+  - "vite" # building broken on v6
