@@ -26,6 +26,10 @@
     {
       "pattern": "www.saboor.ca",
       "custom_domain": true
+    },
+    {
+      "pattern": "sab.luminescent.dev",
+      "custom_domain": true
     }
   ]
 	/**
