@@ -50,7 +50,7 @@ export default component$(() => {
       </div>
 
       <div class="absolute bottom-5 flex w-full justify-center animate-bounce">
-        <a href="" class="lum-btn lum-bg-transparent">
+        <a href="#projects" class="lum-btn lum-bg-transparent">
           <ChevronDown /> My Projects
         </a>
       </div>
