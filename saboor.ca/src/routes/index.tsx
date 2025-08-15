@@ -35,7 +35,7 @@ export default component$(() => {
             </div>
             <div>
               <a
-                href="https://www.linkedin.com/in/saboorb/"
+                href="https://drive.proton.me/urls/NAABHC0M1R#PVvjBuwaE4kH"
                 title="LinkedIn"
                 class={{
                   'lum-btn lum-bg-transparent rounded-lum-2 p-2 text-sm': true,
