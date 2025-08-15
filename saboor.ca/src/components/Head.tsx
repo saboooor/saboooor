@@ -10,8 +10,8 @@ export const RouterHead = component$(() => {
 
   return (
     <>
-      <title>{`Luminescent - ${head.title}`}</title>
-      <meta content={`Luminescent - ${head.title}`} property="og:title"/>
+      <title>{head.title}</title>
+      <meta content={head.title} property="og:title"/>
       <meta content="#0D0D0D" name="theme-color"/>
 
       <link rel="canonical" href={loc.url.href} />
