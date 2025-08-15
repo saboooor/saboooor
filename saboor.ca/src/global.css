@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+
+@import "tailwindcss";
+
+@plugin "@anuragroy/tailwindcss-animate";
+
+@import "@luminescent/ui";
+
+@config "@luminescent/ui-qwik/config";
+@source "../node_modules/@luminescent/ui-qwik";
+
+@theme {
+  --lum-default-alpha: 70;
+  --lum-border-radius: 2rem;
+  --color-lum-border: #dfdfdfaa;
+  --color-nav-bg: --alpha(var(--color-sky-950) / 70%);
+  --color-bg: var(--color-gray-900);
+  --font-display: "Figtree", "sans-serif";
+  --color-gray-50: oklch(98.5% 0.002 278.839);
+  --color-gray-100: oklch(96.7% 0.003 295.542);
+  --color-gray-200: oklch(92.8% 0.006 295.531);
+  --color-gray-300: oklch(87.2% 0.01 289.338);
+  --color-gray-400: oklch(70.7% 0.022 292.325);
+  --color-gray-500: oklch(55.1% 0.027 295.364);
+  --color-gray-600: oklch(44.6% 0.03 287.802);
+  --color-gray-700: oklch(37.3% 0.034 290.733);
+  --color-gray-800: oklch(27.8% 0.033 287.848);
+  --color-gray-850: oklch(23.2% 0.03 290.733);
+  --color-gray-900: oklch(21% 0.034 295.665);
+  --color-gray-950: oklch(13% 0.028 292.692);
+}
+
+@layer utilities {
+  .animation-delay-2000 { animation-delay: -5s; }
+  .animation-delay-4000 { animation-delay: -10s; }
+}
+
+html {
+  overflow: overlay;
+  background: radial-gradient(
+    var(--color-gray-850) 0%,
+    var(--color-gray-950) 100%
+  );
+  background-color: var(--color-gray-950);
+}
+
+* {
+  scroll-behavior: smooth;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+*::-webkit-scrollbar {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background-color: #00000022;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #ffffff20;
+  border: 1px solid #ffffff20;
+  border-radius: 3px;
+}
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+@keyframes hand-wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.hand-wave {
+  animation: hand-wave 500ms ease-in-out infinite;
+}

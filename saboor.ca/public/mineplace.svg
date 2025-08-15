@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="shadow" transform="matrix(1.47418,0,0,0.165703,-342.101,700.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(40,28,10);"/>
+    </g>
+    <g id="frame-left-top" serif:id="frame left top" transform="matrix(1.47418,0,0,1.65703,-342.101,-245.541)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(98,73,23);"/>
+    </g>
+    <g id="frame-bottom" serif:id="frame bottom" transform="matrix(1.47418,0,0,0.165703,-342.101,650.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(82,58,10);"/>
+    </g>
+    <g id="frame-right" serif:id="frame right" transform="matrix(0.113399,0,0,1.65703,735.223,-245.541)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(82,58,10);"/>
+    </g>
+    <g id="center" transform="matrix(1.24739,0,0,1.32562,-212.547,-96.4326)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(235,232,229);"/>
+    </g>
+    <g id="hangar1" transform="matrix(0.113399,0,0,0.165703,435.223,50.4459)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(30,30,30);"/>
+    </g>
+    <g id="hangar2" transform="matrix(0.113399,0,0,0.165703,385.223,100.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(20,20,20);"/>
+    </g>
+    <g id="hangar3" transform="matrix(0.113399,0,0,0.165703,435.223,100.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(35,35,35);"/>
+    </g>
+    <g id="hangar4" transform="matrix(0.113399,0,0,0.165703,485.223,100.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(52,52,52);fill-opacity:0.96;"/>
+    </g>
+    <g id="hangar5" transform="matrix(0.113399,0,0,0.165703,335.223,150.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745"/>
+    </g>
+    <g id="hangar6" transform="matrix(0.113399,0,0,0.165703,385.223,150.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(17,17,17);"/>
+    </g>
+    <g id="hangar7" transform="matrix(0.113399,0,0,0.165703,485.223,150.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(31,31,31);"/>
+    </g>
+    <g id="hangar8" transform="matrix(0.113399,0,0,0.165703,535.223,150.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(38,38,38);"/>
+    </g>
+    <g id="m-left" serif:id="m left" transform="matrix(0.113399,0,0,0.662811,335.223,201.784)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(255,68,0);"/>
+    </g>
+    <g id="m-right" serif:id="m right" transform="matrix(0.113399,0,0,0.662811,535.223,201.784)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(255,68,0);"/>
+    </g>
+    <g id="m-middle" serif:id="m middle" transform="matrix(0.113399,0,0,0.165703,435.223,450.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(255,68,0);"/>
+    </g>
+    <g id="m-left-point" serif:id="m left point" transform="matrix(0.113399,0,0,0.165703,385.223,350.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(255,68,0);"/>
+    </g>
+    <g id="m-right-point" serif:id="m right point" transform="matrix(0.113399,0,0,0.165703,485.223,350.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(255,68,0);"/>
+    </g>
+    <g id="m-point" serif:id="m point" transform="matrix(0.113399,0,0,0.165703,435.223,400.446)">
+        <rect x="350.771" y="299.054" width="440.922" height="301.745" style="fill:rgb(255,68,0);"/>
+    </g>
+</svg>
