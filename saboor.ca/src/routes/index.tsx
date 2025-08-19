@@ -99,7 +99,7 @@ export default component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     setInterval(() => {
-      now.value += 1000;
+      now.value = Date.now();
     }, 1000);
     // fetch data every 5 seconds
     setInterval(() => void (async () => {
