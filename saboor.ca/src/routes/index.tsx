@@ -1,6 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
-import { ChevronDown, FileText, Hand } from 'lucide-icons-qwik';
+import { ChevronDown, FileText, Hand, Gamepad, Play, Music } from 'lucide-icons-qwik';
 import { SocialButtons } from '~/components/Nav';
 import Projects from '~/components/Projects';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
@@ -29,6 +29,15 @@ const activityType = {
   3: 'Watching',
   4: '',
   5: 'Competing In',
+};
+
+const activityTypeIcons = {
+  0: <Gamepad size={20} />,
+  1: <Play size={20} />,
+  2: <Music size={20} />,
+  3: <Play size={20} />,
+  4: '',
+  5: <Gamepad size={20} />,
 };
 
 async function getLanyardData() {
@@ -142,7 +151,8 @@ export default component$(() => {
                 class="absolute inset-0 w-full h-full object-cover -z-2 blur-2xl"
                 style={{ clipPath: 'inset(0 round var(--radius-3xl))' }}
               />
-              <h3 class="flex gap-4 items-center font-bold text-sm">
+              <h3 class="flex gap-2 items-center font-bold text-xs">
+                {(activityTypeIcons as any)[activity.type]}
                 {(activityType as any)[activity.type]} {activity.name}
               </h3>
               <div class="flex flex-row gap-4">
@@ -155,14 +165,14 @@ export default component$(() => {
                     <img src={activity.assets.small_image} alt={activity.assets.small_text} width={25} height={25} class="rounded-lum-6 absolute -bottom-2 -right-2 border border-lum-border/20" />
                   }
                 </div>
-                <div class="flex flex-col flex-1 text-sm">
+                <div class="flex flex-col flex-1 text-xs">
                   {activity.details &&
                     <p class="font-semibold">
                       {activity.details}
                     </p>
                   }
                   {activity.state &&
-                    <p class="text-gray-400">
+                    <p class="text-gray-400 text-ellipsis overflow-hidden">
                       {activity.state}
                     </p>
                   }
@@ -182,13 +192,13 @@ export default component$(() => {
                     </p>
                   }
                   {activity.timestamps.start && activity.timestamps.end &&
-                    <div class="text-gray-400 text-sm mt-2">
-                      <div class="lum-bg-gray-800/10 h-2 rounded-full relative mb-1">
-                        <div class="absolute inset-0 bg-gray-200/50 rounded-full" style={{ width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%` }} />
-                      </div>
-                      <div class="flex justify-between">
-                        <span>{convertTime(now.value - activity.timestamps.start)}</span>
-                        <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
+                    <div class="text-white text-xs mt-1">
+                      <div class="lum-bg-gray-800/10 rounded-lum-6 relative mb-1">
+                        <div class="absolute inset-0 bg-gray-400/40 rounded-[7px]" style={{ width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%` }} />
+                        <div class="flex justify-between px-1 p-0.5">
+                          <span>{convertTime(now.value - activity.timestamps.start)}</span>
+                          <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
+                        </div>
                       </div>
                     </div>
                   }
