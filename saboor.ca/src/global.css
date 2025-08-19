@@ -82,3 +82,10 @@ html {
 .hand-wave {
   animation: hand-wave 500ms ease-in-out infinite;
 }
+
+.shadow-outline {
+  filter: drop-shadow(2px 0px 0px #EFCCFB)
+    drop-shadow(-2px 0px 0px #FAA6B0)
+    drop-shadow(0px 2px 0px #EFCCFB)
+    drop-shadow(0px -2px 0px #FAA6B0);
+}

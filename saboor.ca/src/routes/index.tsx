@@ -8,15 +8,13 @@ import SabCutout from '~/components/images/sab-cutout.png?jsx';
 export default component$(() => {
 
   return <>
-    <section class="grid grid-cols-2 relative mx-auto max-w-7xl px-4 items-center pt-40 min-h-screen">
-      <div class="relative">
-        <SabCutout class="drop-shadow-xl" />
-        <div class="absolute top-0 -left-10 w-20 h-[calc(100%+2.5rem)] backdrop-blur-xl blur-lg" />
-        <div class="absolute left-0 -bottom-10 h-20 w-[calc(100%+2.5rem)] backdrop-blur-xl blur-lg" />
+    <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center pt-20 min-h-screen">
+      <div class="shadow-2xl w-1/2 sm:w-full z-10 sm:flex-1">
+        <SabCutout class="shadow-outline rounded-lum" />
       </div>
 
-      <div class="relative">
-        <div class="lum-card p-12 drop-shadow-xl">
+      <div class="-mt-15 sm:flex-1">
+        <div class="lum-card p-12 pt-24 sm:pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900/50">
           <h1 class="flex gap-4 items-center text-3xl font-bold mb-4">
             <div class="hand-wave">
               <Hand size={42} class="rotate-25" />
