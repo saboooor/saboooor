@@ -27,7 +27,7 @@ const activityType = {
   1: 'Streaming',
   2: 'Listening to',
   3: 'Watching',
-  4: 'Current status:',
+  4: '',
   5: 'Competing In',
 };
 
@@ -97,12 +97,15 @@ export default component$(() => {
 
       <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-4">
         <div class="transition-all duration-300 lum-card sm:p-12 pt-18 sm:pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
-          <h1 class="flex gap-4 items-center text-3xl font-bold mb-4">
+          <h1 class="flex gap-4 items-center text-3xl font-bold">
             <div class="hand-wave">
               <Hand size={42} class="rotate-25" />
             </div>
             Hi, I'm Saboor. (aka sab)
           </h1>
+          <p class="mb-2 text-gray-600">
+            {discord.value.activities.find((activity: any) => activity.type === 4)?.state}
+          </p>
           <p class="text-gray-400 text-lg">
             I'm a Self-taught full-stack software developer with a passion for technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, passionate about cooking diverse cuisines and thriving in creative, collaborative environments.
           </p>
@@ -128,8 +131,9 @@ export default component$(() => {
           </div>
         </div>
         <div class="flex gap-2 flex-row flex-wrap">
-          {discord.value.activities.map((activity: any) => (
-            <div key={activity.id} class="min-w-full md:min-w-1/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
+          {discord.value.activities.map((activity: any) => {
+            if (activity.type === 4) return;
+            return <div key={activity.id} class="min-w-full md:min-w-1/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
               <img
                 src={activity.assets?.large_image}
                 alt={activity.assets?.large_text}
@@ -190,8 +194,8 @@ export default component$(() => {
                   }
                 </div>
               </div>
-            </div>
-          ))}
+            </div>;
+          })}
         </div>
       </div>
 
