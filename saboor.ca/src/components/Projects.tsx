@@ -112,17 +112,17 @@ export default component$(() => {
             <div id="offset"/>
 
             {Projects.map((project) => (
-              <div key={project.title} class="lum-card lum-bg-gray-900/50 relative min-w-64 max-w-64">
+              <div key={project.title} class="lum-card lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:max-w-64">
                 {project.image}
-                <h3 class="text-gray-100 text-xl font-bold">
+                <h3 class="text-gray-100 text-base md:text-xl font-bold">
                   {project.title}
                 </h3>
-                <div class="flex gap-2 items-center flex-wrap">
+                <div class="hidden md:flex gap-2 items-center flex-wrap">
                   {project.tags.map((Tag, i) => (
                     <Tag key={i} />
                   ))}
                 </div>
-                <p class="text-gray-400 text-sm">
+                <p class="text-gray-400 text-xs md:text-sm">
                   {project.description}
                 </p>
                 <Blobs color={[
@@ -143,6 +143,8 @@ export default component$(() => {
                 </div>
               </div>
             ))}
+
+            <div class="border-l border-l-lum-border/20 ml-2 pr-2"/>
 
           </div>
         </div>
