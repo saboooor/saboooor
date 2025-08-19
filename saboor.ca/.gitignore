@@ -47,3 +47,5 @@ functions/**/*.js
 
 .env
 .wrangler
+
+worker-configuration.d.ts
