@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { LogoDiscord, LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
-import { Github, Linkedin } from 'lucide-icons-qwik';
+import { FileText, Github, Linkedin } from 'lucide-icons-qwik';
 import SabSquare from '../components/images/sab.png?jsx';
 
 export default component$(() => {
@@ -12,6 +12,16 @@ export default component$(() => {
         saboor.ca
       </Link>
 
+      <Link
+        q:slot="end"
+        href="https://drive.proton.me/urls/NAABHC0M1R#PVvjBuwaE4kH"
+        class={{
+          'lum-btn lum-bg-transparent hidden sm:flex rounded-lum-2 text-sm': true,
+        }}
+      >
+        <FileText size={20} />
+        Resume
+      </Link>
       <Link
         q:slot="end"
         href="https://ui.luminescent.dev"
@@ -25,6 +35,14 @@ export default component$(() => {
         <SocialButtons />
       </div>
 
+      <a
+        q:slot="mobile"
+        href="https://drive.proton.me/urls/NAABHC0M1R#PVvjBuwaE4kH"
+        class="lum-btn lum-bg-transparent"
+      >
+        <FileText size={20} />
+        Resume
+      </a>
       <a
         q:slot="mobile"
         href="https://luminescent.dev"
