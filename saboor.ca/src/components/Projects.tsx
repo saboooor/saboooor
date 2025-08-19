@@ -10,7 +10,7 @@ import { MCTag, QwikTag, ReactTag } from '~/components/Tags';
 export default component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    const container = document.getElementById('auto-scroll-container')!;
+    const container = document.getElementById('content-container')!;
     const offsetChild = document.getElementById('offset')!;
     const scrollLeft = document.getElementById('scroll-left')!;
     const scrollRight = document.getElementById('scroll-right')!;
@@ -71,7 +71,7 @@ export default component$(() => {
   });
 
   return (
-    <section id="projects" class="flex flex-col mx-auto max-w-7xl px-4 items-center pt-40">
+    <section id="projects" class="flex flex-col mx-auto max-w-7xl items-center pt-40">
       <div class="text-center">
         <h2 class="text-gray-100 text-3xl font-bold mb-2">
           My Projects
@@ -82,19 +82,29 @@ export default component$(() => {
         </p>
       </div>
 
-      <div class="flex relative w-full my-10">
-        <div class="group" id="scroll-left">
-          <button class="absolute -left-20 lum-btn lum-bg-transparent hover:bg-luminescent-900/10 z-100 h-full rounded-full blur-md backdrop-blur-xl w-30"/>
-          <ChevronLeft size={76} class="absolute -left-15 flex items-center group z-100 h-full pointer-events-none transition-all duration-300 group-hover:scale-150"/>
-        </div>
+      <div class="flex relative w-full my-10 px-8">
+        {/* Speed buttons - allows for clicking anywhere but with a moderately sized visual button */}
+        <button class="absolute left-0 lum-bg-transparent z-10 h-full focus:border-none" id="scroll-left">
+          <div class="lum-btn p-2 pl-1 py-5 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
+            <ChevronLeft size={48}/>
+          </div>
+        </button>
+        <button class="absolute right-0 lum-bg-transparent z-10 h-full focus:border-none" id="scroll-right">
+          <div class="lum-btn p-2 pr-1 py-5 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+            <ChevronRight size={48}/>
+          </div>
+        </button>
 
-        <div class="group" id="scroll-right">
-          <button class="absolute -right-20 lum-btn lum-bg-transparent hover:bg-luminescent-900/10 z-100 h-full rounded-full blur-md backdrop-blur-xl w-30"/>
-          <ChevronRight size={76} class="absolute -right-15 flex items-center group z-100 h-full pointer-events-none transition-all duration-300 group-hover:scale-150"/>
-        </div>
+        {/* Fade masks */}
+        <div class="absolute left-8 border border-r-0 rounded-r-none border-l-gray-800 border-y-gray-800 bg-gradient-to-r from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
+        <div class="absolute right-8 border border-l-0 rounded-l-none border-r-gray-800 border-y-gray-800 bg-gradient-to-l from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
 
-        <div class="flex relative w-full overflow-x-hidden my-10">
-          <div id="auto-scroll-container" class="flex gap-2 py-2 select-none transition-transform duration-500 ease-linear">
+        {/* Background - Can not put background on overflow container because of border rounding */}
+        <div class="absolute inset-0 rounded-lum lum-bg-gray-950 border-gray-800 mx-8"/>
+
+        <div class="flex relative w-full overflow-x-hidden p-10">
+          <div id="content-container" class="flex gap-2 py-2 select-none transition-transform duration-500 ease-linear">
+            {/* Offset that adds space before the card gets moved to the end */}
             <div id="offset"/>
             <div class="lum-card lum-bg-gray-800/30 relative min-w-76 max-w-76">
               <LogoBirdflop size={200} class="mx-auto mb-5" fillGradient={['#54daf4', '#545eb6']}/>

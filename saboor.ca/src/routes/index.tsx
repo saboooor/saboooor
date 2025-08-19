@@ -9,8 +9,8 @@ export default component$(() => {
 
   return <>
     <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center pt-20 min-h-screen">
-      <div class="shadow-2xl w-1/2 sm:w-full z-10 sm:flex-1">
-        <SabCutout class="shadow-outline rounded-lum" />
+      <div class="drop-shadow-2xl w-1/2 sm:w-full z-10 sm:flex-1">
+        <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
       </div>
 
       <div class="-mt-15 sm:flex-1">
@@ -47,7 +47,7 @@ export default component$(() => {
         </div>
       </div>
 
-      <div class="absolute bottom-5 flex w-full justify-center animate-bounce">
+      <div class="hidden sm:flex absolute bottom-5 w-full justify-center animate-bounce">
         <a href="#projects" class="lum-btn lum-bg-transparent">
           <ChevronDown /> My Projects
         </a>
