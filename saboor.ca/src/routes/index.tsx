@@ -41,7 +41,7 @@ async function getLanyardData() {
     json.data.activities.forEach((activity: any) => {
       const app_id = activity.application_id;
 
-      const large_image_id = activity.assets.large_image;
+      const large_image_id = activity.assets?.large_image;
       if (large_image_id) {
         const large_image = large_image_id.startsWith('mp:')
           ? large_image_id.replace('mp:', 'https://media.discordapp.net/')
@@ -49,7 +49,7 @@ async function getLanyardData() {
         activity.assets.large_image = large_image;
       }
 
-      const small_image_id = activity.assets.small_image;
+      const small_image_id = activity.assets?.small_image;
       if (small_image_id) {
         const small_image = small_image_id.startsWith('mp:')
           ? small_image_id.replace('mp:', 'https://media.discordapp.net/')
@@ -129,10 +129,10 @@ export default component$(() => {
         </div>
         <div class="flex gap-2 flex-row flex-wrap">
           {discord.value.activities.map((activity: any) => (
-            <div key={activity.id} class="min-w-1/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
+            <div key={activity.id} class="min-w-full md:min-w-1/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
               <img
-                src={activity.assets.large_image}
-                alt={activity.assets.large_text}
+                src={activity.assets?.large_image}
+                alt={activity.assets?.large_text}
                 width={400}
                 height={400}
                 class="absolute inset-0 w-full h-full object-cover -z-2 blur-2xl"
@@ -143,11 +143,11 @@ export default component$(() => {
               </h3>
               <div class="flex flex-row gap-4">
                 <div class="relative mb-auto">
-                  {activity.assets.large_image && <>
+                  {activity.assets?.large_image && <>
                     <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-lg" />
                     <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="absolute top-0 rounded-lum-6 border border-lum-border/20" />
                   </>}
-                  {activity.assets.small_image &&
+                  {activity.assets?.small_image &&
                     <img src={activity.assets.small_image} alt={activity.assets.small_text} width={25} height={25} class="rounded-lum-6 absolute -bottom-2 -right-2 border border-lum-border/20" />
                   }
                 </div>
@@ -162,7 +162,7 @@ export default component$(() => {
                       {activity.state}
                     </p>
                   }
-                  {activity.assets.large_text &&
+                  {activity.assets?.large_text &&
                     <p class="text-gray-400">
                       {activity.assets.large_text}
                     </p>
