@@ -19,21 +19,27 @@ export default component$(() => {
     let scrollMultiplier = 1;
 
     let translateX = 0;
-    // Automatically scroll without user interaction, append each child when it moves out of the container for infinite scrolling
-    const scrollInterval = setInterval(() => {
+    const duration = 500;
+
+    function scrollFn() {
       if (hovering) return;
       translateX += 60 * scrollMultiplier; // Adjust speed as needed
       container.style.transform = `translateX(-${translateX}px)`;
       // append the first child to the end of the container when it moves out of view
-      const secondChild = container.children[1] as HTMLElement;
-      const offset = (secondChild?.clientWidth * 2) + offsetChild.clientWidth + padding;
-      const offsetWidth = secondChild?.clientWidth + offsetChild.clientWidth + padding;
-      if (translateX > offset) {
-        container.appendChild(secondChild);
-        // add width of second child to offset
-        offsetChild.style.width = `${offsetWidth}px`;
+      for (let i = 0; i < scrollMultiplier; i++) {
+        const secondChild = container.children[1] as HTMLElement;
+        const offset = (secondChild?.clientWidth * 2) + offsetChild.clientWidth + padding;
+        const offsetWidth = secondChild?.clientWidth + offsetChild.clientWidth + padding;
+        if (translateX > offset) {
+          container.appendChild(secondChild);
+          // add width of second child to offset
+          offsetChild.style.width = `${offsetWidth}px`;
+        }
       }
-    }, 500);
+    }
+
+    // Automatically scroll without user interaction, append each child when it moves out of the container for infinite scrolling
+    const scrollInterval = setInterval(scrollFn, duration / scrollMultiplier);
 
     // check if container is being hovered
     container.addEventListener('mouseenter', () => {
@@ -106,7 +112,7 @@ export default component$(() => {
             <div id="offset"/>
 
             {Projects.map((project) => (
-              <div key={project.title} class="lum-card lum-bg-gray-800/30 relative min-w-76 max-w-76">
+              <div key={project.title} class="lum-card lum-bg-gray-900/50 relative min-w-64 max-w-64">
                 {project.image}
                 <h3 class="text-gray-100 text-xl font-bold">
                   {project.title}
@@ -123,12 +129,11 @@ export default component$(() => {
                   project.color, project.color, project.color,
                 ]} class={{ 'absolute overflow-clip rounded-lg -z-10': true }} style={{ transform: 'translateZ(-10px)' }}/>
                 <div class={{
-                  'lum-card lum-bg-gray-900/50 absolute inset-0 !p-2 !gap-2 !border-0 !text-white w-full h-full z-10 backdrop-blur-xl transition duration-300 hover:duration-75 ease-out opacity-0 hover:opacity-100': true,
-                  '[&>*]:h-full [&>*]:w-full [&>*]:rounded-lum-2 [&>*]:lum-bg-transparent [&>*]:flex [&>*]:flex-col [&>*]:justify-center [&>*]:transition-all [&>*]:items-center [&>*]:gap-2': true,
+                  'group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md transition duration-300 hover:duration-75 ease-out opacity-0 hover:opacity-100': true,
                 }}>
                   {project.buttons.map((button, i) => (
                     <a key={i} href={button.href} draggable={false} class={{
-                      'lum-btn': true,
+                      'lum-btn pointer-events-none group-hover:pointer-events-auto h-full w-full rounded-lum-2 lum-bg-transparent flex flex-col justify-center transition-all items-center gap-2': true,
                       [project.btnClass]: project.btnClass,
                     }}>
                       {button.icon}
