@@ -155,7 +155,7 @@ export default component$(() => {
                 {(activityTypeIcons as any)[activity.type]}
                 {(activityType as any)[activity.type]} {activity.name}
               </h3>
-              <div class="flex flex-row gap-4">
+              <div class="flex flex-row gap-4 my-auto">
                 <div class="relative mb-auto">
                   {activity.assets?.large_image && <>
                     <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-lg" />
