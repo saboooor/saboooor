@@ -8,13 +8,13 @@ import SabCutout from '~/components/images/sab-cutout.png?jsx';
 export default component$(() => {
 
   return <>
-    <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center pt-20 min-h-screen">
+    <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center mt-20 min-h-[calc(100dvh-5rem)]">
       <div class="drop-shadow-2xl w-1/2 sm:w-full z-10 sm:flex-1">
         <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
       </div>
 
-      <div class="-mt-15 sm:flex-1">
-        <div class="transition-all duration-300 lum-card p-12 pt-24 sm:pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
+      <div class="-mt-15 sm:mt-0 sm:flex-1">
+        <div class="transition-all duration-300 lum-card sm:p-12 pt-18 sm:pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
           <h1 class="flex gap-4 items-center text-3xl font-bold mb-4">
             <div class="hand-wave">
               <Hand size={42} class="rotate-25" />
@@ -27,7 +27,7 @@ export default component$(() => {
 
           <hr class="my-4 border-lum-border/10" />
 
-          <div class="flex justify-between">
+          <div class="flex justify-between flex-wrap">
             <div class="flex gap-2">
               <SocialButtons />
             </div>

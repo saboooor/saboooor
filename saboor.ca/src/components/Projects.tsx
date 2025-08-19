@@ -75,7 +75,7 @@ export default component$(() => {
   });
 
   return (
-    <section id="projects" class="flex flex-col mx-auto max-w-7xl items-center pt-40">
+    <section id="projects" class="flex flex-col mx-auto max-w-7xl items-center mt-10">
       <div class="text-center">
         <h2 class="text-gray-100 text-3xl font-bold mb-2">
           My Projects

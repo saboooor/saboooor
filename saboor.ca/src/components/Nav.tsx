@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { LogoDiscord, LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
-import { FileText, Github, Linkedin } from 'lucide-icons-qwik';
+import { FileText, Github, Linkedin, Mail } from 'lucide-icons-qwik';
 import SabSquare from '../components/images/sab.png?jsx';
 
 export default component$(() => {
@@ -93,6 +93,17 @@ export const SocialButtons = component$(({ large }: { large?: boolean }) => {
       }}
     >
       <Linkedin size={large ? 32 : 20} />
+    </a>
+    <a
+      href="mailto:sab@luminescent.dev"
+      title="Email"
+      class={{
+        'lum-btn lum-bg-transparent': true,
+        'rounded-lum-4 p-3': large,
+        'rounded-lum-2 p-2': !large,
+      }}
+    >
+      <Mail size={large ? 32 : 20} />
     </a>
   </>;
 });
