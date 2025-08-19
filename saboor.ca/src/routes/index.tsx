@@ -40,7 +40,7 @@ const activityTypeIcons = {
   5: <Gamepad size={20} />,
 };
 
-async function getLanyardData() {
+async function getLanyardData(isSafari = false) {
   try {
     const data = await fetch('https://api.lanyard.rest/v1/users/249638347306303499');
     const json = await data.json() as any;
@@ -65,16 +65,30 @@ async function getLanyardData() {
           : `https://cdn.discordapp.com/app-assets/${app_id}/${small_image_id}`;
         activity.assets.small_image = small_image;
       }
+
+      // if the image is from rise, safari shits itself
+      if (isSafari && activity.assets?.large_image?.includes('rise.cider.sh')) {
+        if (activity.assets.small_image) {
+          activity.assets.large_image = activity.assets.small_image;
+          activity.assets.small_image = undefined;
+        }
+        else {
+          activity.assets.large_image = undefined;
+        }
+      }
     });
 
-    return json.data;
+    return { ...json.data, isSafari };
   } catch (error) {
     console.error('Error fetching Lanyard data:', error);
     return null;
   }
 }
 
-export const useLanyard = routeLoader$(() => getLanyardData());
+export const useLanyard = routeLoader$((req) => {
+  const isSafari = req.request.headers.get('user-agent')?.includes('Safari');
+  return getLanyardData(isSafari);
+});
 
 export default component$(() => {
 
@@ -90,7 +104,8 @@ export default component$(() => {
     // fetch data every 5 seconds
     setInterval(() => void (async () => {
       try {
-        const lanyard = await getLanyardData();
+        console.log(discord.value?.isSafari);
+        const lanyard = await getLanyardData(discord.value?.isSafari);
         if (lanyard) discord.value = lanyard;
       } catch (error) {
         console.error('Error fetching Lanyard data:', error);
