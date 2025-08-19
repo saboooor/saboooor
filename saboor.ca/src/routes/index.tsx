@@ -14,7 +14,7 @@ export default component$(() => {
       </div>
 
       <div class="-mt-15 sm:flex-1">
-        <div class="lum-card p-12 pt-24 sm:pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900/50">
+        <div class="transition-all duration-300 lum-card p-12 pt-24 sm:pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
           <h1 class="flex gap-4 items-center text-3xl font-bold mb-4">
             <div class="hand-wave">
               <Hand size={42} class="rotate-25" />
