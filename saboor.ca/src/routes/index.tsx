@@ -171,13 +171,13 @@ export default component$(() => {
         <div class="flex gap-2 flex-row flex-wrap justify-evenly">
           {discord.value?.activities.map((activity: any) => {
             if (activity.type === 4) return;
-            return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
+            return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-black/70 border border-gray-900 rounded-lum-2">
               <img
                 src={activity.assets?.large_image}
                 alt={activity.assets?.large_text}
                 width={400}
                 height={400}
-                class="absolute inset-0 w-full h-full object-cover -z-2 blur-2xl"
+                class="absolute inset-0 -z-2 w-full h-full object-cover blur-xl saturate-200"
                 style={{ clipPath: 'inset(0 round var(--radius-3xl))' }}
               />
               <h3 class="flex gap-2 items-center font-bold text-xs">
@@ -187,7 +187,7 @@ export default component$(() => {
               <div class="flex flex-row gap-4 my-auto">
                 <div class="relative mb-auto">
                   {activity.assets?.large_image && <>
-                    <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-lg" />
+                    <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-md" />
                     <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="absolute top-0 rounded-lum-6 border border-lum-border/20" />
                   </>}
                   {activity.assets?.small_image &&
@@ -227,7 +227,7 @@ export default component$(() => {
                           <span>{convertTime(now.value - activity.timestamps.start)}</span>
                           <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
                         </div>
-                        <div class="absolute inset-0 rounded-[7px] bg-gray-950/60 border-r border-r-lum-border/60 -z-1" style={{
+                        <div class="absolute inset-0 rounded-[7px] backdrop-saturate-200 brightness-200" style={{
                           width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
                         }}
                         />
