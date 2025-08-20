@@ -37,9 +37,10 @@
 
 html {
   overflow: overlay;
-  background: radial-gradient(
-    var(--color-gray-850) 0%,
-    var(--color-gray-950) 100%
+  background: linear-gradient(
+    color-mix(in lch, var(--color-luminescent-950), black) 0%,
+    var(--color-gray-950) 25%,
+    var(--color-gray-900) 100%
   );
   background-color: var(--color-gray-950);
 }
