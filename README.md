@@ -5,7 +5,6 @@
 </p>
 <p align="center">
  <a href="https://saboor.ca">
-  <img width="15%" alt="Saboor" src="https://github.com/saboooor/saboooor/blob/master/saboor.ca/src/components/images/sab-cutout.png?raw=true" />
   <img width="35%" alt="Discord" src="https://lanyard.cnrad.dev/api/249638347306303499" />
  </a>
 </p>
