@@ -4,8 +4,8 @@ import { MCTag, QwikTag, ReactTag } from './Tags';
 import { Component } from '@builder.io/qwik';
 import { Github, Globe } from 'lucide-icons-qwik';
 const Mineplace = '/mineplace.svg';
-import Cactie from '../components/images/Cactie.png?jsx';
-import Luminara from '../components/images/Luminara.png?jsx';
+import Cactie from '~/components/images/Cactie.png?jsx';
+import Luminara from '~/components/images/Luminara.png?jsx';
 
 export type Project = {
   title: string;

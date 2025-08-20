@@ -2,7 +2,7 @@ import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { LogoDiscord, LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
 import { FileText, Github, Linkedin, Mail } from 'lucide-icons-qwik';
-import SabSquare from '../components/images/sab.png?jsx';
+import SabSquare from '~/components/images/sab.png?jsx';
 
 export default component$(() => {
   const hidden = useSignal(true);
