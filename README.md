@@ -3,7 +3,12 @@
   <img width="40%" alt="Luminescent" src="https://github.com/bwmp/bwmp/blob/main/l_10.png?raw=true" />
  </a>
 </p>
-
+<p align="center">
+ <a href="https://saboor.ca">
+  <img width="15%" alt="Saboor" src="https://github.com/saboooor/saboooor/blob/master/saboor.ca/src/components/images/sab-cutout.png?raw=true" />
+  <img width="35%" alt="Discord" src="https://lanyard.cnrad.dev/api/249638347306303499" />
+ </a>
+</p>
 <p align="center">
 👋 Hi, I'm Saboor (aka sab). I'm a Self-taught full-stack software developer with a passion for technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, passionate about cooking diverse cuisines and thriving in creative, collaborative environments.
 </p>
