@@ -52,12 +52,17 @@ async function getLanyardData(isSafari = false) {
       const app_id = activity.application_id;
 
       const large_image_id = activity.assets?.large_image;
-      if (large_image_id) {
+      if (large_image_id && app_id) {
         const large_image = large_image_id.startsWith('mp:')
           ? large_image_id.replace('mp:', 'https://media.discordapp.net/')
           : `https://cdn.discordapp.com/app-assets/${app_id}/${large_image_id}`;
         activity.assets.large_image = large_image;
       }
+      else if (large_image_id.startsWith('spotify:')) {
+        const spotify_image = large_image_id.replace('spotify:', 'https://i.scdn.co/image/');
+        activity.assets.large_image = spotify_image;
+      }
+      else activity.assets.large_image = undefined;
 
       const small_image_id = activity.assets?.small_image;
       if (small_image_id) {
