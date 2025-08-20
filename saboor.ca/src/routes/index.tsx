@@ -215,7 +215,7 @@ export default component$(() => {
                   {activity.timestamps.start && activity.timestamps.end &&
                     <div class="text-white text-xs mt-1">
                       <div class="lum-bg-gray-950/10 rounded-lum-6 relative">
-                        <div class="flex justify-between px-1 py-0.5 items-center">
+                        <div class="flex justify-between px-1.5 py-0.5 items-center">
                           <span>{convertTime(now.value - activity.timestamps.start)}</span>
                           <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
                         </div>
