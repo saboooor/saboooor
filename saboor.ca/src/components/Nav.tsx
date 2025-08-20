@@ -1,12 +1,20 @@
-import { component$ } from '@builder.io/qwik';
+import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { LogoDiscord, LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
 import { FileText, Github, Linkedin, Mail } from 'lucide-icons-qwik';
 import SabSquare from '../components/images/sab.png?jsx';
 
 export default component$(() => {
+  const hidden = useSignal(true);
+
+  useOnDocument('scroll', $(() => {
+    hidden.value = window.scrollY < 10;
+  }));
+
   return (
-    <Nav floating fixed colorClass="lum-bg-lum-input-bg/50 !text-lum-text">
+    <Nav fixed floating colorClass="lum-bg-lum-input-bg/50 !text-lum-text" class={{
+      '-mt-20': hidden.value,
+    }}>
       <Link q:slot="start" href="/" class="lum-btn gap-2 lum-bg-transparent rounded-lum-2 font-bold p-0 pr-2">
         <SabSquare class="min-w-8 max-w-8 rounded-lum-2" />
         saboor.ca
@@ -59,7 +67,7 @@ export default component$(() => {
   );
 });
 
-export const SocialButtons = component$(({ large }: { large?: boolean }) => {
+export const SocialButtons = component$(({ large, class: className }: { large?: boolean, class?: string }) => {
   return <>
     <a
       href="https://github.com/saboooor"
@@ -68,6 +76,7 @@ export const SocialButtons = component$(({ large }: { large?: boolean }) => {
         'lum-btn lum-bg-transparent': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
+        [className ?? '']: className,
       }}
     >
       <Github size={large ? 32 : 20} />
@@ -79,6 +88,7 @@ export const SocialButtons = component$(({ large }: { large?: boolean }) => {
         'lum-btn lum-bg-transparent': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
+        [className ?? '']: className,
       }}
     >
       <LogoDiscord size={large ? 32 : 20} />
@@ -90,6 +100,7 @@ export const SocialButtons = component$(({ large }: { large?: boolean }) => {
         'lum-btn lum-bg-transparent': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
+        [className ?? '']: className,
       }}
     >
       <Linkedin size={large ? 32 : 20} />
@@ -101,6 +112,7 @@ export const SocialButtons = component$(({ large }: { large?: boolean }) => {
         'lum-btn lum-bg-transparent': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
+        [className ?? '']: className,
       }}
     >
       <Mail size={large ? 32 : 20} />
