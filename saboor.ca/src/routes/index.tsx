@@ -217,13 +217,14 @@ export default component$(() => {
                   }
                   {activity.timestamps.start && activity.timestamps.end &&
                     <div class="text-white text-xs mt-1">
-                      <div class="lum-bg-gray-950/10 rounded-lum-6 relative">
+                      <div class="lum-bg-gray-950/10 rounded-lum-6 relative overflow-x-clip">
                         <div class="flex justify-between px-1.5 py-0.5 items-center">
                           <span>{convertTime(now.value - activity.timestamps.start)}</span>
                           <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
                         </div>
-                        <div class="absolute inset-0 bg-gray-950/60 border-r border-r-lum-border/60 rounded-[7px] -z-1" style={{
-                          width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%` }}
+                        <div class="absolute inset-0 rounded-[7px] bg-gray-950/60 border-r border-r-lum-border/60 -z-1" style={{
+                          width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
+                        }}
                         />
                       </div>
                     </div>
