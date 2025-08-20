@@ -118,20 +118,22 @@ export default component$(() => {
     <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center min-h-dvh">
       <div class="relative drop-shadow-2xl w-1/2 sm:w-full z-10 sm:z-0 sm:flex-1">
         <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
-        <SabCutout class="absolute top-0 blur-3xl -z-1 p-5 opacity-50" />
+        <SabCutout class="absolute top-0 blur-md sm:blur-3xl -z-1 p-5 opacity-50" />
       </div>
 
       <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-4">
-        <div class="transition-all duration-300 lum-card sm:p-12 pt-18 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
+        <div class="transition-all duration-300 lum-card sm:p-12 pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
           <h1 class="flex gap-2 items-center text-xl sm:text-3xl font-bold">
             <button class="lum-btn p-2 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900">
               <Hand size={40} class="rotate-25 w-8 sm:w-10" />
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
-          <p class="mb-2 -mt-1 text-gray-600">
-            {discord.value?.activities.find((activity: any) => activity.type === 4)?.state}
-          </p>
+          {discord.value?.activities.find((activity: any) => activity.type === 4)?.state &&
+            <p class="text-gray-600">
+              {discord.value?.activities.find((activity: any) => activity.type === 4)?.state}
+            </p>
+          }
           <p class="text-gray-400 sm:text-lg">
             I'm a Self-taught full-stack software developer with a passion for technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, passionate about cooking diverse cuisines and thriving in creative, collaborative environments.
           </p>
