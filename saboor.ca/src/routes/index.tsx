@@ -116,8 +116,9 @@ export default component$(() => {
 
   return <>
     <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center min-h-dvh">
-      <div class="drop-shadow-2xl w-1/2 sm:w-full z-10 sm:flex-1">
+      <div class="relative drop-shadow-2xl w-1/2 sm:w-full z-10 sm:z-0 sm:flex-1">
         <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
+        <SabCutout class="absolute top-0 blur-3xl -z-1 p-5 opacity-50" />
       </div>
 
       <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-4">
