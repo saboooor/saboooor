@@ -9,7 +9,7 @@
  </a>
 </p>
 <p align="center">
-👋 Hi, I'm Saboor (aka sab). I'm a Self-taught full-stack software developer with a passion for technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, passionate about cooking diverse cuisines and thriving in creative, collaborative environments.
+👋 Hi, I'm Saboor (aka sab). I'm a self-taught full-stack software developer with a passion for technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, passionate about cooking diverse cuisines and thriving in creative, collaborative environments.
 </p>
 
 <p align="center">
