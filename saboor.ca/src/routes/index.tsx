@@ -126,7 +126,7 @@ export default component$(() => {
         <SabCutout class="absolute top-0 blur-md sm:blur-3xl -z-1 p-5 opacity-50" />
       </div>
 
-      <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-2">
+      <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-4">
         <div class="transition-all duration-300 lum-card sm:p-12 pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
           <h1 class="flex gap-2 items-center text-xl sm:text-3xl font-bold">
             <button class="lum-btn p-2 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900">
@@ -168,10 +168,10 @@ export default component$(() => {
             </a>
           </div>
         </div>
-        <div class="flex gap-2 flex-row flex-wrap">
+        <div class="flex gap-2 flex-row flex-wrap justify-evenly">
           {discord.value?.activities.map((activity: any) => {
             if (activity.type === 4) return;
-            return <div key={activity.id} class="min-w-full md:min-w-1/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
+            return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-900/50 rounded-lum-2">
               <img
                 src={activity.assets?.large_image}
                 alt={activity.assets?.large_text}
