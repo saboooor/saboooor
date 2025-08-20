@@ -42,7 +42,7 @@ const activityTypeIcons = {
 
 async function getLanyardData(isSafari = false) {
   try {
-    const data = await fetch('https://api.lanyard.rest/v1/users/249638347306303499');
+    const data = await fetch('https://lanyard.twink.forsale/v1/users/249638347306303499');
     const json = await data.json() as any;
     if (!json.success) return null;
 
