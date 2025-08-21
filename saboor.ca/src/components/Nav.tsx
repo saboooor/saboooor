@@ -1,7 +1,12 @@
 import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import { LogoDiscord, LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
-import { FileText, Github, Linkedin, Mail } from 'lucide-icons-qwik';
+
+import { LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
+
+import { FileText, Mail } from 'lucide-icons-qwik';
+import { SiGithub, SiDiscord } from 'simple-icons-qwik';
+import LinkedIn from './icons/LinkedIn';
+
 import SabSquare from '~/components/images/sab.png?jsx';
 
 export default component$(() => {
@@ -73,43 +78,43 @@ export const SocialButtons = component$(({ large, class: className }: { large?: 
       href="https://github.com/saboooor"
       title="GitHub"
       class={{
-        'lum-btn lum-bg-transparent': true,
+        'lum-btn lum-bg-transparent fill-current': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
         [className ?? '']: className,
       }}
     >
-      <Github size={large ? 32 : 20} />
+      <SiGithub size={large ? 32 : 20} />
     </a>
     <a
       href="/discord"
       title="Discord"
       class={{
-        'lum-btn lum-bg-transparent': true,
+        'lum-btn lum-bg-transparent fill-current': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
         [className ?? '']: className,
       }}
     >
-      <LogoDiscord size={large ? 32 : 20} />
+      <SiDiscord size={large ? 32 : 20} />
     </a>
     <a
       href="https://www.linkedin.com/in/saboorb/"
       title="LinkedIn"
       class={{
-        'lum-btn lum-bg-transparent': true,
+        'lum-btn lum-bg-transparent fill-current': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
         [className ?? '']: className,
       }}
     >
-      <Linkedin size={large ? 32 : 20} />
+      <LinkedIn size={large ? 32 : 20} />
     </a>
     <a
       href="mailto:sab@luminescent.dev"
       title="Email"
       class={{
-        'lum-btn lum-bg-transparent': true,
+        'lum-btn lum-bg-transparent fill-current': true,
         'rounded-lum-4 p-3': large,
         'rounded-lum-2 p-2': !large,
         [className ?? '']: className,

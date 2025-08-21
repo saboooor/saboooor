@@ -5,6 +5,7 @@ import { ChevronDown, FileText, Hand } from 'lucide-icons-qwik';
 import ActivityCard, { getLanyardData } from '~/components/Activity/ActivityCard';
 import { SocialButtons } from '~/components/Nav';
 import Projects from '~/components/Projects/ProjectsSection';
+import Technologies from '~/components/Technologies/TechnologiesSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
 
 export const useLanyard = routeLoader$((req) => {
@@ -96,6 +97,7 @@ export default component$(() => {
       </div>
     </section>
     <Projects />
+    <Technologies />
   </>;
 });
 
