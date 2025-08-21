@@ -2,10 +2,12 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import { LogoLuminescentFull } from '@luminescent/ui-qwik';
 import { ChevronDown, FileText, Hand } from 'lucide-icons-qwik';
-import ActivityCard, { getLanyardData } from '~/components/Activity/ActivityCard';
+import ActivityCard from '~/components/Activity/ActivityCard';
 import { SocialButtons } from '~/components/Nav';
+import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
+import Timeline from '~/components/Timeline/TimelineSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
 
 export const useLanyard = routeLoader$((req) => {
@@ -23,15 +25,16 @@ export default component$(() => {
     setInterval(() => {
       now.value = Date.now();
     }, 1000);
-    // fetch data every 5 seconds
-    setInterval(() => void (async () => {
-      try {
-        const lanyard = await getLanyardData(discord.value?.isSafari);
-        if (lanyard) discord.value = lanyard;
-      } catch (error) {
-        console.error('Error fetching Lanyard data:', error);
-      }
-    })(), 5000);
+
+    setTimeout(() => {
+      connectLanyardSocket('249638347306303499', (d: any) => {
+        if (!d.success) return console.error(d.error);
+        console.log(d.data);
+        discord.value = d.data;
+      }, (error: string) => {
+        console.error('Error connecting to Lanyard WebSocket:', error);
+      });
+    }, 5000);
   });
 
   return <>
@@ -98,6 +101,7 @@ export default component$(() => {
     </section>
     <Projects />
     <Technologies />
+    <Timeline />
   </>;
 });
 
