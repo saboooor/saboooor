@@ -130,17 +130,17 @@ export default component$(({ activity, now }: {
             {activity.assets.large_text}
           </p>
         }
-        {activity.timestamps.start && !activity.timestamps.end &&
+        {activity.timestamps?.start && !activity.timestamps?.end &&
           <p class="text-luminescent-400">
             {convertTime(now.value - activity.timestamps.start)} elapsed
           </p>
         }
-        {activity.timestamps.end && !activity.timestamps.start &&
+        {activity.timestamps?.end && !activity.timestamps?.start &&
           <p class="text-luminescent-400">
             {convertTime(now.value - activity.timestamps.end)} left
           </p>
         }
-        {activity.timestamps.start && activity.timestamps.end &&
+        {activity.timestamps?.start && activity.timestamps?.end &&
           <div class="text-white text-xs mt-1">
             <div class="lum-bg-gray-950/10 rounded-lum-6 relative overflow-x-clip">
               <div class="flex justify-between px-1.5 py-0.5 items-center">
