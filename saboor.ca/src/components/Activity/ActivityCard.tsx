@@ -20,15 +20,15 @@ export default component$(({ activity, now }: {
       <span class="-ml-1">{activity.name}</span>
     </p>
     <div class="flex flex-row gap-4 my-auto">
-      <div class="relative mb-auto">
-        {activity.assets?.large_image && <>
+      {activity.assets?.large_image &&
+        <div class="relative mb-auto">
           <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-md" />
           <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="absolute top-0 rounded-lum-6 border border-lum-border/20" />
-        </>}
-        {activity.assets?.small_image &&
-          <img src={activity.assets.small_image} alt={activity.assets.small_text} width={25} height={25} class="rounded-lum-6 absolute -bottom-2 -right-2 border border-lum-border/20" />
-        }
-      </div>
+          {activity.assets?.small_image &&
+            <img src={activity.assets.small_image} alt={activity.assets.small_text} width={25} height={25} class="rounded-lum-6 absolute -bottom-2 -right-2 border border-lum-border/20" />
+          }
+        </div>
+      }
       <div class="flex flex-col flex-1 text-xs">
         {activity.details &&
           <p class="font-semibold">

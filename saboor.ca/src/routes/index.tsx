@@ -33,7 +33,7 @@ export default component$(() => {
         discord.value = d.data;
       }, (error: string) => {
         console.error('Error connecting to Lanyard WebSocket:', error);
-      });
+      }, discord.value.isSafari);
     }, 5000);
   });
 

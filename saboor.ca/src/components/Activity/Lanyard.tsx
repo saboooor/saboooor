@@ -189,40 +189,39 @@ export async function getLanyardData(isSafari = false) {
   }
 }
 
+export function parseDiscordImageUrl(image_id: string, app_id?: string, isSafari = false) {
+  // if the image is from rise, safari shits itself
+  if (isSafari && image_id?.includes('rise.cider.sh')
+    && (image_id?.includes('avif') || image_id?.includes('gif'))) return undefined;
+  return image_id.startsWith('mp:')
+    ? `https://media.discordapp.net/${image_id.replace('mp:', '')}`
+    : image_id.startsWith('spotify:')
+      ? `https://i.scdn.co/image/${image_id.replace('spotify:', '')}`
+      : app_id
+        ? `https://cdn.discordapp.com/app-assets/${app_id}/${image_id}`
+        : image_id;
+}
+
 export function parseLanyardData(data: any, isSafari = false) {
   // go through activities and parse asset links
   data.activities.forEach((activity: any) => {
     const app_id = activity.application_id;
 
-    const large_image_id = activity.assets?.large_image;
-    if (large_image_id && app_id) {
-      const large_image = large_image_id.startsWith('mp:')
-        ? large_image_id.replace('mp:', 'https://media.discordapp.net/')
-        : `https://cdn.discordapp.com/app-assets/${app_id}/${large_image_id}`;
+    let large_image = activity.assets?.large_image;
+    if (large_image) {
+      large_image = parseDiscordImageUrl(large_image, app_id, isSafari);
       activity.assets.large_image = large_image;
     }
-    else if (large_image_id.startsWith('spotify:')) {
-      const spotify_image = large_image_id.replace('spotify:', 'https://i.scdn.co/image/');
-      activity.assets.large_image = spotify_image;
-    }
-    else activity.assets.large_image = undefined;
 
-    const small_image_id = activity.assets?.small_image;
-    if (small_image_id) {
-      const small_image = small_image_id.startsWith('mp:')
-        ? small_image_id.replace('mp:', 'https://media.discordapp.net/')
-        : `https://cdn.discordapp.com/app-assets/${app_id}/${small_image_id}`;
-      activity.assets.small_image = small_image;
-    }
-
-    // if the image is from rise, safari shits itself
-    if (isSafari && activity.assets?.large_image?.includes('rise.cider.sh')) {
-      if (activity.assets.small_image) {
-        activity.assets.large_image = activity.assets.small_image;
+    let small_image = activity.assets?.small_image;
+    if (small_image) {
+      small_image = parseDiscordImageUrl(small_image, app_id, isSafari);
+      if (!large_image) {
+        activity.assets.large_image = small_image;
         activity.assets.small_image = undefined;
       }
       else {
-        activity.assets.large_image = undefined;
+        activity.assets.small_image = small_image;
       }
     }
   });
