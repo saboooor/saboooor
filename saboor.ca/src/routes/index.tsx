@@ -1,7 +1,7 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import { LogoLuminescentFull } from '@luminescent/ui-qwik';
-import { ChevronDown, FileText, Hand } from 'lucide-icons-qwik';
+import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import { SocialButtons } from '~/components/Nav';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
@@ -52,6 +52,10 @@ export default component$(() => {
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
+          <a href="https://maps.app.goo.gl/gmpZtye3tACqEP9C6" class="text-gray-400 font-semibold flex items-center gap-2">
+            <MapPin size={20} />
+            Edmonton, AB. Canada
+          </a>
           {discord.value?.activities.find((activity: any) => activity.type === 4)?.state &&
             <p class="text-gray-600">
               {discord.value?.activities.find((activity: any) => activity.type === 4)?.state}
