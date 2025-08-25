@@ -232,6 +232,7 @@ export default component$(() => {
       <head>
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
+        <script defer src="https://umami.bwmp.dev/script.js" data-website-id="f26ebf9b-d9c4-42ee-aeb8-76458504a10e"/>
         <RouterHead />
       </head>
       <body class="text-gray-200">
