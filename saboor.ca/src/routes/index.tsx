@@ -79,8 +79,8 @@ export default component$(() => {
               </div>
             </a>
             <a
-              href="https://drive.proton.me/urls/NAABHC0M1R#PVvjBuwaE4kH"
-              title="LinkedIn"
+              href="https://drive.proton.me/urls/C99Y234Z2R#fNSblxKMlXgl"
+              title="Resume"
               class={{
                 'lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900 p-2 text-sm': true,
               }}
