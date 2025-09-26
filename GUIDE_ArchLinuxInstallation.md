@@ -221,13 +221,13 @@ For BTRFS to work properly in the kernel, you need to add it to mkinitcpio
 
 To do so, do ```nano /etc/mkinitcpio.conf``` and then add ```btrfs``` in ```MODULES=()``` it should look like ```MODULES=(btrfs)```, and then save and exit as you did before, and then recreate the image with ```mkinitcpio -p linux```
 
-#### Step 8c: Bootloader configuration
+#### Step 8e: Bootloader configuration
 
-We will use the systemd-boot, which is preinstalled with the 'base' package. A quick reminder, **this guide is only for UEFI mode**.
+We will use the GRUB bootloader. A quick reminder, **this guide is only for UEFI mode**.
 
-We will start with creating the directory to mount the EFI partition and mounting it: ```mkdir /boot/efi && mount /dev/nvme0n1p<X> /boot/efi```
+You can start by installing the GRUB bootloader with PacMan: ```pacman -Syu grub efibootmgr```. Next, create the directory to mount the EFI partition and mount it: ```mkdir /boot/efi && mount /dev/nvme0n1p1 /boot/efi```. After this, install GRUB to this directory: ```grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi```.
 
-After this, install the bootloader: ```bootctl install```.
+Finally, generate a boot configuration: ```grub-mkconfig -o /boot/grub/grub.cfg```
 
 ### Step 9: Creating a user account and configuring SUDO
 
