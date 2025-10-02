@@ -54,7 +54,7 @@ export default component$(() => {
           </h1>
           <a href="https://maps.app.goo.gl/gmpZtye3tACqEP9C6" class="text-gray-400 font-semibold flex items-center gap-2">
             <MapPin size={20} />
-            Edmonton, AB. Canada
+            Ajax, ON. Canada
           </a>
           {discord.value?.activities.find((activity: any) => activity.type === 4)?.state &&
             <p class="text-gray-600">
