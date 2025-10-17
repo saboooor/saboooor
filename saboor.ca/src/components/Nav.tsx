@@ -27,7 +27,7 @@ export default component$(() => {
 
       <Link
         q:slot="end"
-        href="https://drive.proton.me/urls/C99Y234Z2R#fNSblxKMlXgl"
+        href="https://drive.proton.me/urls/BMQRKJSRVG#3slVDM8g2Ij4"
         class={{
           'lum-btn lum-bg-transparent hidden sm:flex rounded-lum-2 text-sm': true,
         }}
@@ -50,7 +50,7 @@ export default component$(() => {
 
       <a
         q:slot="mobile"
-        href="https://drive.proton.me/urls/C99Y234Z2R#fNSblxKMlXgl"
+        href="https://drive.proton.me/urls/BMQRKJSRVG#3slVDM8g2Ij4"
         class="lum-btn lum-bg-transparent"
       >
         <FileText size={20} />
