@@ -177,7 +177,7 @@ export function connectLanyardSocket(
 export async function getLanyardData(isSafari = false) {
   try {
     const data = await fetch('https://lanyard.twink.forsale/v1/users/249638347306303499');
-    const json = await data.json();
+    const json = await data.json() as any;
     if (!json.success) throw new Error(json.error);
 
     parseLanyardData(json.data, isSafari);
