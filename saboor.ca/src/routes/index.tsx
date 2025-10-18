@@ -52,7 +52,7 @@ export default component$(() => {
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
-          <a href="https://maps.app.goo.gl/gmpZtye3tACqEP9C6" class="text-gray-400 font-semibold flex items-center gap-2">
+          <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" class="text-gray-400 font-semibold flex items-center gap-2">
             <MapPin size={20} />
             Ajax, ON. Canada
           </a>
