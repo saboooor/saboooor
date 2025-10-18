@@ -19,19 +19,26 @@
 		"enabled": true
 	},
 	"routes": [
-    {
-      "pattern": "saboor.ca",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.saboor.ca",
-      "custom_domain": true
-    },
-    {
-      "pattern": "sab.luminescent.dev",
-      "custom_domain": true
-    }
-  ]
+		{
+			"pattern": "saboor.ca",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.saboor.ca",
+			"custom_domain": true
+		},
+		{
+			"pattern": "sab.luminescent.dev",
+			"custom_domain": true
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "waves",
+			"id": "f4aa6cbe6c8a414ca5d895cab89acdfd",
+			"remote": true
+		}
+	]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

@@ -10,14 +10,20 @@ import Technologies from '~/components/Technologies/TechnologiesSection';
 import Timeline from '~/components/Timeline/TimelineSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
 
-export const useLanyard = routeLoader$((req) => {
-  const isSafari = req.request.headers.get('user-agent')?.includes('Safari');
-  return getLanyardData(isSafari);
+export const useData = routeLoader$(async ({ request, platform }) => {
+  const env = platform.env as Env;
+  const waves = await env.waves.get('waves');
+
+  const isSafari = request.headers.get('user-agent')?.includes('Safari');
+  return {
+    lanyard: await getLanyardData(isSafari),
+    waves: waves,
+  };
 });
 
 export default component$(() => {
-  const { value } = useLanyard();
-  const discord = useSignal<any>(value);
+  const { value: { lanyard, waves } } = useData();
+  const discord = useSignal<any>(lanyard);
   const now = useSignal(Date.now());
 
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -49,6 +55,7 @@ export default component$(() => {
           <h1 class="flex gap-2 items-center text-xl sm:text-3xl font-bold">
             <button class="lum-btn p-2 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900">
               <Hand size={40} class="rotate-25 w-8 sm:w-10" />
+              {waves}
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
