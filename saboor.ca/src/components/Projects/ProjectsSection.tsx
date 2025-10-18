@@ -1,75 +1,44 @@
-import { component$, useVisibleTask$ } from '@builder.io/qwik';
+import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 
 import { Blobs } from '@luminescent/ui-qwik';
 import { ChevronLeft, ChevronRight } from 'lucide-icons-qwik';
 
 import { Projects } from './ProjectList';
 
+const padding = 10; // Padding to add to the offset
+
 export default component$(() => {
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    const container = document.getElementById('content-container')!;
-    const offsetChild = document.getElementById('offset')!;
-    const scrollLeft = document.getElementById('scroll-left')!;
-    const scrollRight = document.getElementById('scroll-right')!;
+  const hovering = useSignal(false);
+  const translateX = useSignal(0);
+  const scrollMultiplier = useSignal(1);
+  const offsetChild = useSignal<HTMLDivElement | undefined>();
+  const contentContainer = useSignal<HTMLDivElement | undefined>();
 
-    const padding = 10; // Padding to add to the offset
-
-    let hovering = false;
-    let scrollMultiplier = 1;
-
-    let translateX = 0;
-    const duration = 500;
-
-    function scrollFn() {
-      if (hovering) return;
-      translateX += 60 * scrollMultiplier; // Adjust speed as needed
-      container.style.transform = `translateX(-${translateX}px)`;
-      // append the first child to the end of the container when it moves out of view
-      for (let i = 0; i < scrollMultiplier; i++) {
-        const secondChild = container.children[1] as HTMLElement;
-        const offset = (secondChild?.clientWidth * 2) + offsetChild.clientWidth + padding;
-        const offsetWidth = secondChild?.clientWidth + offsetChild.clientWidth + padding;
-        if (translateX > offset) {
-          container.appendChild(secondChild);
-          // add width of second child to offset
-          offsetChild.style.width = `${offsetWidth}px`;
-        }
+  const scrollFn = $( (scrollMultiplier: number) => {
+    if (hovering.value || !offsetChild.value || !contentContainer.value) return;
+    translateX.value += 60 * scrollMultiplier; // Adjust speed as needed
+    contentContainer.value.style.transform = `translateX(-${translateX.value}px)`;
+    // append the first child to the end of the container when it moves out of view
+    for (let i = 0; i < scrollMultiplier; i++) {
+      const secondChild = contentContainer.value.children[1] as HTMLElement;
+      const offset = (secondChild?.clientWidth * 2) + offsetChild.value.clientWidth + padding;
+      const offsetWidth = secondChild?.clientWidth + offsetChild.value.clientWidth + padding;
+      if (translateX.value > offset) {
+        contentContainer.value.appendChild(secondChild);
+        // add width of second child to offset
+        offsetChild.value.style.width = `${offsetWidth}px`;
       }
     }
+  });
 
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
     // Automatically scroll without user interaction, append each child when it moves out of the container for infinite scrolling
-    const scrollInterval = setInterval(scrollFn, duration / scrollMultiplier);
-
-    // check if container is being hovered
-    container.addEventListener('mouseenter', () => {
-      hovering = true;
-    });
-    container.addEventListener('mouseleave', () => {
-      hovering = false;
-    });
-
-    // check if container is being hovered
-    scrollLeft.addEventListener('mouseenter', () => {
-      scrollMultiplier = -3;
-    });
-    scrollLeft.addEventListener('click', () => {
-      scrollMultiplier += -1;
-    });
-    scrollLeft.addEventListener('mouseleave', () => {
-      scrollMultiplier = 1;
-    });
-
-    // check if container is being hovered
-    scrollRight.addEventListener('mouseenter', () => {
-      scrollMultiplier = 3;
-    });
-    scrollRight.addEventListener('click', () => {
-      scrollMultiplier += 1;
-    });
-    scrollRight.addEventListener('mouseleave', () => {
-      scrollMultiplier = 1;
-    });
+    const duration = 250;
+    const scrollInterval = setInterval(
+      () => void scrollFn(scrollMultiplier.value),
+      duration / scrollMultiplier.value,
+    );
 
     return () => clearInterval(scrollInterval); // Cleanup on component unmount
   });
@@ -88,13 +57,17 @@ export default component$(() => {
 
       <div class="flex relative w-full my-10 px-8">
         {/* Speed buttons - allows for clicking anywhere but with a moderately sized visual button */}
-        <button class="absolute left-0 lum-bg-transparent z-10 h-full focus:border-none" id="scroll-left">
-          <div class="lum-btn p-2 pl-1 py-5 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
+        <button class="absolute left-0 lum-bg-transparent z-10 h-full focus:border-none group" id="scroll-left"
+          onMouseEnter$={() => scrollMultiplier.value = -1}
+          onMouseLeave$={() => scrollMultiplier.value = 1}
+          onClick$={() => void scrollFn(-3)}>
+          <div class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
             <ChevronLeft size={48}/>
           </div>
         </button>
-        <button class="absolute right-0 lum-bg-transparent z-10 h-full focus:border-none" id="scroll-right">
-          <div class="lum-btn p-2 pr-1 py-5 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+        <button class="absolute right-0 lum-bg-transparent z-10 h-full focus:border-none group" id="scroll-right"
+          onClick$={() => void scrollFn(3)}>
+          <div class="lum-btn p-2 pr-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
             <ChevronRight size={48}/>
           </div>
         </button>
@@ -107,9 +80,10 @@ export default component$(() => {
         <div class="absolute inset-0 rounded-lum lum-bg-gray-950 border-gray-800 mx-8"/>
 
         <div class="flex relative w-full overflow-x-hidden p-10">
-          <div id="content-container" class="flex gap-2 py-2 select-none transition-transform duration-500 ease-linear">
+          <div id="content-container" ref={contentContainer} class="flex gap-2 py-2 select-none transition-transform duration-250 ease-linear"
+            onMouseEnter$={() => hovering.value = true} onMouseLeave$={() => hovering.value = false}>
             {/* Offset that adds space before the card gets moved to the end */}
-            <div id="offset"/>
+            <div id="offset" ref={offsetChild} />
 
             {Projects.map((project) => (
               <div key={project.title} class="lum-card lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:max-w-64">
