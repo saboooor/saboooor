@@ -52,10 +52,12 @@ export default component$(() => {
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
-          <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" class="text-gray-400 font-semibold flex items-center gap-2">
-            <MapPin size={20} />
-            Ajax, ON. Canada
-          </a>
+          <div class="flex">
+            <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" class="text-gray-400 font-semibold flex items-center gap-2 lum-btn lum-bg-transparent hover:lum-bg-luminescent-900 lum-btn-p-1 -ml-2">
+              <MapPin size={20} />
+              Ajax, ON. Canada
+            </a>
+          </div>
           {discord.value?.activities.find((activity: any) => activity.type === 4)?.state &&
             <p class="text-gray-600">
               {discord.value?.activities.find((activity: any) => activity.type === 4)?.state}
