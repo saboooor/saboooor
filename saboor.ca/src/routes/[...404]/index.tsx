@@ -41,7 +41,7 @@ export const head: DocumentHead = {
     },
     {
       name: 'og:image',
-      content: 'https://avatars.githubusercontent.com/u/86643576',
+      content: 'https://avatars.githubusercontent.com/u/42164502',
     },
   ],
 };
