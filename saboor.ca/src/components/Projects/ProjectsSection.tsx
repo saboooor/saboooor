@@ -106,7 +106,7 @@ export default component$(() => {
                   'group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md transition duration-300 hover:duration-75 ease-out opacity-0 hover:opacity-100': true,
                 }}>
                   {project.buttons.map((button, i) => (
-                    <a key={i} href={button.href} draggable={false} class={{
+                    <a key={i} href={button.href} draggable={false} data-umami-event-projects={project.title + ' - ' + button.title} class={{
                       'lum-btn pointer-events-none group-hover:pointer-events-auto h-full w-full rounded-lum-2 lum-bg-transparent flex flex-col justify-center transition-all items-center gap-2': true,
                       [project.btnClass]: project.btnClass,
                     }}>

@@ -83,7 +83,7 @@ export default component$(() => {
               if (waves.value) return;
               waves.value = 1;
               waves.value = await addWave();
-            }}>
+            }} data-umami-event="wave">
               <Hand size={40} class="rotate-25 w-8 sm:w-10" />
             </button>
             Hi, I'm Saboor. (aka sab)
@@ -102,7 +102,8 @@ export default component$(() => {
             </span>
           </p>
           <div class="flex">
-            <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" class="text-gray-400 font-semibold flex items-center gap-2 lum-btn lum-bg-transparent hover:lum-bg-luminescent-900 lum-btn-p-1 -ml-2">
+            <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" data-umami-event="location"
+              class="text-gray-400 font-semibold flex items-center gap-2 lum-btn lum-bg-transparent hover:lum-bg-luminescent-900 lum-btn-p-1 -ml-2">
               <MapPin size={20} />
               Ajax, ON. Canada
             </a>
@@ -131,6 +132,7 @@ export default component$(() => {
               q:slot="mobile"
               href="https://luminescent.dev"
               class="lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900"
+              data-umami-event-link="luminescent.dev"
             >
               <div class="flex items-center gap-1 font-semibold">
                 <LogoLuminescentFull size={20} />
@@ -142,6 +144,7 @@ export default component$(() => {
               class={{
                 'lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900 p-2 text-sm': true,
               }}
+              data-umami-event="resume"
             >
               <FileText size={20} />
               View my resume

@@ -19,7 +19,7 @@ export default component$(() => {
           <a key={tech.title} class={{
             'lum-btn flex-row items-center p-6 gap-6 rounded-lum-3 w-96 lum-hoverable': true,
             [tech.class]: true,
-          }} href={tech.href} target='_blank'
+          }} href={tech.href} target='_blank' data-umami-event-tech={tech.title}
           onMouseMove$={(e, el) => Hoverable.onMouseMove$(e, el)}
           onMouseLeave$={(e, el) => Hoverable.onMouseLeave$(e, el)}>
             {tech.image}
