@@ -22,11 +22,20 @@ export const useData = routeLoader$(async ({ request }) => {
 });
 
 const addWave = server$(async function addWave() {
+  const cookie = this.cookie;
   const env = this.platform.env as Env;
+
   const currentWaves = await env.waves.get('waves');
   if (!currentWaves) return;
+
+  const waved = cookie.get('waved');
+  if (waved) return Number(currentWaves);
+
+  cookie.set('waved', 'true', { path: '/', maxAge: 60 * 60 * 24 * 7 });
+
   const newWaves = Number(currentWaves) + 1;
   await env.waves.put('waves', newWaves.toString());
+
   return newWaves;
 });
 
@@ -78,7 +87,7 @@ export default component$(() => {
           }}>
             {messages[Math.floor(Math.random() * messages.length)]}
             <span class={{
-              'transition-opacity duration-300 pl-2': true,
+              'transition-opacity duration-300 pl-1 font-semibold': true,
               'opacity-100': waves.value && waves.value > 2,
               'opacity-0': !waves.value || waves.value <= 2,
             }}>
