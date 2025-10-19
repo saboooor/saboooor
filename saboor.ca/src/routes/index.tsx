@@ -12,6 +12,13 @@ import SabCutout from '~/components/images/sab-cutout.png?jsx';
 
 const messages = [
   'hey pookie :3',
+  'omg hiiiii :D',
+  'hope you have a fantastic day! :)',
+  'add me on discord @saboor. ;)',
+  'you just made my day better! ^_^',
+  'thanks for stopping by! <3',
+  'feel free to reach out anytime! :D',
+  'omg stawwwp *blushes* >///<',
 ];
 
 export const useData = routeLoader$(async ({ request }) => {
@@ -108,6 +115,13 @@ export default component$(() => {
           <p class="text-gray-400 sm:text-lg">
             I'm a self-taught full-stack software developer, I have always loved technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, cooking diverse cuisines and thriving in creative, collaborative environments. I like to experiment with stuff.
           </p>
+
+          <span class={{
+            'transition-all duration-300 text-lum-border/30 text-xs': true,
+            'opacity-0 -mt-8': waves.value,
+          }}>
+            psst.. click on the waving hand next to my name!
+          </span>
 
           <hr class="my-2 border-lum-border/10" />
 
