@@ -31,10 +31,10 @@ const addWave = server$(async function addWave() {
   const waved = cookie.get('waved');
   if (waved) return Number(currentWaves);
 
-  cookie.set('waved', 'true', { path: '/', maxAge: 60 * 60 * 24 * 7 });
-
   const newWaves = Number(currentWaves) + 1;
   await env.waves.put('waves', newWaves.toString());
+
+  cookie.set('waved', 'true', { path: '/', maxAge: 60 * 60 * 24 * 7 });
 
   return newWaves;
 });
