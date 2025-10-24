@@ -5,7 +5,7 @@ export default component$(({ activity, now }: {
   activity: any;
   now: Signal<number>;
 }) => {
-  return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-black/70 border border-gray-900 rounded-lum-2">
+  return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-950 rounded-lum-2">
     <img
       src={activity.assets?.large_image}
       alt={activity.assets?.large_text}
