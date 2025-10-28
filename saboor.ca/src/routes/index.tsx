@@ -102,7 +102,7 @@ export default component$(() => {
             </span>
           </p>
           <div class="flex">
-            <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" data-umami-event="location"
+            <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" target="_blank" data-umami-event="location"
               class="text-gray-400 font-semibold flex items-center gap-2 lum-btn lum-bg-transparent hover:lum-bg-luminescent-900 lum-btn-p-1 -ml-2">
               <MapPin size={20} />
               Ajax, ON. Canada
@@ -130,7 +130,7 @@ export default component$(() => {
             <SocialButtons class="rounded-lum-6 hover:lum-bg-luminescent-900" />
             <a
               q:slot="mobile"
-              href="https://luminescent.dev"
+              href="https://luminescent.dev" target="_blank"
               class="lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900"
               data-umami-event-link="luminescent.dev"
             >
@@ -139,7 +139,7 @@ export default component$(() => {
               </div>
             </a>
             <a
-              href="https://drive.proton.me/urls/BMQRKJSRVG#3slVDM8g2Ij4"
+              href="https://drive.proton.me/urls/BMQRKJSRVG#3slVDM8g2Ij4" target="_blank"
               title="Resume"
               class={{
                 'lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900 p-2 text-sm': true,

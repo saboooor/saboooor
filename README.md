@@ -1,10 +1,10 @@
 <p align="center">
- <a href="https://luminescent.dev">
+ <a href="https://luminescent.dev" target="_blank">
   <img width="40%" alt="Luminescent" src="https://github.com/bwmp/bwmp/blob/main/l_10.png?raw=true" />
  </a>
 </p>
 <p align="center">
- <a href="https://saboor.ca">
+ <a href="https://saboor.ca" target="_blank">
   <img width="35%" alt="Discord" src="https://lanyard.cnrad.dev/api/249638347306303499" />
  </a>
 </p>

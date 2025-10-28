@@ -73,11 +73,11 @@ export default component$(() => {
         </button>
 
         {/* Fade masks */}
-        <div class="absolute left-8 border border-r-0 rounded-r-none border-l-gray-800 border-y-gray-800 bg-gradient-to-r from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
-        <div class="absolute right-8 border border-l-0 rounded-l-none border-r-gray-800 border-y-gray-800 bg-gradient-to-l from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
+        <div class="absolute left-8 rounded-r-none bg-gradient-to-r from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
+        <div class="absolute right-8 rounded-l-none bg-gradient-to-l from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
 
         {/* Background - Can not put background on overflow container because of border rounding */}
-        <div class="absolute inset-0 rounded-lum lum-bg-gray-950 border-gray-800 mx-8"/>
+        <div class="absolute inset-0 rounded-lum lum-bg-gray-950 mx-8"/>
 
         <div class="flex relative w-full overflow-x-hidden p-10">
           <div id="content-container" ref={contentContainer} class="flex gap-2 py-2 select-none transition-transform duration-250 ease-linear"
@@ -106,7 +106,7 @@ export default component$(() => {
                   'group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md transition duration-300 hover:duration-75 ease-out opacity-0 hover:opacity-100': true,
                 }}>
                   {project.buttons.map((button, i) => (
-                    <a key={i} href={button.href} draggable={false} data-umami-event-projects={project.title + ' - ' + button.title} class={{
+                    <a key={i} href={button.href} target="_blank" draggable={false} data-umami-event-projects={project.title + ' - ' + button.title} class={{
                       'lum-btn pointer-events-none group-hover:pointer-events-auto h-full w-full rounded-lum-2 lum-bg-transparent flex flex-col justify-center transition-all items-center gap-2': true,
                       [project.btnClass]: project.btnClass,
                     }}>
