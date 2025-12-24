@@ -111,7 +111,7 @@ export const SocialButtons = component$(({ large, class: className }: { large?: 
       <LinkedIn size={large ? 32 : 20} />
     </a>
     <a
-      href="mailto:sab@luminescent.dev"
+      href="mailto:hi@saboor.ca"
       title="Email"
       class={{
         'lum-btn lum-bg-transparent fill-current': true,

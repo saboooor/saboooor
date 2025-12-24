@@ -7,7 +7,6 @@ import { SocialButtons } from '~/components/Nav';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
-import Timeline from '~/components/Timeline/TimelineSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
 
 const messages = [
@@ -77,7 +76,7 @@ export default component$(() => {
       </div>
 
       <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-4">
-        <div class="transition-all duration-300 lum-card sm:p-12 pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900 hover:lum-bg-gray-900/50">
+        <div class="transition-all duration-300 lum-card sm:p-12 pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900/50 hover:lum-bg-gray-900/70">
           <h1 class="flex gap-2 items-center text-xl sm:text-3xl font-bold">
             <button class="lum-btn p-2 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900" onClick$={async () => {
               if (waves.value) return;
@@ -166,7 +165,6 @@ export default component$(() => {
     </section>
     <Projects />
     <Technologies />
-    <Timeline />
   </>;
 });
 
