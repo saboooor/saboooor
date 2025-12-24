@@ -52,7 +52,7 @@ export const Projects: Project[] = [
   {
     title: 'Burgers on Fleek',
     description: 'The burgers you are craving.™ Premium Quality Gourmet Burgers, Steak Sandwiches, Fries, and more. est. 2019.',
-    image: <img src="https://www.burgersonfleek.ca/branding/icon.svg" height={200} width={200} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" />,
+    image: <img src="https://www.burgersonfleek.ca/branding/svg/icon.svg" height={200} width={200} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" />,
     tags: [QwikTag],
     color: 'lum-bg-orange-500',
     btnClass: 'hover:lum-bg-orange-500/20',
