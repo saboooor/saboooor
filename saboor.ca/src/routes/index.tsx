@@ -138,7 +138,7 @@ export default component$(() => {
               </div>
             </a>
             <a
-              href="https://drive.proton.me/urls/Q3MZSWQ3BG#lRkMvRHGca4W" target="_blank"
+              href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV" target="_blank"
               title="Resume"
               class={{
                 'lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900 p-2 text-sm': true,
