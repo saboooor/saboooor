@@ -31,7 +31,7 @@
     "@luminescent/ui-qwik": "^6.4.26",
     "@tailwindcss/vite": "^4.1.18",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.1.0",
     "eslint": "^9.39.2",
     "eslint-plugin-qwik": "1.18.0",
     "globals": "^17.2.0",
