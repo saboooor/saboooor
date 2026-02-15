@@ -38,7 +38,7 @@
 html {
   overflow: overlay;
   background: linear-gradient(
-    color-mix(in lch, var(--color-luminescent-950), black) 0%,
+    color-mix(in lch, var(--color-luminescent-950), black 70%) 0%,
     var(--color-gray-950) 25%,
     var(--color-gray-900) 100%
   );
@@ -85,8 +85,8 @@ html {
 }
 
 .shadow-outline {
-  filter: drop-shadow(2px 0px 0px #EFCCFB)
-    drop-shadow(-2px 0px 0px #FAA6B0)
-    drop-shadow(0px 2px 0px #EFCCFB)
-    drop-shadow(0px -2px 0px #FAA6B0);
+  filter: drop-shadow(2px 0px 0px var(--color-orange-200))
+    drop-shadow(-2px 0px 0px var(--color-luminescent-200))
+    drop-shadow(0px 2px 0px var(--color-luminescent-200))
+    drop-shadow(0px -2px 0px var(--color-orange-200));
 }

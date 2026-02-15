@@ -62,7 +62,7 @@ export default component$(({ activity, now }: {
                 <span>{convertTime(now.value - activity.timestamps.start)}</span>
                 <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
               </div>
-              <div class="transition-all duration-1000 ease-linear absolute inset-0 rounded-[7px] backdrop-saturate-200 brightness-200 border-r border-r-lum-border/10" style={{
+              <div class="transition-all duration-1000 ease-linear absolute inset-0 rounded-[7px] backdrop-saturate-200 brightness-200" style={{
                 width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
               }}
               />

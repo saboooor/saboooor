@@ -68,6 +68,8 @@ export default component$(() => {
     }, 5000);
   });
 
+  const customStatus = discord.value?.activities.find((activity: any) => activity.type === 4);
+
   return <>
     <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center min-h-dvh">
       <div class="relative drop-shadow-2xl w-1/2 sm:w-full z-10 sm:z-0 sm:flex-1">
@@ -100,6 +102,22 @@ export default component$(() => {
               {waves.value} waves so far! 👋
             </span>
           </p>
+          {customStatus?.state && !customStatus?.state.startsWith('♡') &&
+            <p class="flex items-center gap-2">
+              {customStatus.emoji && <span class="relative">
+                <img src={
+                  'https://cdn.discordapp.com/emojis/' + customStatus.emoji.id
+                } class="animate-ping opacity-20"
+                alt={customStatus.emoji.name} width={20} height={20} />
+                <img src={
+                  'https://cdn.discordapp.com/emojis/' + customStatus.emoji.id
+                } class="absolute top-0"
+                alt={customStatus.emoji.name} width={20} height={20} />
+              </span>
+              }
+              {customStatus.state}
+            </p>
+          }
           <div class="flex">
             <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" target="_blank" data-umami-event="location"
               class="text-gray-400 font-semibold flex items-center gap-2 lum-btn lum-bg-transparent hover:lum-bg-luminescent-900 lum-btn-p-1 -ml-2">
@@ -107,11 +125,6 @@ export default component$(() => {
               Ajax, ON. Canada
             </a>
           </div>
-          {discord.value?.activities.find((activity: any) => activity.type === 4)?.state &&
-            <p class="text-gray-600">
-              {discord.value?.activities.find((activity: any) => activity.type === 4)?.state}
-            </p>
-          }
           <p class="text-gray-400 sm:text-lg">
             I'm a self-taught full-stack software developer, I have always loved technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, cooking diverse cuisines and thriving in creative, collaborative environments. I like to experiment with stuff.
           </p>
