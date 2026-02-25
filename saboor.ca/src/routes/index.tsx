@@ -170,7 +170,6 @@ export default component$(() => {
           })}
         </div>
         {/* eslint-disable-next-line qwik/jsx-img */}
-        <img src="https://raw.githubusercontent.com/saboooor/saboooor/output/snake.svg" />
         <div class="hidden sm:flex mt-6 w-full justify-center animate-bounce">
           <a href="#projects" class="lum-btn lum-bg-transparent">
             <ChevronDown /> My Projects
