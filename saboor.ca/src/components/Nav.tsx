@@ -37,7 +37,7 @@ export default component$(() => {
       </Link>
       <Link
         q:slot="end"
-        href="https://ui.luminescent.dev"
+        href="https://luminescent.dev"
         class={{
           'lum-btn lum-bg-transparent hidden sm:flex rounded-lum-2 text-sm': true,
         }}
