@@ -1,126 +1,147 @@
-import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 
 import { Blobs } from '@luminescent/ui-qwik';
 import { ChevronLeft, ChevronRight } from 'lucide-icons-qwik';
 
 import { Projects } from './ProjectList';
 
-const padding = 10; // Padding to add to the offset
-
 export default component$(() => {
-  const hovering = useSignal(false);
   const translateX = useSignal(0);
-  const scrollMultiplier = useSignal(1);
-  const offsetChild = useSignal<HTMLDivElement | undefined>();
-  const contentContainer = useSignal<HTMLDivElement | undefined>();
-
-  const scrollFn = $( (scrollMultiplier: number) => {
-    if (hovering.value || !offsetChild.value || !contentContainer.value) return;
-    translateX.value += 60 * scrollMultiplier; // Adjust speed as needed
-    contentContainer.value.style.transform = `translateX(-${translateX.value}px)`;
-    // append the first child to the end of the container when it moves out of view
-    for (let i = 0; i < scrollMultiplier; i++) {
-      const secondChild = contentContainer.value.children[1] as HTMLElement;
-      const offset = (secondChild?.clientWidth * 2) + offsetChild.value.clientWidth + padding;
-      const offsetWidth = secondChild?.clientWidth + offsetChild.value.clientWidth + padding;
-      if (translateX.value > offset) {
-        contentContainer.value.appendChild(secondChild);
-        // add width of second child to offset
-        offsetChild.value.style.width = `${offsetWidth}px`;
-      }
-    }
-  });
+  const targetX = useSignal(0);
+  const containerRef = useSignal<HTMLDivElement>();
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    // Automatically scroll without user interaction, append each child when it moves out of the container for infinite scrolling
-    const duration = 250;
-    const scrollInterval = setInterval(
-      () => void scrollFn(scrollMultiplier.value),
-      duration / scrollMultiplier.value,
-    );
+    const animate = () => {
+      const el = containerRef.value;
+      if (!el) {
+        requestAnimationFrame(animate);
+        return;
+      }
 
-    return () => clearInterval(scrollInterval); // Cleanup on component unmount
+      // Smooth easing
+      translateX.value += (targetX.value - translateX.value) * 0.1;
+
+      const width = el.scrollWidth / 2;
+
+      // Infinite loop
+      if (translateX.value > width) {
+        translateX.value -= width;
+        targetX.value -= width;
+      }
+      if (translateX.value < 0) {
+        translateX.value += width;
+        targetX.value += width;
+      }
+
+      // Apply transform (negative for left scroll)
+      el.style.transform = `translateX(-${translateX.value}px)`;
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
   });
 
   return (
-    <section id="projects" class="flex flex-col mx-auto max-w-7xl items-center mt-10">
+    <section
+      id="projects"
+      class="flex flex-col mx-auto max-w-7xl items-center mt-10"
+    >
       <div class="text-center">
-        <h2 class="text-gray-100 text-3xl font-bold mb-2">
-          My Projects
-        </h2>
+        <h2 class="text-gray-100 text-3xl font-bold mb-2">My Projects</h2>
         <p class="text-gray-400">
-          Here are some of the projects I'm working on<br/>
-          Hover over them to see more info<br/>
+          Here are some of the projects I'm working on
+          <br />
+          Hover over them to see more info
         </p>
       </div>
 
       <div class="flex relative w-full my-10 px-8">
-        {/* Speed buttons - allows for clicking anywhere but with a moderately sized visual button */}
-        <button class="absolute left-0 lum-bg-transparent z-10 h-full focus:border-none group" id="scroll-left"
-          onMouseEnter$={() => scrollMultiplier.value = -1}
-          onMouseLeave$={() => scrollMultiplier.value = 1}
-          onClick$={() => void scrollFn(-3)}>
+
+        {/* LEFT BUTTON */}
+        <button
+          class="absolute left-0 z-20 h-full group cursor-pointer"
+          onClick$={() => targetX.value -= 300}
+        >
           <div class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
-            <ChevronLeft size={48}/>
+            <ChevronLeft size={48} />
           </div>
         </button>
-        <button class="absolute right-0 lum-bg-transparent z-10 h-full focus:border-none group" id="scroll-right"
-          onClick$={() => void scrollFn(3)}>
+
+        {/* RIGHT BUTTON */}
+        <button
+          class="absolute right-0 z-20 h-full group cursor-pointer"
+          onClick$={() => targetX.value += 300}
+        >
           <div class="lum-btn p-2 pr-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
-            <ChevronRight size={48}/>
+            <ChevronRight size={48} />
           </div>
         </button>
 
-        {/* Fade masks */}
-        <div class="absolute left-8 rounded-r-none bg-gradient-to-r from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
-        <div class="absolute right-8 rounded-l-none bg-gradient-to-l from-gray-950 to-transparent h-full w-20 z-5 rounded-lum pointer-events-none"/>
+        {/* Fade edges */}
+        <div class="absolute left-8 rounded-r-none rounded-lum bg-linear-to-r from-gray-950 to-transparent h-full w-20 z-10 pointer-events-none"/>
+        <div class="absolute right-8 rounded-l-none rounded-lum bg-linear-to-l from-gray-950 to-transparent h-full w-20 z-10 pointer-events-none"/>
 
-        {/* Background - Can not put background on overflow container because of border rounding */}
+        {/* Background */}
         <div class="absolute inset-0 rounded-lum lum-bg-gray-950 mx-8"/>
 
-        <div class="flex relative w-full overflow-x-hidden p-10">
-          <div id="content-container" ref={contentContainer} class="flex gap-2 py-2 select-none transition-transform duration-250 ease-linear"
-            onMouseEnter$={() => hovering.value = true} onMouseLeave$={() => hovering.value = false}>
-            {/* Offset that adds space before the card gets moved to the end */}
-            <div id="offset" ref={offsetChild} />
+        {/* Viewport */}
+        <div class="flex relative w-full overflow-hidden p-10">
 
-            {Projects.map((project) => (
-              <div key={project.title} class="lum-card lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:max-w-64">
+          {/* Scroll container */}
+          <div
+            ref={containerRef}
+            class="flex gap-2 py-2 select-none"
+          >
+            {[...Projects, ...Projects].map((project, i) => (
+              <div
+                key={`${project.title}-${i}`}
+                class="lum-card lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:max-w-64"
+              >
                 {project.image}
+
                 <h3 class="text-gray-100 text-base md:text-xl font-bold">
                   {project.title}
                 </h3>
+
                 <div class="hidden md:flex gap-2 items-center flex-wrap">
-                  {project.tags.map((Tag, i) => (
-                    <Tag key={i} />
+                  {project.tags.map((Tag, j) => (
+                    <Tag key={j}/>
                   ))}
                 </div>
+
                 <p class="text-gray-400 text-xs md:text-sm">
                   {project.description}
                 </p>
-                <Blobs color={[
-                  project.color, project.color, project.color,
-                ]} class={{ 'absolute overflow-clip rounded-lg -z-10': true }} style={{ transform: 'translateZ(-10px)' }}/>
-                <div class={{
-                  'group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md transition duration-300 hover:duration-75 ease-out opacity-0 hover:opacity-100': true,
-                }}>
-                  {project.buttons.map((button, i) => (
-                    <a key={i} href={button.href} target="_blank" draggable={false} data-umami-event-projects={project.title + ' - ' + button.title} class={{
-                      'lum-btn pointer-events-none group-hover:pointer-events-auto h-full w-full rounded-lum-2 lum-bg-transparent flex flex-col justify-center transition-all items-center gap-2': true,
-                      [project.btnClass]: project.btnClass,
-                    }}>
+
+                <Blobs
+                  color={[project.color, project.color, project.color]}
+                  class={{ 'absolute overflow-clip rounded-lg -z-10': true }}
+                  style={{ transform: 'translateZ(-10px)' }}
+                />
+
+                {/* Hover overlay */}
+                <div class="group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md opacity-0 hover:opacity-100 transition duration-200">
+
+                  {project.buttons.map((button, j) => (
+                    <a
+                      key={j}
+                      href={button.href}
+                      target="_blank"
+                      draggable={false}
+                      class={`lum-btn h-full w-full rounded-lum-2 flex flex-col justify-center items-center gap-2 ${project.btnClass}`}
+                    >
                       {button.icon}
                       {button.title}
                     </a>
                   ))}
+
                 </div>
               </div>
             ))}
-
-            <div class="border-l border-l-lum-border/20 ml-2 pr-2"/>
-
           </div>
+
         </div>
       </div>
     </section>

@@ -169,7 +169,6 @@ export default component$(() => {
             return <ActivityCard key={activity.id} activity={activity} now={now} />;
           })}
         </div>
-        {/* eslint-disable-next-line qwik/jsx-img */}
         <div class="hidden sm:flex mt-6 w-full justify-center animate-bounce">
           <a href="#projects" class="lum-btn lum-bg-transparent">
             <ChevronDown /> My Projects
