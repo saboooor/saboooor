@@ -131,7 +131,9 @@ export default component$(() => {
             </a>
           </div>
           <p class="text-gray-400 md:text-lg">
-            I'm a self-taught full-stack software developer, I have always loved technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, cooking diverse cuisines and thriving in creative, collaborative environments. I like to experiment with stuff.
+            <span class="font-bold text-gray-200">I'm a self-taught full-stack software developer</span> <br />
+            I have always loved technology, problem-solving, creativity, and design. I thrive in creative, collaborative environments and love to experiment and test new things out. <br />
+            <span class="text-gray-600">Also a Culinary Arts graduate from NAIT.</span>
           </p>
 
           <span class={{
