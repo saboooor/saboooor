@@ -71,27 +71,31 @@ export default component$(() => {
   const customStatus = discord.value?.activities.find((activity: any) => activity.type === 4);
 
   return <>
-    <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl px-4 items-center justify-center min-h-dvh">
+    <section class="flex flex-col sm:flex-row relative mx-auto max-w-7xl sm:gap-32 px-4 items-center justify-center min-h-svh">
       <div class="relative drop-shadow-2xl w-1/2 sm:w-full z-10 sm:z-0 sm:flex-1">
         <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
         <SabCutout class="absolute top-0 blur-md sm:blur-3xl -z-1 p-5 opacity-50" />
       </div>
 
-      <div class="-mt-15 sm:mt-0 sm:flex-1 flex flex-col gap-4">
-        <div class="transition-all duration-300 lum-card sm:p-12 pt-12 border-gradient-3 before:from-red-500/20 before:to-luminescent-500/20 lum-bg-gray-900/50 hover:lum-bg-gray-900/70">
+      <div class="sm:flex-1 flex flex-col gap-4">
+        <div class="transition-all duration-300 lum-card sm:p-12 sm:pt-48 pt-24 border-gradient-3 before:from-red-500/10 before:to-luminescent-500/10 lum-bg-gray-900/50 hover:lum-bg-gray-900/70">
+          <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
+            width={1280} height={720}
+            alt="Saboor's banner"
+            class="rounded-lum rounded-b-0 mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
           <h1 class="flex gap-2 items-center text-xl sm:text-3xl font-bold">
-            <button class="lum-btn p-2 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900" onClick$={async () => {
+            <button class="lum-btn p-1 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900" onClick$={async () => {
               if (waves.value) return;
               waves.value = 1;
               waves.value = await addWave();
             }} data-umami-event="wave">
-              <Hand size={40} class="rotate-25 w-8 sm:w-10" />
+              <Hand size={32} class="rotate-25 w-8" />
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
           <p class={{
             'transition-all duration-300 text-gray-400 text-sm': true,
-            '-mt-8 opacity-0': !waves.value,
+            '-mt-8 opacity-0 pointer-events-none': !waves.value,
           }}>
             {messages[Math.floor(Math.random() * messages.length)]}
             <span class={{
@@ -103,7 +107,7 @@ export default component$(() => {
             </span>
           </p>
           {customStatus?.state && !customStatus?.state.startsWith('♡') &&
-            <p class="flex items-center gap-2">
+            <p class="flex items-center gap-2 text-gray-200/50">
               {customStatus.emoji && <span class="relative">
                 <img src={
                   'https://cdn.discordapp.com/emojis/' + customStatus.emoji.id
