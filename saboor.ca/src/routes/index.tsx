@@ -82,7 +82,7 @@ export default component$(() => {
           <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
             width={1280} height={720}
             alt="Saboor's banner"
-            class="rounded-lum rounded-b-0 mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
+            class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
           <h1 class="flex gap-2 items-center text-xl sm:text-3xl font-bold">
             <button class="lum-btn p-1 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900" onClick$={async () => {
               if (waves.value) return;
