@@ -1,4 +1,4 @@
-import { component$, Signal } from '@builder.io/qwik';
+import { component$, Signal } from '@qwik.dev/core';
 import { activityType, activityTypeIcons, convertTime } from './Lanyard';
 
 export default component$(({ activity, now }: {

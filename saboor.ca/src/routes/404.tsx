@@ -1,6 +1,6 @@
-import { component$ } from '@builder.io/qwik';
-import { DocumentHead, Link } from '@builder.io/qwik-city';
-import { LogoLuminescent } from '@luminescent/ui-qwik';
+import { component$ } from '@qwik.dev/core';
+import { DocumentHead, Link } from '@qwik.dev/router';
+import { Luminescent } from '@luminescent/icons-qwik';
 
 export default component$(() => {
   return (
@@ -8,8 +8,8 @@ export default component$(() => {
       <h1 class="relative text-gray-100 text-3xl sm:text-6xl font-bold animate-in fade-in slide-in-from-top-8 anim-duration-1000">
         <div style="filter: drop-shadow(0 0 3rem #CB6CE6);">
           <div class="font-semibold flex items-center gap-2 sm:gap-5 text-[#f0ccfb] fill-[#f0ccfb] select-none" style="filter: drop-shadow(0 0 5rem #CB6CE6);">
-            <LogoLuminescent size={200} class="mt-2 hidden sm:flex" />
-            <LogoLuminescent size={100} class="mt-1 flex sm:hidden" />
+            <Luminescent size={200} class="mt-2 hidden sm:flex" />
+            <Luminescent size={100} class="mt-1 flex sm:hidden" />
           </div>
         </div>
       </h1>

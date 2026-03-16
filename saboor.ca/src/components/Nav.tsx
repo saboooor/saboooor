@@ -1,8 +1,9 @@
-import { $, component$, useOnDocument, useSignal } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { $, component$, useOnDocument, useSignal } from '@qwik.dev/core';
+import { Link } from '@qwik.dev/router';
 
-import { LogoLuminescentFull, Nav } from '@luminescent/ui-qwik';
+import { Nav } from '@luminescent/ui-qwik';
 
+import { LuminescentFull } from '@luminescent/icons-qwik';
 import { FileText, Mail } from 'lucide-icons-qwik';
 import { SiGithub, SiDiscord } from 'simple-icons-qwik';
 import LinkedIn from './icons/LinkedIn';
@@ -42,7 +43,7 @@ export default component$(() => {
           'lum-btn lum-bg-transparent hidden sm:flex rounded-lum-2 text-sm': true,
         }}
       >
-        <LogoLuminescentFull size={20} />
+        <LuminescentFull size={20} />
       </Link>
       <div q:slot="end" class="hidden gap-2 sm:flex">
         <SocialButtons />
@@ -62,7 +63,7 @@ export default component$(() => {
         class="lum-btn lum-bg-transparent"
       >
         <div class="flex items-center gap-1 font-semibold">
-          <LogoLuminescentFull size={20} />
+          <LuminescentFull size={20} />
         </div>
       </a>
       <div q:slot="mobile" class="flex justify-evenly">

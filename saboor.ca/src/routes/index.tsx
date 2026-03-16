@@ -1,6 +1,6 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import { DocumentHead, routeLoader$, server$ } from '@builder.io/qwik-city';
-import { LogoLuminescentFull } from '@luminescent/ui-qwik';
+import { component$, useSignal, useVisibleTask$ } from '@qwik.dev/core';
+import { DocumentHead, routeLoader$, server$ } from '@qwik.dev/router';
+import { LuminescentFull } from '@luminescent/icons-qwik';
 import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import { SocialButtons } from '~/components/Nav';
@@ -152,7 +152,7 @@ export default component$(() => {
               data-umami-event-link="luminescent.dev"
             >
               <div class="flex items-center gap-1 font-semibold">
-                <LogoLuminescentFull size={20} />
+                <LuminescentFull size={20} />
               </div>
             </a>
             <a
