@@ -25,8 +25,8 @@ export default component$(() => {
         saboor.ca
       </Link>
 
-      <Link
-        q:slot="end"
+      <a
+        q:slot="end" target="_blank"
         href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV"
         class={{
           'lum-btn lum-bg-transparent hidden sm:flex rounded-lum-2 text-sm': true,
@@ -34,22 +34,22 @@ export default component$(() => {
       >
         <FileText size={20} />
         Resume
-      </Link>
-      <Link
-        q:slot="end"
+      </a>
+      <a
+        q:slot="end" target="_blank"
         href="https://luminescent.dev"
         class={{
           'lum-btn lum-bg-transparent hidden sm:flex rounded-lum-2 text-sm': true,
         }}
       >
         <LogoLuminescentFull size={20} />
-      </Link>
+      </a>
       <div q:slot="end" class="hidden gap-2 sm:flex">
         <SocialButtons />
       </div>
 
       <a
-        q:slot="mobile"
+        q:slot="mobile" target="_blank"
         href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV"
         class="lum-btn lum-bg-transparent"
       >
@@ -57,7 +57,7 @@ export default component$(() => {
         Resume
       </a>
       <a
-        q:slot="mobile"
+        q:slot="mobile" target="_blank"
         href="https://luminescent.dev"
         class="lum-btn lum-bg-transparent"
       >
@@ -74,7 +74,7 @@ export default component$(() => {
 
 export const SocialButtons = component$(({ large, class: className }: { large?: boolean, class?: string }) => {
   return <>
-    <a
+    <a target="_blank"
       href="https://github.com/saboooor"
       title="GitHub"
       class={{
@@ -86,7 +86,7 @@ export const SocialButtons = component$(({ large, class: className }: { large?: 
     >
       <SiGithub size={large ? 32 : 20} />
     </a>
-    <a
+    <a target="_blank"
       href="/discord"
       title="Discord"
       class={{
@@ -98,7 +98,7 @@ export const SocialButtons = component$(({ large, class: className }: { large?: 
     >
       <SiDiscord size={large ? 32 : 20} />
     </a>
-    <a
+    <a target="_blank"
       href="https://www.linkedin.com/in/saboorb/"
       title="LinkedIn"
       class={{
@@ -110,7 +110,7 @@ export const SocialButtons = component$(({ large, class: className }: { large?: 
     >
       <LinkedIn size={large ? 32 : 20} />
     </a>
-    <a
+    <a target="_blank"
       href="mailto:hi@saboor.ca"
       title="Email"
       class={{
