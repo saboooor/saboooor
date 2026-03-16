@@ -18,6 +18,15 @@ export const ReactTag = component$(() => {
     </p>
   );
 });
+export const PythonTag = component$(() => {
+  return (
+    <p class="lum-btn lum-bg-yellow-800/50 rounded-lum text-xs gap-1.5 font-semibold p-1 pr-2">
+      {/* eslint-disable-next-line qwik/jsx-img */}
+      <img src="/python.svg" alt="Python Logo" width={16} height={16} />
+      Python
+    </p>
+  );
+});
 export const MCTag = component$(() => {
   return (
     <p class="lum-btn lum-bg-green-800/50 rounded-lum text-xs gap-1.5 font-semibold p-1 pr-2">

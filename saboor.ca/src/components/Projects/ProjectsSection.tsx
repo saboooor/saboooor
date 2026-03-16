@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, isBrowser, useSignal, useTask$ } from '@builder.io/qwik';
 
 import { Blobs } from '@luminescent/ui-qwik';
 import { ChevronLeft, ChevronRight } from 'lucide-icons-qwik';
@@ -10,8 +10,9 @@ export default component$(() => {
   const targetX = useSignal(0);
   const containerRef = useSignal<HTMLDivElement>();
 
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
+  useTask$(({ track }) => {
+    track(() => targetX.value);
+
     const animate = () => {
       const el = containerRef.value;
       if (!el) {
@@ -20,7 +21,9 @@ export default component$(() => {
       }
 
       // Smooth easing
-      translateX.value += (targetX.value - translateX.value) * 0.1;
+      translateX.value += Math.ceil((targetX.value - translateX.value) * 0.1);
+
+      if (Math.abs(targetX.value - translateX.value) < 0.5) return;
 
       const width = el.scrollWidth / 2;
 
@@ -40,7 +43,7 @@ export default component$(() => {
       requestAnimationFrame(animate);
     };
 
-    animate();
+    if (isBrowser) animate();
   });
 
   return (
@@ -52,8 +55,6 @@ export default component$(() => {
         <h2 class="text-gray-100 text-3xl font-bold mb-2">My Projects</h2>
         <p class="text-gray-400">
           Here are some of the projects I'm working on
-          <br />
-          Hover over them to see more info
         </p>
       </div>
 
@@ -62,9 +63,9 @@ export default component$(() => {
         {/* LEFT BUTTON */}
         <button
           class="absolute left-0 z-20 h-full group cursor-pointer"
-          onClick$={() => targetX.value -= 300}
+          onClick$={() => targetX.value -= 256 + 8 /* card width + gap */}
         >
-          <div class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
+          <div class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
             <ChevronLeft size={48} />
           </div>
         </button>
@@ -72,7 +73,7 @@ export default component$(() => {
         {/* RIGHT BUTTON */}
         <button
           class="absolute right-0 z-20 h-full group cursor-pointer"
-          onClick$={() => targetX.value += 300}
+          onClick$={() => targetX.value += 256 + 8 /* card width + gap */}
         >
           <div class="lum-btn p-2 pr-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
             <ChevronRight size={48} />
@@ -95,48 +96,58 @@ export default component$(() => {
             class="flex gap-2 py-2 select-none"
           >
             {[...Projects, ...Projects].map((project, i) => (
-              <div
-                key={`${project.title}-${i}`}
-                class="lum-card lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:max-w-64"
-              >
-                {project.image}
+              <div key={`${project.title}-${i}`} class="lum-card p-4 gap-4 lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:w-64">
+                <Blobs
+                  color={[project.color, project.color, project.color]}
+                  class={{ 'absolute overflow-clip rounded-lum -z-10 pointer-events-none': true }}
+                  style={{ transform: 'translateZ(-10px)' }}
+                />
+                {project.showcase && (
+                  <img src={'/showcases/' + project.showcase} width={2560} height={1440}
+                    alt={project.title + ' screenshot'} class="rounded-lum-4 border border-lum-border/20 h-42 bg-linear-to-br from-gray-800/10 to-gray-700/10"/>
+                )}
+                {!project.showcase &&
+                  <div class="rounded-lum-4 w-full h-42 bg-linear-to-br from-gray-800/10 to-gray-700/10 border border-lum-border/20"/>
+                }
 
-                <h3 class="text-gray-100 text-base md:text-xl font-bold">
-                  {project.title}
-                </h3>
-
-                <div class="hidden md:flex gap-2 items-center flex-wrap">
+                <div class="flex gap-2 items-center">
+                  {project.image}
+                  <h3 class="text-gray-100 text-base md:text-xl font-bold">
+                    {project.title}
+                  </h3>
+                </div>
+                <div class="flex gap-2 items-center flex-wrap">
                   {project.tags.map((Tag, j) => (
                     <Tag key={j}/>
                   ))}
                 </div>
-
-                <p class="text-gray-400 text-xs md:text-sm">
+                <p class="text-gray-400 text-sm md:text-base">
                   {project.description}
                 </p>
 
-                <Blobs
-                  color={[project.color, project.color, project.color]}
-                  class={{ 'absolute overflow-clip rounded-lg -z-10': true }}
-                  style={{ transform: 'translateZ(-10px)' }}
-                />
+                <div class="flex gap-1 items-center mt-auto">
+                  {project.buttons.map((button, i) => {
+                    const roundedClass = i === 0
+                      ? 'rounded-r-lg'
+                      : i === project.buttons.length - 1
+                        ? 'rounded-l-lg'
+                        : 'rounded-lg';
 
-                {/* Hover overlay */}
-                <div class="group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md opacity-0 hover:opacity-100 transition duration-200">
-
-                  {project.buttons.map((button, j) => (
-                    <a
-                      key={j}
+                    return <a
+                      key={i}
                       href={button.href}
                       target="_blank"
                       draggable={false}
-                      class={`lum-btn h-full w-full rounded-lum-2 flex flex-col justify-center items-center gap-2 ${project.btnClass}`}
+                      class={{
+                        'lum-btn flex-1 rounded-lum-4 flex flex-col justify-center items-center gap-2': true,
+                        [project.btnClass]: true,
+                        [roundedClass]: project.buttons.length !== 1,
+                      }}
+                      title={button.title}
                     >
                       {button.icon}
-                      {button.title}
-                    </a>
-                  ))}
-
+                    </a>;
+                  })}
                 </div>
               </div>
             ))}

@@ -36,6 +36,7 @@
     "eslint-plugin-qwik": "1.19.2",
     "globals": "^17.4.0",
     "lucide-icons-qwik": "^0.577.2",
+    "playwright": "^1.58.2",
     "simple-icons-qwik": "^16.10.0",
     "tailwindcss": "^4.2.1",
     "typescript": "5.8.3",
