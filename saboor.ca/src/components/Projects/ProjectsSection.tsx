@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$ } from '@qwik.dev/core';
 
 import { Blobs } from '@luminescent/ui-qwik';
 import { ChevronLeft, ChevronRight } from 'lucide-icons-qwik';
@@ -44,12 +44,11 @@ export default component$(() => {
   });
 
   return (
-    <section
-      id="projects"
-      class="flex flex-col mx-auto max-w-7xl items-center mt-10"
-    >
+    <section id="projects" class="flex flex-col mx-auto max-w-7xl items-center mt-10">
       <div class="text-center">
-        <h2 class="text-gray-100 text-3xl font-bold mb-2">My Projects</h2>
+        <h2 class="text-gray-100 text-3xl font-bold mb-2">
+          My Projects
+        </h2>
         <p class="text-gray-400">
           Here are some of the projects I'm working on
           <br />
@@ -64,9 +63,9 @@ export default component$(() => {
           class="absolute left-0 z-20 h-full group cursor-pointer"
           onClick$={() => targetX.value -= 300}
         >
-          <div class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
+          <span class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl rounded-lum-1">
             <ChevronLeft size={48} />
-          </div>
+          </span>
         </button>
 
         {/* RIGHT BUTTON */}
@@ -74,9 +73,9 @@ export default component$(() => {
           class="absolute right-0 z-20 h-full group cursor-pointer"
           onClick$={() => targetX.value += 300}
         >
-          <div class="lum-btn p-2 pr-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+          <span class="lum-btn p-2 pr-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
             <ChevronRight size={48} />
-          </div>
+          </span>
         </button>
 
         {/* Fade edges */}
@@ -99,7 +98,9 @@ export default component$(() => {
                 key={`${project.title}-${i}`}
                 class="lum-card lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:max-w-64"
               >
-                {project.image}
+                {typeof project.image === 'string' ?
+                  <img src={project.image} alt={`${project.title} Logo`} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" width={200} height={200} />
+                  : project.image}
 
                 <h3 class="text-gray-100 text-base md:text-xl font-bold">
                   {project.title}
@@ -124,15 +125,12 @@ export default component$(() => {
                 {/* Hover overlay */}
                 <div class="group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md opacity-0 hover:opacity-100 transition duration-200">
 
-                  {project.buttons.map((button, j) => (
-                    <a
-                      key={j}
-                      href={button.href}
-                      target="_blank"
-                      draggable={false}
-                      class={`lum-btn h-full w-full rounded-lum-2 flex flex-col justify-center items-center gap-2 ${project.btnClass}`}
-                    >
-                      {button.icon}
+                  {project.buttons.map((button, i) => (
+                    <a key={i} href={button.href} draggable={false} class={{
+                      'lum-btn pointer-events-none group-hover:pointer-events-auto h-full w-full rounded-lum-2 lum-bg-transparent flex flex-col justify-center transition-all items-center gap-2 fill-current': true,
+                      [project.btnClass]: project.btnClass,
+                    }}>
+                      <button.icon size={24} />
                       {button.title}
                     </a>
                   ))}

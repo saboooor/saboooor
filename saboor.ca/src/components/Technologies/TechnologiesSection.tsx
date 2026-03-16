@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Technologies } from './TechnologiesList';
 import { Hoverable } from '@luminescent/ui-qwik';
 
@@ -22,7 +22,11 @@ export default component$(() => {
           }} href={tech.href} target='_blank' data-umami-event-tech={tech.title}
           onMouseMove$={(e, el) => Hoverable.onMouseMove$(e, el)}
           onMouseLeave$={(e, el) => Hoverable.onMouseLeave$(e, el)}>
-            {tech.image}
+            <span class={tech.imageClass}>
+              {typeof tech.image === 'string' ?
+                <img src={tech.image} alt={`${tech.title} Logo`} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" width={200} height={200} />
+                : tech.image}
+            </span>
             <div>
               <h3 class="text-gray-100 text-base md:text-xl font-bold">
                 {tech.title}
@@ -46,7 +50,11 @@ export default component$(() => {
           }} href={tech.href} target='_blank' data-umami-event-tech={tech.title}
           onMouseMove$={(e, el) => Hoverable.onMouseMove$(e, el)}
           onMouseLeave$={(e, el) => Hoverable.onMouseLeave$(e, el)}>
-            {tech.image}
+            <span class={tech.imageClass}>
+              {typeof tech.image === 'string' ?
+                <img src={tech.image} alt={`${tech.title} Logo`} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" width={200} height={200} />
+                : tech.image}
+            </span>
             <div>
               <h3 class="text-gray-100 text-base md:text-xl font-bold">
                 {tech.title}

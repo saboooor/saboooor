@@ -1,4 +1,4 @@
-import { JSX } from '@builder.io/qwik/jsx-runtime';
+import { JSX } from '@qwik.dev/core';
 import { Baby, Ellipsis } from 'lucide-icons-qwik';
 
 export type TimelineItem = {
