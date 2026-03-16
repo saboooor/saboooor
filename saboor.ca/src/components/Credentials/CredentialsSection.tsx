@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 import { Credentials } from './CredentialsList';
 import { Hoverable } from '@luminescent/ui-qwik';
 

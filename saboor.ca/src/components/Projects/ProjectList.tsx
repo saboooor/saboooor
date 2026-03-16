@@ -5,8 +5,8 @@ import { Component } from '@qwik.dev/core';
 import { Birdflop, Luminescent } from '@luminescent/icons-qwik';
 import { IconProps, SiDiscord, SiGithub } from 'simple-icons-qwik';
 import { Globe } from 'lucide-icons-qwik';
-import Luminara from '~/components/images/Luminara.png?jsx';
-import Cactie from '~/components/images/Cactie.png?jsx';
+import Luminara from '~/components/images/projects/Luminara.png?jsx';
+import Cactie from '~/components/images/projects/Cactie.png?jsx';
 export const LuminaraIcon = component$(() => {
   return <Luminara class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" />;
 });
