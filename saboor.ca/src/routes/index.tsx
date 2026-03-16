@@ -73,13 +73,17 @@ export default component$(() => {
 
   return <>
     <section class="flex flex-col md:flex-row relative mx-auto max-w-7xl lg:gap-32 px-4 items-center justify-center min-h-svh">
-      <div class="relative drop-shadow-2xl w-1/2 md:w-full z-10 md:z-0 md:flex-1">
-        <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
-        <SabCutout class="absolute top-0 blur-md md:blur-3xl -z-1 p-5 opacity-50" />
+      <div class="relative drop-shadow-2xl w-1/2 md:w-full z-10 md:z-0 md:flex-1"
+        style={{
+          '--lum-border-radius': '6rem',
+          '--lum-border-superellipse': '2',
+        }}>
+        <SabCutout class="shadow-outline p-5 rounded-lum" />
+        <SabCutout class="absolute top-0 md:top-12 p-5 rounded-lum blur-md md:blur-3xl -z-1 md:opacity-50" />
       </div>
 
       <div class="md:flex-1 flex flex-col gap-4">
-        <div class="transition-all duration-300 lum-card md:p-12 md:pt-48 border-gradient-3 before:from-red-500/10 before:to-luminescent-500/10 lum-bg-gray-900/50 hover:lum-bg-gray-900/70">
+        <div class="relative transition-all duration-300 lum-card md:p-12 md:pt-48 lum-bg-gray-900/50 hover:lum-bg-gray-900/70">
           <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
             width={1280} height={720}
             alt="Saboor's banner"

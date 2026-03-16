@@ -5,15 +5,15 @@ export default component$(({ activity, now }: {
   activity: any;
   now: Signal<number>;
 }) => {
-  return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-950/80 rounded-lum-2">
+  return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-950/90 rounded-lum-2">
     <img
       src={activity.assets?.large_image}
       alt={activity.assets?.large_text}
       width={400}
       height={400}
-      class="absolute inset-0 -z-2 w-full h-full object-cover blur-xl saturate-200"
-      style={{ clipPath: 'inset(0 round var(--radius-3xl))' }}
+      class="absolute inset-0 -z-10 w-full h-full object-cover saturate-200 rounded-lum-2"
     />
+    <div class="absolute inset-0 -z-10 rounded-lum-2 backdrop-blur-xl"/>
     <p class="flex gap-2 items-center font-bold text-xs">
       {(activityTypeIcons as any)[activity.type]}
       {(activityType as any)[activity.type]}
@@ -22,8 +22,8 @@ export default component$(({ activity, now }: {
     <div class="flex flex-row gap-4 my-auto">
       {activity.assets?.large_image &&
         <div class="relative mb-auto">
-          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-md" />
-          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="absolute top-0 rounded-lum-6 border border-lum-border/20" />
+          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-sm opacity-50" />
+          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 absolute top-0 " />
           {activity.assets?.small_image &&
             <img src={activity.assets.small_image} alt={activity.assets.small_text} width={25} height={25} class="rounded-lum-6 absolute -bottom-2 -right-2 border border-lum-border/20" />
           }
