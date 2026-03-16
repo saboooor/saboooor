@@ -11,7 +11,7 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.server": "qwik check-client src dist && vite build -c adapters/cloudflare-workers/vite.config.ts",
+    "build.server": "qwik check-client src dist && vite build -c adapters/cloudflare-pages/vite.config.ts",
     "build.types": "tsc --noEmit",
     "cf-typegen": "wrangler types",
     "deploy": "wrangler deploy",
@@ -44,10 +44,10 @@
     "simple-icons-qwik": "16.12.0-qwik-v2",
     "tailwindcss": "^4.2.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "^8.57.0",
-    "undici": "^7.24.3",
+    "typescript-eslint": "^8.57.1",
+    "undici": "^7.24.4",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "^6.1.1",
-    "wrangler": "^4.73.0"
+    "wrangler": "^4.74.0"
   }
 }

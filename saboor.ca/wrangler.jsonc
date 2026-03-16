@@ -6,10 +6,9 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "saboor-ca",
 	"main": "./dist/_worker.js",
-	"compatibility_date": "2025-08-15",
+	"compatibility_date": "2026-03-16",
 	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
+		"nodejs_als"
 	],
 	"assets": {
 		"binding": "ASSET",
@@ -35,8 +34,7 @@
 	"kv_namespaces": [
 		{
 			"binding": "waves",
-			"id": "f4aa6cbe6c8a414ca5d895cab89acdfd",
-			"remote": true
+			"id": "f4aa6cbe6c8a414ca5d895cab89acdfd"
 		}
 	]
 	/**
