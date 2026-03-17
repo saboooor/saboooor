@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
 
 import { Mail } from 'lucide-icons-qwik';
 import { SiGithub, SiDiscord } from 'simple-icons-qwik';
