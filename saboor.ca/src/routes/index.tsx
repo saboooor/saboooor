@@ -3,7 +3,7 @@ import { DocumentHead, routeLoader$, server$ } from '@qwik.dev/router';
 import { LuminescentFull } from '@luminescent/icons-qwik';
 import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
-import { SocialButtons } from '~/components/Nav';
+import { SocialButtons } from '~/components/SocialButtons';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
@@ -88,7 +88,8 @@ export default component$(() => {
             width={1280} height={720}
             alt="Saboor's banner"
             class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
-          <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg text-shadow-black/50">
+
+          <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 slide-in-from-top-5 anim-duration-800">
             <button class="lum-btn p-1 hand-wave lum-bg-transparent" onClick$={async () => {
               if (waves.value) return;
               waves.value = 1;
@@ -98,6 +99,7 @@ export default component$(() => {
             </button>
             Hi, I'm Saboor. (aka sab)
           </h1>
+
           <p class={{
             'transition-all duration-300 text-gray-200 text-sm text-shadow-lg': true,
             '-my-4 opacity-0 pointer-events-none': !waves.value,
@@ -111,8 +113,9 @@ export default component$(() => {
               {waves.value} waves so far! 👋
             </span>
           </p>
+
           {customStatus?.state && !customStatus?.state.startsWith('♡') &&
-            <p class="flex font-semibold items-center gap-2 text-gray-400 text-shadow-lg text-shadow-black/50">
+            <p class="flex font-semibold items-center gap-2 text-gray-400 text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-950">
               {customStatus.emoji && <span class="relative">
                 <img src={
                   'https://cdn.discordapp.com/emojis/' + customStatus.emoji.id
@@ -127,21 +130,29 @@ export default component$(() => {
               {customStatus.state}
             </p>
           }
-          <div class="flex">
+
+          <div class="flex animate-in fade-in slide-in-from-top-5 anim-duration-1100">
             <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" target="_blank" data-umami-event="location"
               class="text-gray-400 flex items-center gap-2 lum-btn lum-bg-transparent lum-btn-p-1 -ml-2">
               <MapPin size={20} />
               Ajax, ON. Canada
             </a>
           </div>
-          <p class="text-gray-400 md:text-lg">
-            <span class="font-bold text-gray-200">I'm a self-taught full-stack software developer</span> <br />
-            I have always loved technology, problem-solving, creativity, and design. I thrive in creative, collaborative environments and love to experiment and test new things out. <br />
-            <span class="text-gray-600">Also a Culinary Arts graduate from NAIT.</span>
+
+          <p class="text-gray-400 md:text-lg animate-in slide-in-from-top-5 anim-duration-1250">
+            <span class="font-bold text-gray-200 animate-in fade-in anim-duration-1250">
+              I'm a self-taught full-stack software developer
+            </span><br />
+            <span class="animate-in fade-in anim-duration-1400">
+              I have always loved technology, problem-solving, creativity, and design. I thrive in creative, collaborative environments and love to experiment and test new things out.
+            </span><br />
+            <span class="text-gray-600 animate-in fade-in anim-duration-1550">
+              Also a Culinary Arts graduate from NAIT.
+            </span>
           </p>
 
           <span class={{
-            'transition-all duration-300 text-lum-border/30 text-xs': true,
+            'transition-all text-lum-border/30 text-xs animate-in fade-in slide-in-from-top-5 anim-duration-1700': true,
             'opacity-0 -mt-8': waves.value,
           }}>
             psst.. click on the waving hand next to my name!
@@ -154,10 +165,10 @@ export default component$(() => {
             <a
               q:slot="mobile"
               href="https://luminescent.dev" target="_blank"
-              class="lum-btn lum-bg-transparent rounded-lum-6"
+              class="lum-btn lum-bg-transparent rounded-lum-6 p-2"
               data-umami-event-link="luminescent.dev"
             >
-              <div class="flex items-center gap-1 font-semibold">
+              <div class="flex items-center gap-1">
                 <LuminescentFull size={20} />
               </div>
             </a>
@@ -165,12 +176,12 @@ export default component$(() => {
               href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV" target="_blank"
               title="Resume"
               class={{
-                'lum-btn lum-bg-transparent rounded-lum-6 p-2 text-sm': true,
+                'lum-btn lum-bg-luminescent-950/80 hover:lum-bg-luminescent-950 rounded-lum-6 text-sm border-luminescent-500/20 hover:border-luminescent-500 font-bold': true,
               }}
               data-umami-event="resume"
             >
               <FileText size={20} />
-              View my resume
+              Resume
             </a>
           </div>
         </div>
