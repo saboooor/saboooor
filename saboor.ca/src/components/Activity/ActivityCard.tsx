@@ -10,25 +10,26 @@ export default component$(({ activity, now, fixedwidth, compact }: {
   const activityType = activityTypes[activity.type as keyof typeof activityTypes];
 
   return <div key={activity.id} class={{
-    'p-2 transition-all duration-300 lum-card relative lum-bg-gray-950/90 rounded-lum-2': true,
+    'p-2 transition-all duration-300 lum-card relative lum-bg-gray-950/80 rounded-lum-2': true,
     'flex-1 min-w-full md:min-w-1/3 md:max-w-2/3': !fixedwidth,
     'w-80': fixedwidth,
   }}>
-    <img
-      src={activity.assets?.large_image}
-      alt={activity.assets?.large_text}
-      width={400}
-      height={400}
-      class="absolute inset-0 -z-10 w-full h-full object-cover saturate-200 rounded-lum-2"
-    />
-    <div class="absolute inset-0 -z-10 rounded-lum-2 backdrop-blur-xl"/>
+    <div class="absolute inset-0 -z-10 w-full h-full object-cover saturate-200 rounded-lum-2 overflow-clip">
+      <img class="absolute inset-0 saturate-200 -translate-y-1/3 animate-spin anim-duration-10000"
+        src={activity.assets?.large_image}
+        alt={activity.assets?.large_text}
+        width={400}
+        height={400}
+      />
+    </div>
+    <div class="absolute inset-0 -z-10 rounded-lum-2 backdrop-blur-lg"/>
     <div class={{
       'flex gap-2 items-center group absolute top-2 right-2 z-2': true,
     }}>
       <p class={{
         'text-xs whitespace-nowrap absolute top-0 right-7 lum-btn lum-bg-gray-900/50 backdrop-blur-sm lum-btn-p-1 -translate-x-2 opacity-0 -z-1 group-hover:translate-x-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto': true,
       }}>{activityType?.text} <b>{activity.name}</b></p>
-      {(compact && activityType?.icon) && <activityType.icon size={24} class="lum-btn p-1" />}
+      {activityType?.icon && <activityType.icon size={24} class="lum-btn p-1" />}
     </div>
     <div class={{
       'flex flex-row items-center my-auto z-1 gap-2': true,
