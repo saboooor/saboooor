@@ -10,10 +10,10 @@ export const Nav = component$(() => {
   return <div class="fixed bottom-4 right-4 z-100" style={{ '--lum-border-radius': '0.8rem' }}>
     <nav class={{
       'absolute bottom-full right-0 flex flex-col gap-1 transition-all': true,
-      'opacity-0 pointer-events-none -mb-10': !opened.value,
+      'opacity-0 pointer-events-none -mb-2': !opened.value,
     }}>
       <div class="lum-card lum-bg-gray-900/50 backdrop-blur-lg p-1 gap-1 flex">
-        <Socials class="rounded-lum-1" addLabels="right" color />
+        <Socials class="rounded-lum-1 lum-btn-p-1!" addLabels="right" color size={24} />
       </div>
       <div class="lum-card lum-bg-gray-900/50 backdrop-blur-lg p-1 gap-1 flex">
         <Link href="/" class={{
@@ -21,14 +21,14 @@ export const Nav = component$(() => {
           'lum-bg-luminescent-500/20 hover:lum-bg-luminescent-600': loc.url.pathname === '/',
         }}>
           <Laptop size={24} />
-          professional
+          Professional
         </Link>
         <Link href="/me" class={{
           'lum-btn lum-btn-p-1 lum-bg-transparent rounded-lum-1': true,
           'lum-bg-luminescent-500/20 hover:lum-bg-luminescent-600': loc.url.pathname.includes('/me'),
         }}>
           <Balloon size={24} />
-          personal
+          Personal
         </Link>
       </div>
     </nav>

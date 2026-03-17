@@ -92,10 +92,11 @@ const socials = [
   },
 ];
 
-export default component$(({ class: className, addLabels, color }: {
+export default component$(({ class: className, addLabels, color, size }: {
   class?: string,
   addLabels?: 'right' | 'left',
-  color?: boolean }) => {
+  color?: boolean,
+  size?: number }) => {
   const loc = useLocation();
 
   return socials.filter(
@@ -110,7 +111,7 @@ export default component$(({ class: className, addLabels, color }: {
     }}
   >
     {addLabels === 'left' && (social.username ?? social.name)}
-    <social.icon size={20} class={{
+    <social.icon size={size ?? 20} class={{
       [social.color]: color,
     }} />
     {addLabels === 'right' && (social.username ?? social.name)}
