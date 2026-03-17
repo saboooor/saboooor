@@ -2,7 +2,7 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { DocumentHead, routeLoader$, server$ } from '@builder.io/qwik-city';
 import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
-import { SocialButtons } from '~/components/SocialButtons';
+import Socials from '~/components/Socials';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
@@ -160,7 +160,7 @@ export default component$(() => {
           <hr class="my-2 border-lum-border/10" />
 
           <div class="flex justify-evenly flex-wrap">
-            <SocialButtons class="rounded-lum-6" />
+            <Socials class="rounded-lum-6" />
             <a
               href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV" target="_blank"
               title="Resume"

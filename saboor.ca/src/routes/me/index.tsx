@@ -2,7 +2,7 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import { Hand } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
-import { SocialButtons } from '~/components/SocialButtons';
+import Socials from '~/components/Socials';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import { addWave, messages } from '..';
 
@@ -109,7 +109,7 @@ export default component$(() => {
           <hr class="my-2 border-lum-border/10" />
 
           <div class="flex justify-evenly flex-wrap">
-            <SocialButtons class="rounded-lum-6" />
+            <Socials class="rounded-lum-6" />
           </div>
         </div>
         <div class="flex gap-2 flex-row flex-wrap justify-evenly">

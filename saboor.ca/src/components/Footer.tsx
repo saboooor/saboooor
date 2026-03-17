@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { SocialButtons } from './SocialButtons';
+import Socials from './Socials';
 
 export default component$(() => {
   return (
@@ -10,11 +10,8 @@ export default component$(() => {
           Proudly built with Qwik and Luminescent UI - my own UI library :)
         </p>
       </div>
-      <div class="flex flex-col items-center md:items-end gap-2">
-        <p>Contact</p>
-        <div class="flex gap-2">
-          <SocialButtons />
-        </div>
+      <div class="flex items-center md:items-end gap-2">
+        <Socials class="rounded-lum-6"/>
       </div>
     </footer>
   );
