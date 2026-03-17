@@ -39,7 +39,9 @@ export default defineConfig(({ command, mode }): UserConfig => {
     //resolve: {
     //  tsconfigPaths: true,
     //},
-    plugins: [qwikRouter(), qwikVite(), tailwindcss(), tsconfigPaths({ root: '.' })],
+    plugins: [qwikRouter(), qwikVite({
+      debug: true,
+    }), tailwindcss(), tsconfigPaths({ root: '.' })],
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.
@@ -50,6 +52,9 @@ export default defineConfig(({ command, mode }): UserConfig => {
     // All Qwik libraries should be bundled in the server build.
     ssr: {
       noExternal: qwikDeps,
+    },
+    build: {
+      minify: false,
     },
 
     /**
