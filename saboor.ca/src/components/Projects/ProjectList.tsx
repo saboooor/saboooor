@@ -66,40 +66,19 @@ export const Projects: Project[] = [
   {
     title: '3Compute',
     description: 'A free educational platform that provides cloud-based development environments for learning and building projects.',
-    image: <LogoBirdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
+    image: <Birdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
     showcase: '3compute_org.jpeg',
     tags: [ReactTag, PythonTag],
     color: 'lum-bg-cyan-500',
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://3compute.org',
       },
       {
         icon: SiDiscord,
-        title: 'Discord',
-        href: 'https://discord.gg/nmgtX5z',
-      },
-    ],
-  },
-  {
-    title: '3Compute',
-    description: 'A free educational platform that provides cloud-based development environments for learning and building projects.',
-    image: <LogoBirdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
-    showcase: '3compute_org.jpeg',
-    tags: [ReactTag, PythonTag],
-    color: 'lum-bg-cyan-500',
-    btnClass: 'hover:lum-bg-cyan-500/20',
-    buttons: [
-      {
-        icon: <Globe size={24} />,
-        title: 'Visit page',
-        href: 'https://3compute.org',
-      },
-      {
-        icon: <LogoDiscord size={24} />,
         title: 'Discord',
         href: 'https://discord.gg/nmgtX5z',
       },

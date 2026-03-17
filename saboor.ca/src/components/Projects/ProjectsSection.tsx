@@ -115,8 +115,8 @@ export default component$(() => {
 
                 <div class="flex gap-2 items-center">
                   {typeof project.image === 'string' ?
-                  <img src={project.image} alt={`${project.title} Logo`} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" width={200} height={200} />
-                  : project.image}
+                    <img src={project.image} alt={`${project.title} Logo`} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" width={200} height={200} />
+                    : project.image}
                   <h3 class="text-gray-100 text-base md:text-xl font-bold">
                     {project.title}
                   </h3>
