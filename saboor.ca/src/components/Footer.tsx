@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { SocialButtons } from './Nav';
+import { SocialButtons } from './SocialButtons';
 
 export default component$(() => {
   return (

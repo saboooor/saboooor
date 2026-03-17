@@ -3,7 +3,7 @@ import { DocumentHead, routeLoader$, server$ } from '@builder.io/qwik-city';
 import { LogoLuminescentFull } from '@luminescent/ui-qwik';
 import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
-import { SocialButtons } from '~/components/Nav';
+import { SocialButtons } from '~/components/SocialButtons';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
@@ -154,10 +154,10 @@ export default component$(() => {
             <a
               q:slot="mobile"
               href="https://luminescent.dev" target="_blank"
-              class="lum-btn lum-bg-transparent rounded-lum-6"
+              class="lum-btn lum-bg-transparent rounded-lum-6 p-2"
               data-umami-event-link="luminescent.dev"
             >
-              <div class="flex items-center gap-1 font-semibold">
+              <div class="flex items-center gap-1">
                 <LogoLuminescentFull size={20} />
               </div>
             </a>
@@ -165,12 +165,12 @@ export default component$(() => {
               href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV" target="_blank"
               title="Resume"
               class={{
-                'lum-btn lum-bg-transparent rounded-lum-6 p-2 text-sm': true,
+                'lum-btn lum-bg-luminescent-950/80 hover:lum-bg-luminescent-950 rounded-lum-6 text-sm border-luminescent-500/20 hover:border-luminescent-500 font-bold': true,
               }}
               data-umami-event="resume"
             >
               <FileText size={20} />
-              View my resume
+              Resume
             </a>
           </div>
         </div>
