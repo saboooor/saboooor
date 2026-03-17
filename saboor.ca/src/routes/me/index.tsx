@@ -1,6 +1,5 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
-import { LogoLuminescentFull } from '@luminescent/ui-qwik';
 import { Hand } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import { SocialButtons } from '~/components/SocialButtons';
@@ -42,7 +41,11 @@ export default component$(() => {
   return <>
     <section class="flex flex-col md:flex-row relative mx-auto max-w-xl lg:gap-32 px-4 items-center justify-center min-h-svh">
       <div class="md:flex-1 flex flex-col gap-4 before:rounded-lum before:bg-red-500">
-        <div class="relative transition-all duration-300 lum-card md:p-12 md:pt-48 lum-bg-luminescent-950/10 hover:lum-bg-luminescent-900/10 gradient-border">
+        <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-luminescent-950/10 hover:lum-bg-luminescent-900/10 gradient-border">
+          <div class="absolute -top-18 left-0 w-full">
+            <img src={`https://cdn.discordapp.com/avatars/249638347306303499/${discord.value?.discord_user?.avatar}.png?size=128`} alt="Saboor's avatar"
+              width={128} height={128} class="rounded-full border border-lum-border/30 mx-auto" />
+          </div>
           <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
             width={1280} height={720}
             alt="Saboor's banner"
@@ -107,16 +110,6 @@ export default component$(() => {
 
           <div class="flex justify-evenly flex-wrap">
             <SocialButtons class="rounded-lum-6" />
-            <a
-              q:slot="mobile"
-              href="https://luminescent.dev" target="_blank"
-              class="lum-btn lum-bg-transparent rounded-lum-6 p-2"
-              data-umami-event-link="luminescent.dev"
-            >
-              <div class="flex items-center gap-1">
-                <LogoLuminescentFull size={20} />
-              </div>
-            </a>
           </div>
         </div>
         <div class="flex gap-2 flex-row flex-wrap justify-evenly">
