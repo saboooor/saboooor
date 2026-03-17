@@ -1,21 +1,27 @@
-import { Gamepad, Music, Play } from 'lucide-icons-qwik';
+import { Gamepad, Music, Radio, Trophy, Tv } from 'lucide-icons-qwik';
 
-export const activityType = {
-  0: 'Playing',
-  1: 'Streaming',
-  2: 'Listening to',
-  3: 'Watching',
-  4: '',
-  5: 'Competing In',
-};
-
-export const activityTypeIcons = {
-  0: <Gamepad size={20} />,
-  1: <Play size={20} />,
-  2: <Music size={20} />,
-  3: <Play size={20} />,
-  4: '',
-  5: <Gamepad size={20} />,
+export const activityTypes = {
+  0: {
+    text: 'Playing',
+    icon: Gamepad,
+  },
+  1: {
+    text: 'Streaming',
+    icon: Radio,
+  },
+  2: {
+    text: 'Listening to',
+    icon: Music,
+  },
+  3: {
+    text: 'Watching',
+    icon: Tv,
+  },
+  4: undefined,
+  5: {
+    text: 'Competing In',
+    icon: Trophy,
+  },
 };
 
 export function convertTime(duration: number) {

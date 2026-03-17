@@ -1,11 +1,19 @@
 import { component$, Signal } from '@builder.io/qwik';
-import { activityType, activityTypeIcons, convertTime } from './Lanyard';
+import { activityTypes, convertTime } from './Lanyard';
 
-export default component$(({ activity, now }: {
+export default component$(({ activity, now, fixedwidth, compact }: {
   activity: any;
   now: Signal<number>;
+  fixedwidth?: boolean;
+  compact?: boolean;
 }) => {
-  return <div key={activity.id} class="min-w-full md:min-w-1/3 md:max-w-2/3 flex-1 transition-all duration-300 lum-card relative p-4 lum-bg-gray-950/90 rounded-lum-2">
+  const activityType = activityTypes[activity.type as keyof typeof activityTypes];
+
+  return <div key={activity.id} class={{
+    'p-2 transition-all duration-300 lum-card relative lum-bg-gray-950/90 rounded-lum-2': true,
+    'flex-1 min-w-full md:min-w-1/3 md:max-w-2/3': !fixedwidth,
+    'w-80': fixedwidth,
+  }}>
     <img
       src={activity.assets?.large_image}
       alt={activity.assets?.large_text}
@@ -14,16 +22,25 @@ export default component$(({ activity, now }: {
       class="absolute inset-0 -z-10 w-full h-full object-cover saturate-200 rounded-lum-2"
     />
     <div class="absolute inset-0 -z-10 rounded-lum-2 backdrop-blur-xl"/>
-    <p class="flex gap-2 items-center font-bold text-xs">
-      {(activityTypeIcons as any)[activity.type]}
-      {(activityType as any)[activity.type]}
-      <span class="-ml-1">{activity.name}</span>
-    </p>
-    <div class="flex flex-row gap-4 my-auto">
+    <div class={{
+      'flex gap-2 items-center group absolute top-2 right-2 z-2': true,
+    }}>
+      <p class={{
+        'text-xs whitespace-nowrap absolute top-0 right-7 lum-btn lum-bg-gray-900/50 backdrop-blur-sm lum-btn-p-1 -translate-x-2 opacity-0 -z-1 group-hover:translate-x-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto': true,
+      }}>{activityType?.text} <b>{activity.name}</b></p>
+      {(compact && activityType?.icon) && <activityType.icon size={24} class="lum-btn p-1" />}
+    </div>
+    <div class={{
+      'flex flex-row items-center my-auto z-1 gap-2': true,
+    }}>
       {activity.assets?.large_image &&
-        <div class="relative mb-auto">
-          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 blur-sm opacity-50" />
-          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={75} height={75} class="rounded-lum-6 border border-lum-border/20 absolute top-0 " />
+        <div class={{
+          'relative mb-auto lum-bg-yellow-500/0 rounded-lum-4 w-16 h-16': true,
+        }}>
+          <img src={activity.assets.large_image} alt={activity.assets.large_text} width={80} height={80}
+            class={{
+              'absolute top-0 -z-1 rounded-lum-4': true,
+            }} />
           {activity.assets?.small_image &&
             <img src={activity.assets.small_image} alt={activity.assets.small_text} width={25} height={25} class="rounded-lum-6 absolute -bottom-2 -right-2 border border-lum-border/20" />
           }
@@ -45,28 +62,23 @@ export default component$(({ activity, now }: {
             {activity.assets.large_text}
           </p>
         }
-        {activity.timestamps?.start && !activity.timestamps?.end &&
-          <p class="text-luminescent-400">
-            {convertTime(now.value - activity.timestamps.start)} elapsed
-          </p>
-        }
-        {activity.timestamps?.end && !activity.timestamps?.start &&
-          <p class="text-luminescent-400">
-            {convertTime(now.value - activity.timestamps.end)} left
-          </p>
-        }
+        {!compact && <>
+          {activity.timestamps?.start && !activity.timestamps?.end &&
+            <p class="text-luminescent-300/50">
+              {convertTime(now.value - activity.timestamps.start)} elapsed
+            </p>
+          }
+          {activity.timestamps?.end && !activity.timestamps?.start &&
+            <p class="text-luminescent-300/50">
+              {convertTime(now.value - activity.timestamps.end)} left
+            </p>
+          }
+        </>}
         {activity.timestamps?.start && activity.timestamps?.end &&
-          <div class="text-white text-xs mt-1">
-            <div class="lum-bg-gray-950/10 rounded-lum-6 relative overflow-x-clip">
-              <div class="flex justify-between px-1.5 py-0.5 items-center">
-                <span>{convertTime(now.value - activity.timestamps.start)}</span>
-                <span>{convertTime(activity.timestamps.end - activity.timestamps.start)}</span>
-              </div>
-              <div class="transition-all duration-1000 ease-linear absolute inset-0 rounded-[7px] backdrop-saturate-200 brightness-200" style={{
-                width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
-              }}
-              />
-            </div>
+          <div class="lum-bg-gray-950/10 rounded-lum-6 relative overflow-x-clip min-h-1 mr-2 mt-1">
+            <div class="transition-all duration-1000 ease-linear absolute inset-0 rounded-[7px] backdrop-saturate-200 brightness-200" style={{
+              width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
+            }} />
           </div>
         }
       </div>

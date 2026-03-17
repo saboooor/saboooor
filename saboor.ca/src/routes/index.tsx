@@ -1,13 +1,13 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import { DocumentHead, routeLoader$, server$ } from '@builder.io/qwik-city';
+import { component$, useContext, useSignal } from '@builder.io/qwik';
+import { DocumentHead, server$ } from '@builder.io/qwik-city';
 import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import Socials from '~/components/Socials';
-import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
 import Credentials from '~/components/Credentials/CredentialsSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
+import { DiscordContext, NowContext } from './layout';
 
 export const messages = [
   'hey pookie :3',
@@ -19,13 +19,6 @@ export const messages = [
   'feel free to reach out anytime! :D',
   'omg stawwwp *blushes* >///<',
 ];
-
-export const useData = routeLoader$(async ({ request }) => {
-  const isSafari = request.headers.get('user-agent')?.includes('Safari');
-  return {
-    lanyard: await getLanyardData(isSafari),
-  };
-});
 
 export const addWave = server$(async function addWave() {
   const cookie = this.cookie;
@@ -46,28 +39,9 @@ export const addWave = server$(async function addWave() {
 });
 
 export default component$(() => {
-  const { value: { lanyard } } = useData();
-  const discord = useSignal<any>(lanyard);
-  const now = useSignal(Date.now());
   const waves = useSignal(undefined as number | undefined);
-
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    setInterval(() => {
-      now.value = Date.now();
-    }, 1000);
-
-    setTimeout(() => {
-      connectLanyardSocket('249638347306303499', (d: any) => {
-        if (!d.success) return console.error(d.error);
-        console.log(d.data);
-        discord.value = d.data;
-      }, (error: string) => {
-        console.error('Error connecting to Lanyard WebSocket:', error);
-      }, discord.value.isSafari);
-    }, 5000);
-  });
-
+  const discord = useContext(DiscordContext);
+  const now = useContext(NowContext);
   const customStatus = discord.value?.activities.find((activity: any) => activity.type === 4);
 
   return <>
@@ -81,14 +55,14 @@ export default component$(() => {
         <SabCutout class="absolute top-0 md:top-12 p-5 rounded-lum-6 blur-md md:blur-3xl -z-1 md:opacity-50" />
       </div>
 
-      <div class="md:flex-1 flex flex-col gap-4 before:rounded-lum before:bg-red-500">
+      <div class="md:flex-1 flex flex-col gap-4">
         <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-luminescent-950/10 hover:lum-bg-luminescent-900/10 gradient-border">
           <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
             width={1280} height={720}
             alt="Saboor's banner"
             class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
 
-          <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 slide-in-from-top-5 anim-duration-800">
+          <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-800">
             <button class="lum-btn p-1 hand-wave lum-bg-transparent" onClick$={async () => {
               if (waves.value) return;
               waves.value = 1;
@@ -139,9 +113,9 @@ export default component$(() => {
           </div>
 
           <p class="text-gray-400 md:text-lg animate-in slide-in-from-top-5 anim-duration-1250">
-            <span class="font-bold text-gray-200 animate-in fade-in anim-duration-1250">
+            <b class="text-gray-200 animate-in fade-in anim-duration-1250">
               I'm a self-taught full-stack software developer
-            </span><br />
+            </b><br />
             <span class="animate-in fade-in anim-duration-1400">
               I have always loved technology, problem-solving, creativity, and design. I thrive in creative, collaborative environments and love to experiment and test new things out.
             </span><br />
