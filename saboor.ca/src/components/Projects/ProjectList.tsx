@@ -1,8 +1,10 @@
 import { JSX } from '@builder.io/qwik/jsx-runtime';
-import { LogoBirdflop, LogoDiscord, LogoLuminescent } from '@luminescent/ui-qwik';
+import { LogoBirdflop, LogoLuminescent } from '@luminescent/ui-qwik';
 import { MCTag, QwikTag, ReactTag, PythonTag } from './Tags';
 import { Component } from '@builder.io/qwik';
-import { Github, Globe } from 'lucide-icons-qwik';
+import { Globe } from 'lucide-icons-qwik';
+import { SiDiscord, SiGithub } from 'simple-icons-qwik';
+import { IconProps } from 'simple-icons-qwik/lib-types/icon-props';
 const Mineplace = '/mineplace.svg';
 import Cactie from '~/components/images/projects/Cactie.png?jsx';
 import Luminara from '~/components/images/projects/Luminara.png?jsx';
@@ -19,7 +21,7 @@ export type Project = {
 }
 
 type Button = {
-  icon: JSX.Element;
+  icon: Component<IconProps>;
   title: string;
   href: string;
 }
@@ -35,17 +37,17 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://birdflop.com',
       },
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/birdflop/web',
       },
       {
-        icon: <LogoDiscord size={24} />,
+        icon: SiDiscord,
         title: 'Discord',
         href: 'https://discord.gg/nmgtX5z',
       },
@@ -61,12 +63,12 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://3compute.org',
       },
       {
-        icon: <LogoDiscord size={24} />,
+        icon: SiDiscord,
         title: 'Discord',
         href: 'https://discord.gg/nmgtX5z',
       },
@@ -82,12 +84,12 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-orange-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://burgersonfleek.ca',
       },
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/saboooor/burgersonfleek',
       },
@@ -103,12 +105,12 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-pink-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://ui.luminescent.dev',
       },
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/LuminescentDev/ui',
       },
@@ -123,17 +125,17 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-orange-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://mineplace.me',
       },
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/LuminescentDev/mineplace',
       },
       {
-        icon: <LogoDiscord size={24} />,
+        icon: SiDiscord,
         title: 'Discord',
         href: 'https://discord.gg/qNj5kMwE',
       },
@@ -149,17 +151,17 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-pink-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://luminaramc.org',
       },
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/saboooor/Luminara',
       },
       {
-        icon: <LogoDiscord size={24} />,
+        icon: SiDiscord,
         title: 'Discord',
         href: 'https://discord.gg/Mw7fNpdg5N',
       },
@@ -174,12 +176,12 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/birdflop/botflop',
       },
       {
-        icon: <LogoDiscord size={24} />,
+        icon: SiDiscord,
         title: 'Discord',
         href: 'https://discord.gg/nmgtX5z',
       },
@@ -195,17 +197,17 @@ export const Projects: Project[] = [
     btnClass: 'hover:lum-bg-green-500/20',
     buttons: [
       {
-        icon: <Globe size={24} />,
+        icon: Globe,
         title: 'Visit page',
         href: 'https://cactie.luminescent.dev',
       },
       {
-        icon: <Github size={24} />,
+        icon: SiGithub,
         title: 'Github',
         href: 'https://github.com/saboooor/Cactie',
       },
       {
-        icon: <LogoDiscord size={24} />,
+        icon: SiDiscord,
         title: 'Discord',
         href: '/discord',
       },

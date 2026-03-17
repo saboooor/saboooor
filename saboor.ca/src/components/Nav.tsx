@@ -13,27 +13,27 @@ export const Nav = component$(() => {
       'opacity-0 pointer-events-none -mb-2': !opened.value,
     }}>
       <div class="lum-card lum-bg-gray-900/50 backdrop-blur-lg p-1 gap-1 flex">
-        <Socials class="rounded-lum-1 lum-btn-p-1!" addLabels="right" color size={24} />
+        <Socials class="rounded-lum-1 lum-btn-p-1!" addLabels="right" color size={18} />
       </div>
       <div class="lum-card lum-bg-gray-900/50 backdrop-blur-lg p-1 gap-1 flex">
         <Link href="/" class={{
           'lum-btn lum-btn-p-1 lum-bg-transparent rounded-lum-1': true,
           'lum-bg-luminescent-500/20 hover:lum-bg-luminescent-600': loc.url.pathname === '/',
         }}>
-          <Laptop size={24} />
+          <Laptop size={18} />
           Professional
         </Link>
         <Link href="/me" class={{
           'lum-btn lum-btn-p-1 lum-bg-transparent rounded-lum-1': true,
           'lum-bg-luminescent-500/20 hover:lum-bg-luminescent-600': loc.url.pathname.includes('/me'),
         }}>
-          <Balloon size={24} />
+          <Balloon size={18} />
           Personal
         </Link>
       </div>
     </nav>
     <button class="lum-btn p-2 lum-bg-gray-900/50 backdrop-blur-lg" onClick$={() => (opened.value = !opened.value)}>
-      <Menu size={24} />
+      <Menu size={32} />
     </button>
   </div>;
 });

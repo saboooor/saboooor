@@ -143,13 +143,13 @@ export default component$(() => {
                       target="_blank"
                       draggable={false}
                       class={{
-                        'lum-btn p-2 flex-1 rounded-lum-4 flex flex-col justify-center items-center gap-2': true,
+                        'lum-btn p-2 flex-1 rounded-lum-4 flex flex-col justify-center items-center gap-2 fill-current': true,
                         [project.btnClass]: true,
                         [roundedClass]: project.buttons.length !== 1,
                       }}
                       title={button.title}
                     >
-                      {button.icon}
+                      <button.icon />
                     </a>;
                   })}
                 </div>
