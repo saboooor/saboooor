@@ -11,8 +11,8 @@ export default component$(() => {
   const customStatus = discord.value?.activities.find((activity: any) => activity.type === 4);
 
   return <>
-    <section class="flex flex-col gap-4 relative max-w-xl px-4 mx-auto items-center justify-center min-h-svh">
-      <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-orange-950/10 hover:lum-bg-orange-900/10 gradient-border">
+    <section class="flex flex-col gap-4 relative max-w-3xl px-4 mx-auto items-center justify-center min-h-svh">
+      <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-orange-950/10 hover:lum-bg-orange-900/10">
         <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
           width={1280} height={720}
           alt="Saboor's banner"

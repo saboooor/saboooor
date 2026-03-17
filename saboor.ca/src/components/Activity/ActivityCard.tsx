@@ -1,19 +1,23 @@
-import { component$, Signal } from '@builder.io/qwik';
+import { component$, PropsOf, Signal } from '@builder.io/qwik';
 import { activityTypes, convertTime } from './Lanyard';
 
-export default component$(({ activity, now, fixedwidth, compact }: {
+interface ActivityCardProps extends Omit<PropsOf<'div'>, 'class'>  {
   activity: any;
   now: Signal<number>;
   fixedwidth?: boolean;
   compact?: boolean;
-}) => {
+  class?: { [key: string]: any };
+}
+
+export default component$<ActivityCardProps>(({ activity, now, fixedwidth, compact, class: Class, ...props }) => {
   const activityType = activityTypes[activity.type as keyof typeof activityTypes];
 
   return <div key={activity.id} class={{
     'p-2 transition-all duration-300 lum-card relative lum-bg-gray-950/80 rounded-lum-2': true,
     'flex-1 min-w-full md:min-w-1/3 md:max-w-2/3': !fixedwidth,
     'w-80': fixedwidth,
-  }}>
+    ...Class,
+  }} {...props}>
     <div class="absolute inset-0 -z-10 w-full h-full object-cover saturate-200 rounded-lum-2 overflow-clip">
       <img class="absolute inset-0 saturate-200 -translate-y-1/3 animate-spin anim-duration-10000"
         src={activity.assets?.large_image}

@@ -56,7 +56,7 @@ export default component$(() => {
       </div>
 
       <div class="md:flex-1 flex flex-col gap-4">
-        <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-luminescent-950/10 hover:lum-bg-luminescent-900/10 gradient-border">
+        <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-luminescent-950/10 hover:lum-bg-luminescent-900/10">
           <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
             width={1280} height={720}
             alt="Saboor's banner"
