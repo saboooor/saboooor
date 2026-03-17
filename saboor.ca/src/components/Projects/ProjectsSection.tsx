@@ -21,7 +21,7 @@ export default component$(() => {
       }
 
       // Smooth easing
-      translateX.value += Math.ceil((targetX.value - translateX.value) * 0.1);
+      translateX.value += (targetX.value - translateX.value) * 0.1;
 
       if (Math.abs(targetX.value - translateX.value) < 0.5) return;
 
@@ -62,33 +62,33 @@ export default component$(() => {
 
         {/* LEFT BUTTON */}
         <button
-          class="absolute left-0 z-20 h-full group cursor-pointer"
-          onClick$={() => targetX.value -= 256 + 8 /* card width + gap */}
+          class="absolute left-2 md:left-0 z-20 h-full group cursor-pointer"
+          onClick$={() => targetX.value -= 256 /* card width */}
         >
-          <div class="lum-btn p-2 pl-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
-            <ChevronLeft size={48} />
+          <div class="lum-btn p-2 py-8 backdrop-blur-sm lum-bg-gray-900/50 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+            <ChevronLeft size={48} class="w-6 h-6 md:w-12 md:h-12" />
           </div>
         </button>
 
         {/* RIGHT BUTTON */}
         <button
-          class="absolute right-0 z-20 h-full group cursor-pointer"
-          onClick$={() => targetX.value += 256 + 8 /* card width + gap */}
+          class="absolute right-2 md:right-0 z-20 h-full group cursor-pointer"
+          onClick$={() => targetX.value += 256 /* card width */}
         >
-          <div class="lum-btn p-2 pr-1 py-8 backdrop-blur-sm lum-bg-gray-900 group-hover:lum-bg-gray-800 drop-shadow-2xl">
-            <ChevronRight size={48} />
+          <div class="lum-btn p-2 py-8 backdrop-blur-sm lum-bg-gray-900/50 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+            <ChevronRight size={48} class="w-6 h-6 md:w-12 md:h-12" />
           </div>
         </button>
 
         {/* Fade edges */}
-        <div class="absolute left-8 rounded-r-none rounded-lum bg-linear-to-r from-gray-950 to-transparent h-full w-20 z-10 pointer-events-none"/>
-        <div class="absolute right-8 rounded-l-none rounded-lum bg-linear-to-l from-gray-950 to-transparent h-full w-20 z-10 pointer-events-none"/>
+        <div class="absolute left-8 rounded-r-none rounded-lum bg-linear-to-r from-gray-950 to-transparent h-full w-10 md:w-20 z-10 pointer-events-none"/>
+        <div class="absolute right-8 rounded-l-none rounded-lum bg-linear-to-l from-gray-950 to-transparent h-full w-10 md:w-20 z-10 pointer-events-none"/>
 
         {/* Background */}
         <div class="absolute inset-0 rounded-lum lum-bg-gray-950 mx-8"/>
 
         {/* Viewport */}
-        <div class="flex relative w-full overflow-hidden p-10">
+        <div class="flex relative w-full overflow-hidden p-5 md:p-10">
 
           {/* Scroll container */}
           <div
@@ -104,10 +104,10 @@ export default component$(() => {
                 />
                 {project.showcase && (
                   <img src={'/showcases/' + project.showcase} width={2560} height={1440}
-                    alt={project.title + ' screenshot'} class="rounded-lum-4 border border-lum-border/20 h-42 bg-linear-to-br from-gray-800/10 to-gray-700/10"/>
+                    alt={project.title + ' screenshot'} class="rounded-lum-4 border border-lum-border/20 h-30 md:h-42 bg-linear-to-br from-gray-800/10 to-gray-700/10"/>
                 )}
                 {!project.showcase &&
-                  <div class="rounded-lum-4 w-full h-42 bg-linear-to-br from-gray-800/10 to-gray-700/10 border border-lum-border/20"/>
+                  <div class="rounded-lum-4 w-full h-30 md:h-42 bg-linear-to-br from-gray-800/10 to-gray-700/10 border border-lum-border/20"/>
                 }
 
                 <div class="flex gap-2 items-center">
@@ -121,11 +121,11 @@ export default component$(() => {
                     <Tag key={j}/>
                   ))}
                 </div>
-                <p class="text-gray-400 text-sm md:text-base">
+                <p class="text-gray-400 text-xs md:text-base">
                   {project.description}
                 </p>
 
-                <div class="flex gap-1 items-center mt-auto">
+                <div class="flex md:items-center gap-1 mt-auto">
                   {project.buttons.map((button, i) => {
                     const roundedClass = i === 0
                       ? 'rounded-r-lg'
@@ -139,7 +139,7 @@ export default component$(() => {
                       target="_blank"
                       draggable={false}
                       class={{
-                        'lum-btn flex-1 rounded-lum-4 flex flex-col justify-center items-center gap-2': true,
+                        'lum-btn p-2 flex-1 rounded-lum-4 flex flex-col justify-center items-center gap-2': true,
                         [project.btnClass]: true,
                         [roundedClass]: project.buttons.length !== 1,
                       }}
