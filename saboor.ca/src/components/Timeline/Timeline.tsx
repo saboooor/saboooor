@@ -1,5 +1,6 @@
-import { JSX } from '@qwik.dev/core';
+import { JSX, Component } from '@qwik.dev/core';
 import { Baby, Ellipsis } from 'lucide-icons-qwik';
+import { IconProps } from 'simple-icons-qwik/lib-types/icon-props';
 
 export type TimelineItem = {
   title: string;
@@ -11,7 +12,7 @@ export type TimelineItem = {
 }
 
 type Button = {
-  icon: JSX.Element;
+  icon: Component<IconProps>;
   title: string;
   href: string;
 }
@@ -30,7 +31,7 @@ export const Timeline: {
         color: 'lum-bg-cyan-500',
         buttons: [
           {
-            icon: <Ellipsis size={24} />,
+            icon: Ellipsis,
             title: 'Work in progress',
             href: 'https://birdflop.com',
           },

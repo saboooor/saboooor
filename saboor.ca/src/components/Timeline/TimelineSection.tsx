@@ -37,7 +37,7 @@ export default component$(() => {
                     <div class="flex gap-1 mt-4 justify-end">
                       {item.buttons.map((button) => (
                         <a key={button.title} href={button.href} target="_blank" class="lum-btn rounded-lum-6 lum-bg-transparent">
-                          {button.icon}
+                          <button.icon />
                           <span class="text-xs md:text-sm">{button.title}</span>
                         </a>
                       ))}
