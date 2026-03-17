@@ -19,6 +19,7 @@ export default component$(() => {
 
   return (
     <Nav fixed floating colorClass="lum-bg-lum-input-bg/50 !text-lum-text" class={{
+      'transition-all duration-1000 ease-in-out': true,
       '-mt-20': hidden.value,
     }}>
       <Link q:slot="start" href="/" class="lum-btn gap-2 lum-bg-transparent rounded-lum-2 font-bold p-0 pr-2">

@@ -73,19 +73,23 @@ export default component$(() => {
 
   return <>
     <section class="flex flex-col md:flex-row relative mx-auto max-w-7xl lg:gap-32 px-4 items-center justify-center min-h-svh">
-      <div class="relative drop-shadow-2xl w-1/2 md:w-full z-10 md:z-0 md:flex-1">
-        <SabCutout class="shadow-outline p-5 rounded-[3rem]" />
-        <SabCutout class="absolute top-0 blur-md md:blur-3xl -z-1 p-5 opacity-50" />
+      <div class="relative drop-shadow-2xl w-1/2 md:w-full z-10 md:z-0 md:flex-1"
+        style={{
+          '--lum-border-radius': '6rem',
+          '--lum-border-superellipse': '2',
+        }}>
+        <SabCutout class="shadow-outline p-5 rounded-lum-6" />
+        <SabCutout class="absolute top-0 md:top-12 p-5 rounded-lum-6 blur-md md:blur-3xl -z-1 md:opacity-50" />
       </div>
 
-      <div class="md:flex-1 flex flex-col gap-4">
-        <div class="transition-all duration-300 lum-card md:p-12 md:pt-48 border-gradient-3 before:from-red-500/10 before:to-luminescent-500/10 lum-bg-gray-900/50 hover:lum-bg-gray-900/70">
+      <div class="md:flex-1 flex flex-col gap-4 before:rounded-lum before:bg-red-500">
+        <div class="relative transition-all duration-300 lum-card md:p-12 md:pt-48 lum-bg-luminescent-950/10 hover:lum-bg-luminescent-900/10 gradient-border">
           <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
             width={1280} height={720}
             alt="Saboor's banner"
             class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
           <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg text-shadow-black/50">
-            <button class="lum-btn p-1 hand-wave lum-bg-transparent hover:lum-bg-luminescent-900" onClick$={async () => {
+            <button class="lum-btn p-1 hand-wave lum-bg-transparent" onClick$={async () => {
               if (waves.value) return;
               waves.value = 1;
               waves.value = await addWave();
@@ -125,7 +129,7 @@ export default component$(() => {
           }
           <div class="flex">
             <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" target="_blank" data-umami-event="location"
-              class="text-gray-400 flex items-center gap-2 lum-btn lum-bg-transparent hover:lum-bg-luminescent-900 lum-btn-p-1 -ml-2">
+              class="text-gray-400 flex items-center gap-2 lum-btn lum-bg-transparent lum-btn-p-1 -ml-2">
               <MapPin size={20} />
               Ajax, ON. Canada
             </a>
@@ -146,11 +150,11 @@ export default component$(() => {
           <hr class="my-2 border-lum-border/10" />
 
           <div class="flex justify-evenly flex-wrap">
-            <SocialButtons class="rounded-lum-6 hover:lum-bg-luminescent-900" />
+            <SocialButtons class="rounded-lum-6" />
             <a
               q:slot="mobile"
               href="https://luminescent.dev" target="_blank"
-              class="lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900"
+              class="lum-btn lum-bg-transparent rounded-lum-6"
               data-umami-event-link="luminescent.dev"
             >
               <div class="flex items-center gap-1 font-semibold">
@@ -161,7 +165,7 @@ export default component$(() => {
               href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV" target="_blank"
               title="Resume"
               class={{
-                'lum-btn lum-bg-transparent rounded-lum-6 hover:lum-bg-luminescent-900 p-2 text-sm': true,
+                'lum-btn lum-bg-transparent rounded-lum-6 p-2 text-sm': true,
               }}
               data-umami-event="resume"
             >
