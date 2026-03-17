@@ -8,15 +8,13 @@ import { Globe } from 'lucide-icons-qwik';
 import Luminara from '~/components/images/projects/Luminara.png?jsx';
 import Cactie from '~/components/images/projects/Cactie.png?jsx';
 export const LuminaraIcon = component$(() => {
-  return <Luminara class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" />;
+  return <Luminara class="w-6 h-6 md:min-w-12 md:min-h-12" />;
 });
 export const CactieIcon = component$(() => {
-  return <Cactie class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" />;
+  return <Cactie class="w-6 h-6 md:min-w-12 md:min-h-12" />;
 });
 export const LuminescentUIIcon = component$(() => {
-  return <span class="flex items-center justify-center text-[#f0ccfb] fill-[#f0ccfb] text-3xl md:text-5xl" style="filter: drop-shadow(0 0 2rem #CB6CE6);">
-    <Luminescent size={150} class="my-5.5 md:my-12.5 w-19 h-19 md:w-30 md:h-30" />/ ui
-  </span>;
+  return <Luminescent size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" />;
 });
 
 export type Project = {

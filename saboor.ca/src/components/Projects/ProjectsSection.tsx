@@ -115,7 +115,7 @@ export default component$(() => {
 
                 <div class="flex gap-2 items-center">
                   {typeof project.image === 'string' ?
-                    <img src={project.image} alt={`${project.title} Logo`} class="mx-auto mb-5 w-25 h-25 md:w-50 md:h-50" width={200} height={200} />
+                    <img src={project.image} alt={`${project.title} Logo`} class="w-6 h-6 md:min-w-12 md:min-h-12" width={48} height={48} />
                     : project.image}
                   <h3 class="text-gray-100 text-base md:text-xl font-bold">
                     {project.title}
@@ -130,24 +130,29 @@ export default component$(() => {
                   {project.description}
                 </p>
 
-                <Blobs
-                  color={[project.color, project.color, project.color]}
-                  class={{ 'absolute overflow-clip rounded-lg -z-10': true }}
-                  style={{ transform: 'translateZ(-10px)' }}
-                />
+                <div class="flex md:items-center gap-1 mt-auto">
+                  {project.buttons.map((button, i) => {
+                    const roundedClass = i === 0
+                      ? 'rounded-r-lg'
+                      : i === project.buttons.length - 1
+                        ? 'rounded-l-lg'
+                        : 'rounded-lg';
 
-                {/* Hover overlay */}
-                <div class="group lum-card lum-bg-gray-900/30 absolute inset-0 p-2 gap-2 w-full h-full z-10 backdrop-blur-md opacity-0 hover:opacity-100 transition duration-200">
-
-                  {project.buttons.map((button, i) => (
-                    <a key={i} href={button.href} draggable={false} class={{
-                      'lum-btn pointer-events-none group-hover:pointer-events-auto h-full w-full rounded-lum-2 lum-bg-transparent flex flex-col justify-center transition-all items-center gap-2 fill-current': true,
-                      [project.btnClass]: project.btnClass,
-                    }}>
-                      {button.icon}
-                      {button.title}
-                    </a>
-                  ))}
+                    return <a
+                      key={i}
+                      href={button.href}
+                      target="_blank"
+                      draggable={false}
+                      class={{
+                        'lum-btn p-2 flex-1 rounded-lum-4 flex flex-col justify-center items-center gap-2 fill-current': true,
+                        [project.btnClass]: true,
+                        [roundedClass]: project.buttons.length !== 1,
+                      }}
+                      title={button.title}
+                    >
+                      <button.icon size={24} />
+                    </a>;
+                  })}
 
                 </div>
               </div>
