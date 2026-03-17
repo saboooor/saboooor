@@ -39,8 +39,8 @@ export default component$(() => {
 
   return (
     <>
-      <Nav />
       <Slot />
+      <Nav />
       <Footer />
     </>
   );

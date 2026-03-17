@@ -1,11 +1,13 @@
 import { component$, Slot, useContext } from '@builder.io/qwik';
 import { DiscordContext, NowContext } from '../layout';
 import ActivityCard from '~/components/Activity/ActivityCard';
-import { Music } from 'lucide-icons-qwik';
+import { Balloon, Music } from 'lucide-icons-qwik';
+import { Link, useLocation } from '@builder.io/qwik-city';
 
 export default component$(() => {
   const discord = useContext(DiscordContext);
   const now = useContext(NowContext);
+  const loc = useLocation();
 
   return (
     <>
@@ -22,13 +24,24 @@ export default component$(() => {
         </div>
       </div>
       <Slot />
-      <div class="fixed bottom-5 w-full">
-        <div class="flex gap-2 items-center justify-center max-w-7xl mx-auto">
-          <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" target="_blank" data-umami-event="location"
-            class="text-gray-200 lum-btn lum-btn-p-4 lum-bg-pink-500/10 text-2xl">
-            <Music size={36} />
-            Music
-          </a>
+      <div class="fixed flex justify-center bottom-5 w-full">
+        <div class="flex gap-1 items-center lum-bg-gray-900 p-1 rounded-lum">
+          <Link href="/me"
+            class={{
+              'text-gray-200 lum-btn rounded-r-lg lum-bg-transparent': true,
+              'lum-bg-pink-500/20 hover:lum-bg-pink-500': loc.url.pathname === '/me' || loc.url.pathname === '/me/',
+            }}>
+            <Balloon />
+            home
+          </Link>
+          <Link href="/me/music"
+            class={{
+              'text-gray-200 lum-btn rounded-l-lg lum-bg-transparent': true,
+              'lum-bg-pink-500/20 hover:lum-bg-pink-500': loc.url.pathname.includes('/me/music'),
+            }}>
+            <Music />
+            music
+          </Link>
         </div>
       </div>
     </>
