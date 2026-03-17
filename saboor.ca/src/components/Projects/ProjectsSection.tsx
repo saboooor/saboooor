@@ -8,22 +8,26 @@ import { Projects } from './ProjectList';
 export default component$(() => {
   const translateX = useSignal(0);
   const targetX = useSignal(0);
+  const rafId = useSignal<number | null>(null);
   const containerRef = useSignal<HTMLDivElement>();
 
   useTask$(({ track }) => {
     track(() => targetX.value);
+    if (!isBrowser) return;
 
     const animate = () => {
       const el = containerRef.value;
       if (!el) {
-        requestAnimationFrame(animate);
+        rafId.value = requestAnimationFrame(animate);
         return;
       }
 
       // Smooth easing
-      translateX.value += (targetX.value - translateX.value) * 0.1;
-
-      if (Math.abs(targetX.value - translateX.value) < 0.5) return;
+      translateX.value += (targetX.value - translateX.value) * 0.05;
+      if (Math.abs(targetX.value - translateX.value) < 0.5) {
+        rafId.value = null;
+        return;
+      }
 
       const width = el.scrollWidth / 2;
 
@@ -40,10 +44,10 @@ export default component$(() => {
       // Apply transform (negative for left scroll)
       el.style.transform = `translateX(-${translateX.value}px)`;
 
-      requestAnimationFrame(animate);
+      rafId.value = requestAnimationFrame(animate);
     };
 
-    if (isBrowser) animate();
+    if (!rafId.value) rafId.value = requestAnimationFrame(animate);
   });
 
   return (
