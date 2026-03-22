@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "saboor-ca",
 	"main": "./dist/_worker.js",
-	"compatibility_date": "2025-08-15",
+	"compatibility_date": "2026-04-01",
 	"compatibility_flags": [
 		"nodejs_compat",
 		"global_fetch_strictly_public"
@@ -25,10 +25,6 @@
 		},
 		{
 			"pattern": "www.saboor.ca",
-			"custom_domain": true
-		},
-		{
-			"pattern": "sab.luminescent.dev",
 			"custom_domain": true
 		}
 	],
