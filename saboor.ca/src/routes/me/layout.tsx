@@ -41,7 +41,7 @@ export default component$(() => {
           <Link href="/me"
             class={{
               'text-gray-200 lum-btn rounded-r-lg lum-bg-transparent': true,
-              'lum-bg-pink-500/20 hover:lum-bg-pink-500': loc.url.pathname === '/me' || loc.url.pathname === '/me/',
+              'lum-bg-lum-accent hover:lum-bg-lum-accent': loc.url.pathname === '/me' || loc.url.pathname === '/me/',
             }}>
             <Balloon />
             home
@@ -49,7 +49,7 @@ export default component$(() => {
           <Link href="/me/music"
             class={{
               'text-gray-200 lum-btn rounded-l-lg lum-bg-transparent': true,
-              'lum-bg-pink-500/20 hover:lum-bg-pink-500': loc.url.pathname.includes('/me/music'),
+              'lum-bg-lum-accent hover:lum-bg-lum-accent': loc.url.pathname.includes('/me/music'),
             }}>
             <Music />
             music

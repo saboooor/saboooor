@@ -106,7 +106,8 @@ export default component$(({ class: className, addLabels, color, size }: {
     title={social.name}
     key={social.name}
     class={{
-      'lum-btn lum-bg-transparent p-2 fill-current': true,
+      'lum-btn lum-bg-transparent fill-current': true,
+      'p-2': !addLabels,
       [className ?? '']: className,
     }}
   >

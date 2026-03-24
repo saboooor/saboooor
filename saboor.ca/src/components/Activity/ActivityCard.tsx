@@ -69,12 +69,12 @@ export default component$<ActivityCardProps>(({ activity, now, fixedwidth, compa
         }
         {!compact && <>
           {activity.timestamps?.start && !activity.timestamps?.end &&
-            <p class="text-luminescent-300/50">
+            <p class="text-violet-300/50">
               {convertTime(now.value - activity.timestamps.start)} elapsed
             </p>
           }
           {activity.timestamps?.end && !activity.timestamps?.start &&
-            <p class="text-luminescent-300/50">
+            <p class="text-violet-300/50">
               {convertTime(now.value - activity.timestamps.end)} left
             </p>
           }
