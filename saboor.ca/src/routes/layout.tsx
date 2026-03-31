@@ -1,4 +1,5 @@
-import { component$, createContextId, Signal, Slot, useContextProvider, useSignal, useVisibleTask$, routeLoader$ } from '@qwik.dev/core';
+import { component$, createContextId, Signal, Slot, useContextProvider, useSignal, useVisibleTask$ } from '@qwik.dev/core';
+import { routeLoader$ } from '@qwik.dev/router';
 import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
 import Footer from '~/components/Footer';
 import { Nav } from '~/components/Nav';
