@@ -22,19 +22,21 @@ export default component$(() => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       now.value = Date.now();
     }, 1000);
+    return () => clearInterval(intervalId);
+  });
 
-    setTimeout(() => {
-      connectLanyardSocket('249638347306303499', (d: any) => {
-        if (!d.success) return console.error(d.error);
-        console.log(d.data);
-        discord.value = d.data;
-      }, (error: string) => {
-        console.error('Error connecting to Lanyard WebSocket:', error);
-      }, discord.value.isSafari);
-    }, 5000);
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    connectLanyardSocket('249638347306303499', (d: any) => {
+      if (!d.success) return console.error(d.error);
+      console.log(d.data);
+      discord.value = d.data;
+    }, (error: string) => {
+      console.error('Error connecting to Lanyard WebSocket:', error);
+    }, discord.value.isSafari);
   });
 
   return (
