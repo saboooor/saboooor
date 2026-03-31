@@ -26,7 +26,7 @@ export default component$(() => {
       now.value = Date.now();
     }, 1000);
     return () => clearInterval(intervalId);
-  });
+  }, { strategy: 'document-ready' });
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
@@ -37,7 +37,7 @@ export default component$(() => {
     }, (error: string) => {
       console.error('Error connecting to Lanyard WebSocket:', error);
     }, discord.value.isSafari);
-  });
+  }, { strategy: 'document-ready' });
 
   return (
     <>
