@@ -1,6 +1,6 @@
 import { JSX, Component } from '@qwik.dev/core';
 import { Baby, Ellipsis } from 'lucide-icons-qwik';
-import { IconProps } from 'simple-icons-qwik/lib-types/icon-props';
+import { IconProps } from 'simple-icons-qwik';
 
 export type TimelineItem = {
   title: string;

@@ -68,7 +68,7 @@ export default component$(() => {
           class="absolute left-2 md:left-0 z-20 h-full group cursor-pointer"
           onClick$={() => targetX.value -= 256 /* card width */}
         >
-          <span class="lum-btn p-2 py-8 backdrop-blur-sm lum-bg-gray-900/50 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+          <span class="lum-btn p-2 py-8 lum-bg-gray-900/50 group-hover:lum-bg-gray-800 backdrop-blur-sm">
             <ChevronLeft size={48} class="w-6 h-6 md:w-12 md:h-12" />
           </span>
         </button>
@@ -78,7 +78,7 @@ export default component$(() => {
           class="absolute right-2 md:right-0 z-20 h-full group cursor-pointer"
           onClick$={() => targetX.value += 256 /* card width */}
         >
-          <span class="lum-btn p-2 py-8 backdrop-blur-sm lum-bg-gray-900/50 group-hover:lum-bg-gray-800 drop-shadow-2xl">
+          <span class="lum-btn p-2 py-8 lum-bg-gray-900/50 group-hover:lum-bg-gray-800 backdrop-blur-sm">
             <ChevronRight size={48} class="w-6 h-6 md:w-12 md:h-12" />
           </span>
         </button>

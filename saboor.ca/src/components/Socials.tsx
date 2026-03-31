@@ -1,10 +1,10 @@
-import { component$ } from '@builder.io/qwik';
+import { component$ } from '@qwik.dev/core';
+import { useLocation } from '@qwik.dev/router';
 
 import { Mail } from 'lucide-icons-qwik';
 import { SiGithub, SiDiscord, SiSteam, SiSpotify, SiReddit, SiLetterboxd, SiApplemuSic, SiYoutubemuSic } from 'simple-icons-qwik';
 import LinkedIn from './icons/LinkedIn';
-import { useLocation } from '@builder.io/qwik-city';
-import { LogoLuminescent } from '@luminescent/ui-qwik';
+import { Luminescent } from '@luminescent/icons-qwik';
 
 const socials = [
   {
@@ -40,7 +40,7 @@ const socials = [
     name: 'Luminescent',
     color: 'text-luminescent-200',
     href: 'https://luminescent.dev',
-    icon: LogoLuminescent,
+    icon: Luminescent,
     personal: false,
   },
   {
@@ -106,7 +106,8 @@ export default component$(({ class: className, addLabels, color, size }: {
     title={social.name}
     key={social.name}
     class={{
-      'lum-btn lum-bg-transparent p-2 fill-current': true,
+      'lum-btn lum-bg-transparent fill-current': true,
+      'p-2': !addLabels,
       [className ?? '']: className,
     }}
   >
