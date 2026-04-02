@@ -8,6 +8,7 @@ import Technologies from '~/components/Technologies/TechnologiesSection';
 import Credentials from '~/components/Credentials/CredentialsSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
 import { DiscordContext, NowContext } from './layout';
+import { Background } from '~/root';
 
 export const messages = [
   'hey pookie :3',
@@ -57,7 +58,7 @@ export default component$(() => {
 
       <div class="md:flex-1 flex flex-col gap-4">
         <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-violet-950/10 hover:lum-bg-violet-900/10">
-          <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
+          <Background
             width={1280} height={720}
             alt="Saboor's banner"
             class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />

@@ -26,12 +26,12 @@ export default component$(() => {
             }} key={activity.id} activity={activity} now={now} fixedwidth compact />;
           })}
           <button class="lum-btn rounded-lum-4 p-3 lum-bg-gray-900/50 hover:lum-bg-gray-800 drop-shadow-2xl backdrop-blur-lg" onClick$={() => hidden.value = !hidden.value}>
-            <div class={{
+            <span class={{
               'transition-all duration-300': true,
               'rotate-180': hidden.value,
             }}>
               <ChevronUp size={38} />
-            </div>
+            </span>
           </button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Hand } from 'lucide-icons-qwik';
 import Socials from '~/components/Socials';
 import { addWave, messages } from '..';
 import { DiscordContext } from '../layout';
+import { Background } from '~/root';
 
 export default component$(() => {
   const waves = useSignal(undefined as number | undefined);
@@ -13,7 +14,7 @@ export default component$(() => {
   return <>
     <section class="flex flex-col gap-4 relative max-w-3xl px-4 mx-auto items-center justify-center min-h-svh">
       <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-orange-950/10 hover:lum-bg-orange-900/10">
-        <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
+        <Background
           width={1280} height={720}
           alt="Saboor's banner"
           class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />

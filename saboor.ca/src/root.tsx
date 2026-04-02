@@ -4,6 +4,12 @@ import { RouterHead } from './components/Head';
 
 import './global.css';
 
+// i cba to detect whenever i have nitro or not
+//const bgImg = 'https://dcdn.dstn.to/banners/249638347306303499?size=1280';
+
+import BgImg from '~/components/images/bg.png?jsx';
+export const Background = BgImg;
+
 export default component$(() => {
   /**
    * The root of a QwikCity site always start with the <QwikCityProvider> component,
@@ -21,7 +27,7 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body class="text-gray-200">
-        <img src="https://dcdn.dstn.to/banners/249638347306303499?size=1280"
+        <Background
           width={1280} height={720}
           alt="Saboor's banner"
           class="fixed w-full -z-1 mask-b-from-0 blur-lg top-0 scale-120 opacity-20 overflow-clip" />
