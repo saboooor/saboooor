@@ -13,7 +13,7 @@ export default component$(() => {
 
   return <>
     <section class="flex flex-col gap-4 relative max-w-3xl px-4 mx-auto items-center justify-center min-h-svh">
-      <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-orange-950/10 hover:lum-bg-orange-900/10">
+      <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-grad-bg-orange-950/10 hover:lum-bg-orange-900/10">
         <Background
           width={1280} height={720}
           alt="Saboor's banner"

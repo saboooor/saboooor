@@ -57,7 +57,7 @@ export default component$(() => {
       </div>
 
       <div class="md:flex-1 flex flex-col gap-4">
-        <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-bg-violet-950/10 hover:lum-bg-violet-900/10">
+        <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-grad-bg-violet-950/10 hover:lum-bg-violet-900/10">
           <Background
             width={1280} height={720}
             alt="Saboor's banner"
@@ -140,7 +140,7 @@ export default component$(() => {
               href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV" target="_blank"
               title="Resume"
               class={{
-                'lum-btn lum-bg-lum-accent hover:lum-bg-lum-accent/50 rounded-lum-6 text-sm border-lum-accent/20 hover:border-lum-accent font-bold': true,
+                'lum-btn lum-grad-bg-lum-accent hover:lum-bg-lum-accent/50 rounded-lum-6 text-sm border-lum-accent/20 hover:border-lum-accent font-bold': true,
               }}
               data-umami-event="resume"
             >

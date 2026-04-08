@@ -22,6 +22,6 @@ export const Credentials: Project[] = [
     date: 'Issued Mar 11 2026',
     description: 'Validates foundational AWS fluency and essential cloud service identification.',
     image: <AWSCCPBadge />,
-    class: 'lum-bg-blue-950/20 hover:lum-bg-blue-950',
+    class: 'lum-grad-bg-blue-950/20 hover:lum-bg-blue-950',
   },
 ];

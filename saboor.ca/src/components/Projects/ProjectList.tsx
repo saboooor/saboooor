@@ -41,7 +41,7 @@ export const Projects: Project[] = [
     image: <Birdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
     showcase: 'birdflop_com.jpeg',
     tags: [QwikTag, MCTag],
-    color: 'lum-bg-cyan-500',
+    color: 'lum-grad-bg-cyan-500',
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
@@ -67,7 +67,7 @@ export const Projects: Project[] = [
     image: <Birdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
     showcase: '3compute_org.jpeg',
     tags: [ReactTag, PythonTag],
-    color: 'lum-bg-cyan-500',
+    color: 'lum-grad-bg-cyan-500',
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
@@ -88,7 +88,7 @@ export const Projects: Project[] = [
     image: '/burgersonfleek.svg',
     showcase: 'burgersonfleek_ca.jpeg',
     tags: [QwikTag],
-    color: 'lum-bg-orange-500',
+    color: 'lum-grad-bg-orange-500',
     btnClass: 'hover:lum-bg-orange-500/20',
     buttons: [
       {
@@ -109,7 +109,7 @@ export const Projects: Project[] = [
     image: <LuminescentUIIcon />,
     showcase: 'ui_luminescent_dev.jpeg',
     tags: [QwikTag, ReactTag],
-    color: 'lum-bg-pink-500',
+    color: 'lum-grad-bg-pink-500',
     btnClass: 'hover:lum-bg-pink-500/20',
     buttons: [
       {
@@ -129,7 +129,7 @@ export const Projects: Project[] = [
     description: 'A 3d version of r/place in Minecraft, powered by Birdflop Hosting.',
     image: '/mineplace.svg',
     tags: [QwikTag, MCTag],
-    color: 'lum-bg-orange-500',
+    color: 'lum-grad-bg-orange-500',
     btnClass: 'hover:lum-bg-orange-500/20',
     buttons: [
       {
@@ -155,7 +155,7 @@ export const Projects: Project[] = [
     image: <LuminaraIcon />,
     showcase: 'luminaramc_org.jpeg',
     tags: [QwikTag, MCTag],
-    color: 'lum-bg-pink-500',
+    color: 'lum-grad-bg-pink-500',
     btnClass: 'hover:lum-bg-pink-500/20',
     buttons: [
       {
@@ -180,7 +180,7 @@ export const Projects: Project[] = [
     description: 'A Discord bot originally written in Python ported to JavaScript with 300,000+ users that analyzes timings delay reports to suggest mitigations for common Minecraft server issues.',
     image: <Birdflop size={48} class="w-6 h-6 md:w-12 md:h-12" fillGradient={['#54daf4', '#545eb6']}/>,
     tags: [MCTag, PythonTag],
-    color: 'lum-bg-cyan-500',
+    color: 'lum-grad-bg-cyan-500',
     btnClass: 'hover:lum-bg-cyan-500/20',
     buttons: [
       {
@@ -201,7 +201,7 @@ export const Projects: Project[] = [
     image: <CactieIcon />,
     showcase: 'cactie_luminescent_dev.jpeg',
     tags: [QwikTag],
-    color: 'lum-bg-green-500',
+    color: 'lum-grad-bg-green-500',
     btnClass: 'hover:lum-bg-green-500/20',
     buttons: [
       {

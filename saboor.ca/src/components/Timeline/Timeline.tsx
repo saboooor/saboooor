@@ -28,7 +28,7 @@ export const Timeline: {
         title: 'Start',
         description: 'I started my journey into programming and web development.',
         image: <Baby size={56} class="min-w-14"/>,
-        color: 'lum-bg-cyan-500',
+        color: 'lum-grad-bg-cyan-500',
         buttons: [
           {
             icon: Ellipsis,

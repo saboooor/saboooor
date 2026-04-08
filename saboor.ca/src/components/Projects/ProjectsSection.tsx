@@ -68,7 +68,7 @@ export default component$(() => {
           class="absolute left-2 md:left-0 z-20 h-full group cursor-pointer"
           onClick$={() => targetX.value -= 256 /* card width */}
         >
-          <span class="lum-btn p-2 py-8 lum-bg-gray-900/50 group-hover:lum-bg-gray-800 backdrop-blur-sm">
+          <span class="lum-btn p-2 py-8 lum-grad-bg-gray-900/50 group-hover:lum-bg-gray-800 backdrop-blur-sm">
             <ChevronLeft size={48} class="w-6 h-6 md:w-12 md:h-12" />
           </span>
         </button>
@@ -78,7 +78,7 @@ export default component$(() => {
           class="absolute right-2 md:right-0 z-20 h-full group cursor-pointer"
           onClick$={() => targetX.value += 256 /* card width */}
         >
-          <span class="lum-btn p-2 py-8 lum-bg-gray-900/50 group-hover:lum-bg-gray-800 backdrop-blur-sm">
+          <span class="lum-btn p-2 py-8 lum-grad-bg-gray-900/50 group-hover:lum-bg-gray-800 backdrop-blur-sm">
             <ChevronRight size={48} class="w-6 h-6 md:w-12 md:h-12" />
           </span>
         </button>
@@ -88,7 +88,7 @@ export default component$(() => {
         <div class="absolute right-8 rounded-l-none rounded-lum bg-linear-to-l from-gray-950 to-transparent h-full w-10 md:w-20 z-10 pointer-events-none"/>
 
         {/* Background */}
-        <div class="absolute inset-0 rounded-lum lum-bg-gray-950 mx-8"/>
+        <div class="absolute inset-0 rounded-lum lum-grad-bg-gray-950 mx-8"/>
 
         {/* Viewport */}
         <div class="flex relative w-full overflow-hidden p-5 md:p-10">
@@ -99,7 +99,7 @@ export default component$(() => {
             class="flex gap-2 py-2 select-none"
           >
             {[...Projects, ...Projects].map((project, i) => (
-              <div key={`${project.title}-${i}`} class="lum-card p-4 gap-4 lum-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:w-64">
+              <div key={`${project.title}-${i}`} class="lum-card p-4 gap-4 lum-grad-bg-gray-900/50 relative min-w-48 max-w-48 md:min-w-64 md:w-64">
                 <Blobs
                   color={[project.color, project.color, project.color]}
                   class={{ 'absolute overflow-clip rounded-lum -z-10 pointer-events-none': true }}

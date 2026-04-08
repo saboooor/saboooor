@@ -23,7 +23,7 @@ export default component$(() => {
               </h3>
               {yearGroup.items.map((item) => (
                 <div key={item.title} class={{
-                  'lum-card flex-row items-center p-6 gap-6 rounded-lum-4 lum-bg-gray-800': true,
+                  'lum-card flex-row items-center p-6 gap-6 rounded-lum-4 lum-grad-bg-gray-800': true,
                   [item.class ?? '']: true,
                 }}>
                   {item.image}

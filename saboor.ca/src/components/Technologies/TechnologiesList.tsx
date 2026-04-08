@@ -28,14 +28,14 @@ export const Technologies: Project[] = [
     description: 'Javascript but with types',
     image: <SiTypescript size={56} class="fill-blue-500 min-w-14" />,
     imageClass: 'fill-blue-500 min-w-14',
-    class: 'lum-bg-blue-950/20 hover:lum-bg-blue-950',
+    class: 'lum-grad-bg-blue-950/20 hover:lum-bg-blue-950',
   },
   {
     title: 'Qwik',
     href: 'https://qwik.dev/',
     description: 'An instantly-interactive web framework',
     image: <QwikLogo />,
-    class: 'lum-bg-purple-950/20 hover:lum-bg-purple-950',
+    class: 'lum-grad-bg-purple-950/20 hover:lum-bg-purple-950',
   },
   {
     title: 'TailwindCSS',
@@ -43,7 +43,7 @@ export const Technologies: Project[] = [
     description: 'A utility-first CSS framework',
     image: <SiTailwindcss size={56} class="fill-cyan-500 min-w-14" />,
     imageClass: 'fill-cyan-500 min-w-14',
-    class: 'lum-bg-cyan-950/20 hover:lum-bg-cyan-950',
+    class: 'lum-grad-bg-cyan-950/20 hover:lum-bg-cyan-950',
   },
   {
     title: 'NodeJS',
@@ -51,7 +51,7 @@ export const Technologies: Project[] = [
     description: 'A backend Javascript runtime',
     image: <SiNodedotjs size={56} class="fill-green-500 min-w-14" />,
     imageClass: 'fill-green-500 min-w-14',
-    class: 'lum-bg-green-950/20 hover:lum-bg-green-950',
+    class: 'lum-grad-bg-green-950/20 hover:lum-bg-green-950',
   },
   {
     title: 'React',
@@ -59,21 +59,21 @@ export const Technologies: Project[] = [
     description: 'A Javascript web framework',
     image: <SiReact size={56} class="fill-blue-500 min-w-14" />,
     imageClass: 'fill-blue-500 min-w-14',
-    class: 'lum-bg-blue-950/20 hover:lum-bg-blue-950',
+    class: 'lum-grad-bg-blue-950/20 hover:lum-bg-blue-950',
   },
   {
     title: 'Python',
     href: 'https://www.python.org/',
     description: 'A general-purpose programming language',
     image: <PythonLogo />,
-    class: 'lum-bg-yellow-950/20 hover:lum-bg-yellow-950',
+    class: 'lum-grad-bg-yellow-950/20 hover:lum-bg-yellow-950',
   },
   {
     title: 'Tauri',
     href: 'https://tauri.app/',
     description: 'A framework for building tiny fast desktop applications',
     image: <TauriLogo />,
-    class: 'lum-bg-yellow-950/20 hover:lum-bg-yellow-950',
+    class: 'lum-grad-bg-yellow-950/20 hover:lum-bg-yellow-950',
     wip: true,
   },
   {
@@ -82,7 +82,7 @@ export const Technologies: Project[] = [
     description: 'A low-level programming language',
     image: <SiRust size={56} class="fill-orange-500 min-w-14" />,
     imageClass: 'fill-orange-500 min-w-14',
-    class: 'lum-bg-orange-950/20 hover:lum-bg-orange-950',
+    class: 'lum-grad-bg-orange-950/20 hover:lum-bg-orange-950',
     wip: true,
   },
   {
@@ -90,7 +90,7 @@ export const Technologies: Project[] = [
     href: 'https://www.java.com/',
     description: 'A language for building applications - such as Minecraft',
     image: <JavaLogo />,
-    class: 'lum-bg-cyan-950/20 hover:lum-bg-cyan-950',
+    class: 'lum-grad-bg-cyan-950/20 hover:lum-bg-cyan-950',
     wip: true,
   },
 ];

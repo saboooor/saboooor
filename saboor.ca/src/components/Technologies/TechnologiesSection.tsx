@@ -17,7 +17,7 @@ export default component$(() => {
       <div class="flex flex-row relative w-full mb-4 mt-4 gap-2 flex-wrap max-w-max justify-center">
         {Technologies.map((tech) => !tech.wip && (
           <a key={tech.title} class={{
-            'lum-btn flex-row items-center p-6 gap-6 rounded-lum-3 w-96 lum-hoverable': true,
+            'lum-card flex-row items-center transition-all duration-200! relative w-96': true,
             [tech.class]: true,
           }} href={tech.href} target='_blank' data-umami-event-tech={tech.title}
           onMouseMove$={(e, el) => Hoverable.onMouseMove$(e, el)}
@@ -45,7 +45,7 @@ export default component$(() => {
       <div class="flex flex-row relative w-full mb-10 mt-4 gap-2 flex-wrap max-w-max justify-center">
         {Technologies.map((tech) => tech.wip && (
           <a key={tech.title} class={{
-            'lum-btn flex-row items-center p-6 gap-6 rounded-lum-3 w-96 lum-hoverable': true,
+            'lum-card flex-row items-center transition-all duration-200! relative w-96': true,
             [tech.class]: true,
           }} href={tech.href} target='_blank' data-umami-event-tech={tech.title}
           onMouseMove$={(e, el) => Hoverable.onMouseMove$(e, el)}

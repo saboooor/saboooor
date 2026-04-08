@@ -17,7 +17,7 @@ export default component$(() => {
       <div class="flex flex-row relative w-full mb-4 mt-4 gap-2 flex-wrap max-w-max justify-center">
         {Credentials.map((cred) => !cred.wip && (
           <a key={cred.title} class={{
-            'lum-btn flex-row items-center p-6 gap-6 rounded-lum-3 max-w-xl lum-hoverable': true,
+            'lum-card flex-row items-center transition-all duration-200! relative max-w-xl': true,
             [cred.class]: true,
           }} href={cred.href} target='_blank' data-umami-event-cred={cred.title}
           onMouseMove$={(e, el) => Hoverable.onMouseMove$(e, el)}
