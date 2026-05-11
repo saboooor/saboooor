@@ -7,6 +7,7 @@ import { IconProps, SiDiscord, SiGithub } from 'simple-icons-qwik';
 import { Globe } from 'lucide-icons-qwik';
 import Luminara from '~/components/images/projects/Luminara.png?jsx';
 import Cactie from '~/components/images/projects/Cactie.png?jsx';
+import CSRoom from '../icons/CSRoom';
 export const LuminaraIcon = component$(() => {
   return <Luminara class="w-6 h-6 md:min-w-12 md:min-h-12" />;
 });
@@ -62,10 +63,10 @@ export const Projects: Project[] = [
     ],
   },
   {
-    title: '3Compute',
+    title: 'CSRoom',
     description: 'A free educational platform that provides cloud-based development environments for learning and building projects.',
-    image: <Birdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
-    showcase: '3compute_org.jpeg',
+    image: <CSRoom size={48} class="w-6 h-6 md:min-w-12 md:min-h-12"/>,
+    showcase: 'csroom_org.jpeg',
     tags: [ReactTag, PythonTag],
     color: 'lum-grad-bg-cyan-500',
     btnClass: 'hover:lum-bg-cyan-500/20',
@@ -73,7 +74,7 @@ export const Projects: Project[] = [
       {
         icon: Globe,
         title: 'Visit page',
-        href: 'https://3compute.org',
+        href: 'https://csroom.org',
       },
       {
         icon: SiDiscord,

@@ -7,8 +7,7 @@ import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
 import Credentials from '~/components/Credentials/CredentialsSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
-import { DiscordContext, NowContext } from './layout';
-import { Background } from '~/root';
+import { Bg, DiscordContext, NowContext } from './layout';
 
 export const messages = [
   'hey pookie :3',
@@ -58,12 +57,12 @@ export default component$(() => {
 
       <div class="md:flex-1 flex flex-col gap-4">
         <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-grad-bg-violet-950/10 hover:lum-bg-violet-900/10">
-          <Background
+          <img src={Bg}
             width={1280} height={720}
             alt="Saboor's banner"
-            class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
+            class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60% opacity-50" />
 
-          <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-800">
+          <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg/30 animate-in fade-in slide-in-from-top-5 anim-duration-800">
             <button class="lum-btn p-1 hand-wave lum-bg-transparent" onClick$={async () => {
               if (waves.value) return;
               waves.value = 1;
@@ -75,7 +74,7 @@ export default component$(() => {
           </h1>
 
           <p class={{
-            'transition-all duration-300 text-gray-200 text-sm text-shadow-lg': true,
+            'transition-all duration-300 text-lum-text-secondary text-sm text-shadow-lg': true,
             '-my-4 opacity-0 pointer-events-none': !waves.value,
           }}>
             {messages[Math.floor(Math.random() * messages.length)]}
@@ -89,7 +88,7 @@ export default component$(() => {
           </p>
 
           {customStatus?.state && !customStatus?.state.startsWith('♡') &&
-            <p class="flex font-semibold items-center gap-2 text-gray-400 text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-950">
+            <p class="flex font-semibold items-center gap-2 text-lum-text-secondary text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-950">
               {customStatus.emoji && <span class="relative">
                 <img src={
                   'https://cdn.discordapp.com/emojis/' + customStatus.emoji.id
@@ -105,28 +104,28 @@ export default component$(() => {
             </p>
           }
 
-          <div class="flex animate-in fade-in slide-in-from-top-5 anim-duration-1100">
+          <div class="flex">
             <a href="https://maps.app.goo.gl/mYwF9KAjWi7oEUA86" target="_blank" data-umami-event="location"
-              class="text-gray-400 flex items-center gap-2 lum-btn lum-bg-transparent lum-btn-p-1 -ml-2">
+              class="text-gray-400 flex items-center gap-2 lum-btn lum-bg-gray-900/50 backdrop-blur-xs lum-btn-p-1 -ml-2">
               <MapPin size={20} />
               Ajax, ON. Canada
             </a>
           </div>
 
-          <p class="text-gray-400 md:text-lg animate-in slide-in-from-top-5 anim-duration-1250">
-            <b class="text-gray-200 animate-in fade-in anim-duration-1250">
+          <p class="md:text-lg animate-in slide-in-from-top-5 anim-duration-1250">
+            <b class="animate-in fade-in anim-duration-1250">
               I'm a self-taught full-stack software developer
             </b><br />
-            <span class="animate-in fade-in anim-duration-1400">
+            <span class="text-lum-text-secondary animate-in fade-in anim-duration-1400">
               I have always loved technology, problem-solving, creativity, and design. I thrive in creative, collaborative environments and love to experiment and test new things out.
             </span><br />
-            <span class="text-gray-600 animate-in fade-in anim-duration-1550">
+            <span class="text-lum-text-secondary/50 animate-in fade-in anim-duration-1550">
               Also a Culinary Arts graduate from NAIT.
             </span>
           </p>
 
           <span class={{
-            'transition-all text-lum-border/30 text-xs animate-in fade-in slide-in-from-top-5 anim-duration-1700': true,
+            'transition-all text-lum-text-secondary/50 text-xs animate-in fade-in slide-in-from-top-5 anim-duration-1700': true,
             'opacity-0 -mt-8': waves.value,
           }}>
             psst.. click on the waving hand next to my name!

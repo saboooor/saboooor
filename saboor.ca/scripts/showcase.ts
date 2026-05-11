@@ -4,7 +4,7 @@ import { existsSync, mkdirSync } from 'fs';
 import { chromium, devices, type Page } from 'playwright';
 
 const websites = [
-  'https://3compute.org',
+  'https://csroom.org',
   'https://birdflop.com',
   'https://burgersonfleek.ca',
   'https://ui.luminescent.dev',

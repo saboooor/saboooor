@@ -3,8 +3,7 @@ import { DocumentHead } from '@qwik.dev/router';
 import { Hand } from 'lucide-icons-qwik';
 import Socials from '~/components/Socials';
 import { addWave, messages } from '..';
-import { DiscordContext } from '../layout';
-import { Background } from '~/root';
+import { Bg, DiscordContext } from '../layout';
 
 export default component$(() => {
   const waves = useSignal(undefined as number | undefined);
@@ -14,7 +13,7 @@ export default component$(() => {
   return <>
     <section class="flex flex-col gap-4 relative max-w-3xl px-4 mx-auto items-center justify-center min-h-svh">
       <div class="relative transition-all duration-300 lum-card md:p-12 pt-24 md:pt-48 lum-grad-bg-orange-950/10 hover:lum-bg-orange-900/10">
-        <Background
+        <img src={Bg}
           width={1280} height={720}
           alt="Saboor's banner"
           class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60%" />
@@ -31,7 +30,7 @@ export default component$(() => {
         </h1>
 
         <p class={{
-          'transition-all duration-300 text-gray-200 text-sm text-shadow-lg': true,
+          'transition-all duration-300 text-lum-text-secondary text-sm text-shadow-lg': true,
           '-my-4 opacity-0 pointer-events-none': !waves.value,
         }}>
           {messages[Math.floor(Math.random() * messages.length)]}
@@ -44,7 +43,7 @@ export default component$(() => {
           </span>
         </p>
 
-        <p class="font-semibold text-sm text-gray-400 text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-950">
+        <p class="font-semibold text-sm text-lum-text-secondary text-shadow-lg text-shadow-black/50 animate-in fade-in slide-in-from-top-5 anim-duration-950">
           he • 21 • infp
         </p>
 

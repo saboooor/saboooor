@@ -30,7 +30,8 @@
 	"kv_namespaces": [
 		{
 			"binding": "waves",
-			"id": "f4aa6cbe6c8a414ca5d895cab89acdfd"
+			"id": "f4aa6cbe6c8a414ca5d895cab89acdfd",
+			"remote": true
 		}
 	]
 	/**
