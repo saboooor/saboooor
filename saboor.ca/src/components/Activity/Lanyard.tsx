@@ -199,13 +199,15 @@ export function parseDiscordImageUrl(image_id: string, app_id?: string, isSafari
   // if the image is from rise, safari shits itself
   if (isSafari && image_id?.includes('rise.cider.sh')
     && (image_id?.includes('avif') || image_id?.includes('gif'))) return undefined;
-  return image_id.startsWith('mp:')
-    ? `https://media.discordapp.net/${image_id.replace('mp:', '')}`
-    : image_id.startsWith('spotify:')
-      ? `https://i.scdn.co/image/${image_id.replace('spotify:', '')}`
-      : app_id
-        ? `https://cdn.discordapp.com/app-assets/${app_id}/${image_id}`
-        : image_id;
+  return image_id.startsWith('mp:external')
+    ? `https://${image_id.split('https/')[1]}`
+    : image_id.startsWith('mp:')
+      ? `https://media.discordapp.net/${image_id.replace('mp:', '')}`
+      : image_id.startsWith('spotify:')
+        ? `https://i.scdn.co/image/${image_id.replace('spotify:', '')}`
+        : app_id
+          ? `https://cdn.discordapp.com/app-assets/${app_id}/${image_id}`
+          : image_id;
 }
 
 export function parseLanyardData(data: any, isSafari = false) {

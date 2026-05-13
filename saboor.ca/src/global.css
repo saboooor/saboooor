@@ -37,9 +37,21 @@
   }
 }
 
+@keyframes spin-cc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
 @layer utilities {
   .animation-delay-2000 { animation-delay: -5s; }
   .animation-delay-4000 { animation-delay: -10s; }
+  .animate-spin-cc {
+    animation: spin-cc 20000ms linear infinite;
+  }
 }
 
 html {

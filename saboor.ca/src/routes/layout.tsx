@@ -45,7 +45,7 @@ export default component$(() => {
       <img src={Bg}
         width={1280} height={720}
         alt="Saboor's banner"
-        class="fixed w-full -z-1 mask-b-from-0 blur-lg top-0 scale-120 opacity-20 overflow-clip" />
+        class="fixed w-full -z-1 mask-b-from-0 blur-xl top-0 scale-120 opacity-20 overflow-clip" />
       <Slot />
       <Nav />
       <Footer />

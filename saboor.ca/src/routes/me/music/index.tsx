@@ -1,11 +1,17 @@
-import { component$ } from '@qwik.dev/core';
+import { component$, useContext } from '@qwik.dev/core';
 import { DocumentHead } from '@qwik.dev/router';
+import { ExpandedCard } from '~/components/Activity/ActivityCard';
+import { DiscordContext } from '~/routes/layout';
 
 export default component$(() => {
+  const discord = useContext(DiscordContext);
+  const musicActivity = discord.value?.activities.find((activity: any) => activity.type === 2);
 
   return <>
-    <section class="flex flex-col gap-4 relative max-w-xl px-4 mx-auto items-center justify-center min-h-svh">
-      coming soon
+    <section class="flex flex-col gap-4 relative max-w-3xl px-4 mx-auto items-center justify-center min-h-svh">
+      {musicActivity ?
+        <ExpandedCard activity={musicActivity} />
+        : <p class="text-gray-400">No music playing at the moment.</p>}
     </section>
   </>;
 });

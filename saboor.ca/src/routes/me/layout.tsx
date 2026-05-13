@@ -1,12 +1,11 @@
 import { component$, Slot, useContext, useSignal } from '@qwik.dev/core';
-import { DiscordContext, NowContext } from '../layout';
+import { DiscordContext } from '../layout';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import { Balloon, ChevronUp, Music } from 'lucide-icons-qwik';
 import { Link, useLocation } from '@qwik.dev/router';
 
 export default component$(() => {
   const discord = useContext(DiscordContext);
-  const now = useContext(NowContext);
   const loc = useLocation();
   const hidden = useSignal(false);
 
@@ -23,7 +22,7 @@ export default component$(() => {
             return <ActivityCard class={{
               '': !hidden.value,
               'hidden': hidden.value,
-            }} key={activity.id} activity={activity} now={now} fixedwidth compact />;
+            }} key={activity.id} activity={activity} fixedwidth compact />;
           })}
           <button class="lum-btn rounded-lum-4 p-3 lum-grad-bg-gray-900/50 hover:lum-bg-gray-800 drop-shadow-2xl backdrop-blur-lg" onClick$={() => hidden.value = !hidden.value}>
             <span class={{

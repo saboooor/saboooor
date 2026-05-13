@@ -7,7 +7,7 @@ import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
 import Credentials from '~/components/Credentials/CredentialsSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
-import { Bg, DiscordContext, NowContext } from './layout';
+import { Bg, DiscordContext } from './layout';
 
 export const messages = [
   'hey pookie :3',
@@ -41,7 +41,6 @@ export const addWave = server$(async function addWave() {
 export default component$(() => {
   const waves = useSignal(undefined as number | undefined);
   const discord = useContext(DiscordContext);
-  const now = useContext(NowContext);
   const customStatus = discord.value?.activities.find((activity: any) => activity.type === 4);
 
   return <>
@@ -151,7 +150,7 @@ export default component$(() => {
         <div class="flex gap-2 flex-row flex-wrap justify-evenly">
           {discord.value?.activities.map((activity: any) => {
             if (activity.type === 4) return;
-            return <ActivityCard key={activity.id} activity={activity} now={now} />;
+            return <ActivityCard key={activity.id} activity={activity} />;
           })}
         </div>
         <div class="hidden md:flex mt-6 w-full justify-center animate-bounce">
