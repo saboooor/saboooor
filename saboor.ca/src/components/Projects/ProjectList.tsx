@@ -3,8 +3,9 @@ import { MCTag, QwikTag, ReactTag, PythonTag } from './Tags';
 import { Component } from '@qwik.dev/core';
 
 import { Birdflop, Luminescent } from '@luminescent/icons-qwik';
-import { IconProps, SiDiscord, SiGithub } from 'simple-icons-qwik';
-import { Globe } from 'lucide-icons-qwik';
+import SiDiscord from 'simple-icons-qwik/icons/SiDiscord';
+import SiGithub from 'simple-icons-qwik/icons/SiGithub';
+import Globe from 'lucide-icons-qwik/icons/Globe';
 import Luminara from '~/components/images/projects/Luminara.png?jsx';
 import Cactie from '~/components/images/projects/Cactie.png?jsx';
 import CSRoom from '../icons/CSRoom';
@@ -30,7 +31,7 @@ export type Project = {
 }
 
 type Button = {
-  icon: Component<IconProps>;
+  icon: Component<any>;
   title: string;
   href: string;
 }

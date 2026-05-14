@@ -1,5 +1,9 @@
 import { component$, JSXOutput } from '@qwik.dev/core';
-import { SiNodedotjs, SiReact, SiRust, SiTailwindcss, SiTypescript } from 'simple-icons-qwik';
+import SiNodedotjs from 'simple-icons-qwik/icons/SiNodedotjs';
+import SiReact from 'simple-icons-qwik/icons/SiReact';
+import SiRust from 'simple-icons-qwik/icons/SiRust';
+import SiTailwindcss from 'simple-icons-qwik/icons/SiTailwindcss';
+import SiTypescript from 'simple-icons-qwik/icons/SiTypescript';
 const QwikIcon = '/qwik.svg';
 const PythonIcon = '/python.svg';
 const TauriIcon = '/tauri.svg';

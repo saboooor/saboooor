@@ -1,6 +1,8 @@
 import { component$, useSignal } from '@qwik.dev/core';
 import { Link, useLocation } from '@qwik.dev/router';
-import { Balloon, Laptop, Menu } from 'lucide-icons-qwik';
+import Balloon from 'lucide-icons-qwik/icons/Balloon';
+import Laptop from 'lucide-icons-qwik/icons/Laptop';
+import Menu from 'lucide-icons-qwik/icons/Menu';
 import Socials from './Socials';
 
 export const Nav = component$(() => {

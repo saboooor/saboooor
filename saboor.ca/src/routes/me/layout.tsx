@@ -1,7 +1,9 @@
 import { component$, Slot, useContext, useSignal } from '@qwik.dev/core';
 import { DiscordContext } from '../layout';
 import ActivityCard from '~/components/Activity/ActivityCard';
-import { Balloon, ChevronUp, Music } from 'lucide-icons-qwik';
+import Balloon from 'lucide-icons-qwik/icons/Balloon';
+import ChevronUp from 'lucide-icons-qwik/icons/ChevronUp';
+import Music from 'lucide-icons-qwik/icons/Music';
 import { Link, useLocation } from '@qwik.dev/router';
 
 export default component$(() => {

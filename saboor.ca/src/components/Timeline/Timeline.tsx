@@ -1,6 +1,6 @@
 import { JSX, Component } from '@qwik.dev/core';
-import { Baby, Ellipsis } from 'lucide-icons-qwik';
-import { IconProps } from 'simple-icons-qwik';
+import Baby from 'lucide-icons-qwik/icons/Baby';
+import Ellipsis from 'lucide-icons-qwik/icons/Ellipsis';
 
 export type TimelineItem = {
   title: string;
@@ -12,7 +12,7 @@ export type TimelineItem = {
 }
 
 type Button = {
-  icon: Component<IconProps>;
+  icon: Component<any>;
   title: string;
   href: string;
 }

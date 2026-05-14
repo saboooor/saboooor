@@ -1,8 +1,15 @@
 import { component$ } from '@qwik.dev/core';
 import { useLocation } from '@qwik.dev/router';
 
-import { Mail } from 'lucide-icons-qwik';
-import { SiGithub, SiDiscord, SiSteam, SiSpotify, SiReddit, SiLetterboxd, SiApplemuSic, SiYoutubemuSic } from 'simple-icons-qwik';
+import Mail from 'lucide-icons-qwik/icons/Mail';
+import SiGithub from 'simple-icons-qwik/icons/SiGithub';
+import SiDiscord from 'simple-icons-qwik/icons/SiDiscord';
+import SiSteam from 'simple-icons-qwik/icons/SiSteam';
+import SiSpotify from 'simple-icons-qwik/icons/SiSpotify';
+import SiReddit from 'simple-icons-qwik/icons/SiReddit';
+import SiLetterboxd from 'simple-icons-qwik/icons/SiLetterboxd';
+import SiApplemuSic from 'simple-icons-qwik/icons/SiApplemuSic';
+import SiYoutubemuSic from 'simple-icons-qwik/icons/SiYoutubemuSic';
 import LinkedIn from './icons/LinkedIn';
 import { Luminescent } from '@luminescent/icons-qwik';
 

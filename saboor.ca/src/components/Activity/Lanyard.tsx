@@ -1,4 +1,8 @@
-import { Gamepad, Music, Radio, Trophy, Tv } from 'lucide-icons-qwik';
+import Gamepad from 'lucide-icons-qwik/icons/Gamepad';
+import Music from 'lucide-icons-qwik/icons/Music';
+import Radio from 'lucide-icons-qwik/icons/Radio';
+import Trophy from 'lucide-icons-qwik/icons/Trophy';
+import Tv from 'lucide-icons-qwik/icons/Tv';
 
 export const activityTypes = {
   0: {

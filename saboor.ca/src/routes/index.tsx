@@ -1,6 +1,9 @@
 import { component$, useContext, useSignal } from '@qwik.dev/core';
 import { DocumentHead, server$ } from '@qwik.dev/router';
-import { ChevronDown, FileText, Hand, MapPin } from 'lucide-icons-qwik';
+import ChevronDown from 'lucide-icons-qwik/icons/ChevronDown';
+import FileText from 'lucide-icons-qwik/icons/FileText';
+import Hand from 'lucide-icons-qwik/icons/Hand';
+import MapPin from 'lucide-icons-qwik/icons/MapPin';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import Socials from '~/components/Socials';
 import Projects from '~/components/Projects/ProjectsSection';

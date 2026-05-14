@@ -1,7 +1,8 @@
 import { component$, isBrowser, useSignal, useTask$ } from '@qwik.dev/core';
 
 import { Blobs } from '@luminescent/ui-qwik';
-import { ChevronLeft, ChevronRight } from 'lucide-icons-qwik';
+import ChevronLeft from 'lucide-icons-qwik/icons/ChevronLeft';
+import ChevronRight from 'lucide-icons-qwik/icons/ChevronRight';
 
 import { Projects } from './ProjectList';
 

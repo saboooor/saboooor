@@ -1,7 +1,7 @@
 import { component$, PropsOf, Signal, useContext, useSignal } from '@qwik.dev/core';
 import { activityTypes, convertTime } from './Lanyard';
 import { getClassObject } from '@luminescent/ui-qwik';
-import { X } from 'lucide-icons-qwik';
+import X from 'lucide-icons-qwik/icons/X';
 import { NowContext } from '~/routes/layout';
 
 interface ActivityCardProps extends PropsOf<'div'>  {

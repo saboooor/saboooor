@@ -1,6 +1,6 @@
 import { component$, useContext, useSignal } from '@qwik.dev/core';
 import { DocumentHead } from '@qwik.dev/router';
-import { Hand } from 'lucide-icons-qwik';
+import Hand from 'lucide-icons-qwik/icons/Hand';
 import Socials from '~/components/Socials';
 import { addWave, messages } from '..';
 import { Bg, DiscordContext } from '../layout';

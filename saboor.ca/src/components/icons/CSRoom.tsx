@@ -1,8 +1,11 @@
 import { component$ } from '@qwik.dev/core';
-import { IconProps, BaseIcon } from 'simple-icons-qwik';
 
-export default component$((props: IconProps) =>
-  <BaseIcon name="CSRoom" {...props}>
+export default component$((props: any) =>
+  <svg
+    {...props}
+    xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'
+    width={props.size} height={props.size}
+  >
     <defs>
       <linearGradient id="csroom-fold" x1="0" x2="1" y1="0" y2="1">
         <stop offset="0" stop-color="#ebe4d2"></stop>
@@ -17,5 +20,5 @@ export default component$((props: IconProps) =>
       <rect x="9" y="22" width="14" height="1.2" rx="0.6" fill="#e85d3f"></rect>
       <text x="9" y="20" font-family="Newsreader, Georgia, serif" font-weight="700" font-size="14" letter-spacing="-0.02em" fill="#fdfaf2">CS</text>
     </g>
-  </BaseIcon>,
+  </svg>,
 );
