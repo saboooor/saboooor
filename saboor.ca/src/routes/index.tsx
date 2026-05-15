@@ -62,7 +62,7 @@ export default component$(() => {
           <img src={Bg}
             width={1280} height={720}
             alt="Saboor's banner"
-            class="rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60% opacity-50" />
+            class="max-h-64 rounded-lum rounded-b-none mb-4 object-cover absolute top-0 left-0 -z-1 mask-b-from-60% opacity-50" />
 
           <h1 class="flex gap-2 items-center text-xl md:text-3xl font-bold text-shadow-lg/30 animate-in fade-in slide-in-from-top-5 anim-duration-800">
             <button class="lum-btn p-1 hand-wave lum-bg-transparent" onClick$={async () => {
