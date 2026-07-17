@@ -24,7 +24,7 @@
     "deploy": "wrangler deploy",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
-    "lint": "vp lint \"src/**/*.ts*\"",
+    "lint": "vp lint",
     "preview": "qwik build preview && vp preview",
     "serve": "wrangler dev",
     "start": "vp dev --mode ssr --host",
