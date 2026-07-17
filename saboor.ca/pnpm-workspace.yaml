@@ -3,3 +3,22 @@ onlyBuiltDependencies:
   - esbuild
   - workerd
   - sharp
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.4
+  vite-plus: 0.2.4
+overrides:
+  vite: 'catalog:'
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: '*'
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+blockExoticSubdeps: false
+minimumReleaseAgeExclude:
+  - '@luminescent/ui-qwik@7.0.0-20'
+  - miniflare@4.20260714.0
+  - wrangler@4.112.0

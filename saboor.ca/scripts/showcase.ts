@@ -10,8 +10,8 @@ const websites = [
   'https://ui.luminescent.dev',
   // 'https://mineplace.me', broken for some reason
   'https://luminaramc.org',
-  'https://cactie.luminescent.dev'
-]
+  'https://cactie.luminescent.dev',
+];
 
 async function captureMultipleScreenshots() {
   if (!existsSync('public/showcases')) {
@@ -65,7 +65,9 @@ async function captureMultipleScreenshots() {
       }
     }
   } catch (err) {
-    console.log(`❌ Error: ${(err as Error)?.message || err}`);
+    console.log(
+      `❌ Error: ${err instanceof Error ? err.message : String(err)}`
+    );
   } finally {
     if (browser) {
       await browser.close();
@@ -74,7 +76,7 @@ async function captureMultipleScreenshots() {
   }
 }
 
-captureMultipleScreenshots();
+await captureMultipleScreenshots();
 
 function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));

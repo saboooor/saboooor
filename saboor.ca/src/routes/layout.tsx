@@ -1,6 +1,17 @@
-import { component$, createContextId, Signal, Slot, useContextProvider, useSignal, useVisibleTask$ } from '@qwik.dev/core';
+import {
+  component$,
+  createContextId,
+  Signal,
+  Slot,
+  useContextProvider,
+  useSignal,
+  useVisibleTask$,
+} from '@qwik.dev/core';
 import { routeLoader$ } from '@qwik.dev/router';
-import { connectLanyardSocket, getLanyardData } from '~/components/Activity/Lanyard';
+import {
+  connectLanyardSocket,
+  getLanyardData,
+} from '~/components/Activity/Lanyard';
 import Footer from '~/components/Footer';
 import { Nav } from '~/components/Nav';
 
@@ -15,37 +26,53 @@ export const DiscordContext = createContextId<Signal<any>>('discord-context');
 export const NowContext = createContextId<Signal<number>>('now-context');
 export const Bg = '/banner';
 export default component$(() => {
-  const { value: { lanyard } } = useData();
+  const {
+    value: { lanyard },
+  } = useData();
   const discord = useSignal<any>(lanyard);
   useContextProvider(DiscordContext, discord);
   const now = useSignal(Date.now());
   useContextProvider(NowContext, now);
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    const intervalId = setInterval(() => {
-      now.value = Date.now();
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, { strategy: 'document-ready' });
+  useVisibleTask$(
+    () => {
+      const intervalId = setInterval(() => {
+        now.value = Date.now();
+      }, 1000);
+      return () => clearInterval(intervalId);
+    },
+    { strategy: 'document-ready' }
+  );
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    connectLanyardSocket('249638347306303499', (d: any) => {
-      if (!d.success) return console.error(d.error);
-      console.log(d.data);
-      discord.value = d.data;
-    }, (error: string) => {
-      console.error('Error connecting to Lanyard WebSocket:', error);
-    }, discord.value.isSafari);
-  }, { strategy: 'document-ready' });
+  useVisibleTask$(
+    () => {
+      connectLanyardSocket(
+        '249638347306303499',
+        (d: any) => {
+          if (!d.success) return console.error(d.error);
+          console.log(d.data);
+          discord.value = d.data;
+        },
+        (error: string) => {
+          console.error('Error connecting to Lanyard WebSocket:', error);
+        },
+        discord.value.isSafari
+      );
+    },
+    { strategy: 'document-ready' }
+  );
 
   return (
     <>
-      <img src={Bg}
-        width={1280} height={720}
+      <img
+        src={Bg}
+        width={1280}
+        height={720}
         alt="Saboor's banner"
-        class="fixed w-full -z-1 mask-b-from-0 blur-xl top-0 scale-120 opacity-20 overflow-clip" />
+        class="fixed top-0 -z-1 w-full scale-120 overflow-clip mask-b-from-0 opacity-20 blur-xl"
+      />
       <Slot />
       <Nav />
       <Footer />

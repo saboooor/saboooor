@@ -8,14 +8,14 @@ export type TimelineItem = {
   image: JSX.Element;
   color: string;
   class?: string;
-  buttons: Button[]
-}
+  buttons: Button[];
+};
 
 type Button = {
   icon: Component<any>;
   title: string;
   href: string;
-}
+};
 
 export const Timeline: {
   year: string;
@@ -26,8 +26,9 @@ export const Timeline: {
     items: [
       {
         title: 'Start',
-        description: 'I started my journey into programming and web development.',
-        image: <Baby size={56} class="min-w-14"/>,
+        description:
+          'I started my journey into programming and web development.',
+        image: <Baby size={56} class="min-w-14" />,
         color: 'lum-grad-bg-cyan-500',
         buttons: [
           {
@@ -41,32 +42,26 @@ export const Timeline: {
   },
   {
     year: '2020',
-    items: [
-    ],
+    items: [],
   },
   {
     year: '2021',
-    items: [
-    ],
+    items: [],
   },
   {
     year: '2022',
-    items: [
-    ],
+    items: [],
   },
   {
     year: '2023',
-    items: [
-    ],
+    items: [],
   },
   {
     year: '2024',
-    items: [
-    ],
+    items: [],
   },
   {
     year: '2025',
-    items: [
-    ],
+    items: [],
   },
 ];

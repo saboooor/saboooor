@@ -10,13 +10,13 @@ import Luminara from '~/components/images/projects/Luminara.png?jsx';
 import Cactie from '~/components/images/projects/Cactie.png?jsx';
 import CSRoom from '../icons/CSRoom';
 export const LuminaraIcon = component$(() => {
-  return <Luminara class="w-6 h-6 md:min-w-12 md:min-h-12" />;
+  return <Luminara class="h-6 w-6 md:min-h-12 md:min-w-12" />;
 });
 export const CactieIcon = component$(() => {
-  return <Cactie class="w-6 h-6 md:min-w-12 md:min-h-12" />;
+  return <Cactie class="h-6 w-6 md:min-h-12 md:min-w-12" />;
 });
 export const LuminescentUIIcon = component$(() => {
-  return <Luminescent size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" />;
+  return <Luminescent size={48} class="h-6 w-6 md:min-h-12 md:min-w-12" />;
 });
 
 export type Project = {
@@ -27,20 +27,27 @@ export type Project = {
   tags: Component[];
   color: string;
   btnClass: string;
-  buttons: Button[]
-}
+  buttons: Button[];
+};
 
 type Button = {
   icon: Component<any>;
   title: string;
   href: string;
-}
+};
 
 export const Projects: Project[] = [
   {
     title: 'Birdflop',
-    description: 'A registered 501(c)(3) nonprofit server host aiming to provide affordable and accessible hosting and resources.',
-    image: <Birdflop size={48} class="w-6 h-6 md:min-w-12 md:min-h-12" fillGradient={['#54daf4', '#545eb6']}/>,
+    description:
+      'A registered 501(c)(3) nonprofit server host aiming to provide affordable and accessible hosting and resources.',
+    image: (
+      <Birdflop
+        size={48}
+        class="h-6 w-6 md:min-h-12 md:min-w-12"
+        fillGradient={['#54daf4', '#545eb6']}
+      />
+    ),
     showcase: 'birdflop_com.jpeg',
     tags: [QwikTag, MCTag],
     color: 'lum-grad-bg-cyan-500',
@@ -65,8 +72,9 @@ export const Projects: Project[] = [
   },
   {
     title: 'CSRoom',
-    description: 'A free educational platform that provides cloud-based development environments for learning and building projects.',
-    image: <CSRoom size={48} class="w-6 h-6 md:min-w-12 md:min-h-12"/>,
+    description:
+      'A free educational platform that provides cloud-based development environments for learning and building projects.',
+    image: <CSRoom size={48} class="h-6 w-6 md:min-h-12 md:min-w-12" />,
     showcase: 'csroom_org.jpeg',
     tags: [ReactTag, PythonTag],
     color: 'lum-grad-bg-cyan-500',
@@ -86,7 +94,8 @@ export const Projects: Project[] = [
   },
   {
     title: 'Burgers on Fleek',
-    description: 'The burgers you are craving.™ Premium Quality Gourmet Burgers, Steak Sandwiches, Fries, and more. est. 2019.',
+    description:
+      'The burgers you are craving.™ Premium Quality Gourmet Burgers, Steak Sandwiches, Fries, and more. est. 2019.',
     image: '/burgersonfleek.svg',
     showcase: 'burgersonfleek_ca.jpeg',
     tags: [QwikTag],
@@ -107,7 +116,8 @@ export const Projects: Project[] = [
   },
   {
     title: 'Luminescent / ui',
-    description: 'A component library for Qwik and React built with Tailwind CSS.',
+    description:
+      'A component library for Qwik and React built with Tailwind CSS.',
     image: <LuminescentUIIcon />,
     showcase: 'ui_luminescent_dev.jpeg',
     tags: [QwikTag, ReactTag],
@@ -128,7 +138,8 @@ export const Projects: Project[] = [
   },
   {
     title: 'Mineplace',
-    description: 'A 3d version of r/place in Minecraft, powered by Birdflop Hosting.',
+    description:
+      'A 3d version of r/place in Minecraft, powered by Birdflop Hosting.',
     image: '/mineplace.svg',
     tags: [QwikTag, MCTag],
     color: 'lum-grad-bg-orange-500',
@@ -153,7 +164,8 @@ export const Projects: Project[] = [
   },
   {
     title: 'Luminara',
-    description: 'A Friendly Semi-Vanilla Minecraft Server also known as Nether Depths!',
+    description:
+      'A Friendly Semi-Vanilla Minecraft Server also known as Nether Depths!',
     image: <LuminaraIcon />,
     showcase: 'luminaramc_org.jpeg',
     tags: [QwikTag, MCTag],
@@ -179,8 +191,15 @@ export const Projects: Project[] = [
   },
   {
     title: 'Botflop',
-    description: 'A Discord bot originally written in Python ported to JavaScript with 300,000+ users that analyzes timings delay reports to suggest mitigations for common Minecraft server issues.',
-    image: <Birdflop size={48} class="w-6 h-6 md:w-12 md:h-12" fillGradient={['#54daf4', '#545eb6']}/>,
+    description:
+      'A Discord bot originally written in Python ported to JavaScript with 300,000+ users that analyzes timings delay reports to suggest mitigations for common Minecraft server issues.',
+    image: (
+      <Birdflop
+        size={48}
+        class="h-6 w-6 md:h-12 md:w-12"
+        fillGradient={['#54daf4', '#545eb6']}
+      />
+    ),
     tags: [MCTag, PythonTag],
     color: 'lum-grad-bg-cyan-500',
     btnClass: 'hover:lum-bg-cyan-500/20',
@@ -199,7 +218,8 @@ export const Projects: Project[] = [
   },
   {
     title: 'Cactie',
-    description: 'The last Discord bot you need, Cactie. Moderation, Fun, QOL, Utilities, and More!',
+    description:
+      'The last Discord bot you need, Cactie. Moderation, Fun, QOL, Utilities, and More!',
     image: <CactieIcon />,
     showcase: 'cactie_luminescent_dev.jpeg',
     tags: [QwikTag],

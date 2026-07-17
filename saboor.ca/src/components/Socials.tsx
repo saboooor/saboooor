@@ -99,29 +99,45 @@ const socials = [
   },
 ];
 
-export default component$(({ class: className, addLabels, color, size }: {
-  class?: string,
-  addLabels?: 'right' | 'left',
-  color?: boolean,
-  size?: number }) => {
-  const loc = useLocation();
+export default component$(
+  ({
+    class: className,
+    addLabels,
+    color,
+    size,
+  }: {
+    class?: string;
+    addLabels?: 'right' | 'left';
+    color?: boolean;
+    size?: number;
+  }) => {
+    const loc = useLocation();
 
-  return socials.filter(
-    social => (social.personal === loc.url.pathname.includes('/me') || social.personal === undefined),
-  ).map(social => <a target="_blank"
-    href={social.href}
-    title={social.name}
-    key={social.name}
-    class={{
-      'lum-btn lum-bg-transparent fill-current': true,
-      'p-2': !addLabels,
-      [className ?? '']: className,
-    }}
-  >
-    {addLabels === 'left' && (social.username ?? social.name)}
-    <social.icon size={size ?? 20} class={{
-      [social.color]: color,
-    }} />
-    {addLabels === 'right' && (social.username ?? social.name)}
-  </a>);
-});
+    return socials
+      .filter(
+        (social) =>
+          social.personal === loc.url.pathname.includes('/me') ||
+          social.personal === undefined
+      )
+      .map((social) => (
+        <a
+          target="_blank"
+          href={social.href}
+          title={social.name}
+          key={social.name}
+          class={{
+            'lum-btn lum-bg-transparent fill-current': true,
+            'p-2': !addLabels,
+            [className ?? '']: className,
+          }}
+        >
+          {addLabels === 'left' && (social.username ?? social.name)}
+          <social.icon
+            size={size ?? 20}
+            class={color ? social.color : undefined}
+          />
+          {addLabels === 'right' && (social.username ?? social.name)}
+        </a>
+      ));
+  }
+);
