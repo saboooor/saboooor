@@ -26,7 +26,7 @@
   --color-lum-accent: var(--color-violet-800);
   --color-lum-text-secondary: --alpha(var(--color-lum-text) / 70%);
   --lum-border-superellipse: 2;
-  --lum-depth: 1;
+  --lum-depth: 2;
 }
 
 @supports (corner-shape: squircle) {

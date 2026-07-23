@@ -19,6 +19,7 @@ allowBuilds:
   workerd: true
 blockExoticSubdeps: false
 minimumReleaseAgeExclude:
-  - '@luminescent/ui-qwik@7.0.0-20'
+  - '@luminescent/ui-qwik@7.0.0-20 || 7.0.0-23'
   - miniflare@4.20260714.0
   - wrangler@4.112.0
+  - '@luminescent/ui@7.1.0'
