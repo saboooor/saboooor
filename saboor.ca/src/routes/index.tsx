@@ -177,7 +177,7 @@ export default component$(() => {
             <div class="flex flex-wrap justify-evenly">
               <Socials class="rounded-lum-6" />
               <a
-                href="https://drive.proton.me/urls/92A8Y03APG#gfTmWrDrpDaV"
+                href="https://drive.proton.me/urls/6MRBRAEMD0#PLKDoX2KJnOk"
                 target="_blank"
                 title="Resume"
                 class={{
