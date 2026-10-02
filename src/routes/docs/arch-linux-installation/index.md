@@ -1,6 +1,13 @@
+---
+title: Arch Linux Installation Guide
+date_created: 08-18-2023
+last_updated: 09-26-2025
+description: Getting started with Arch Linux
+---
+
 # Arch Linux Installation Guide
 
-This guide will be moved to a more interactive website to make things easier
+I have since moved to CachyOS, which is based on Arch but without the headache of installing it whenever something breaks, but I keep this guide here for anyone who wants to install vanilla Arch Linux.
 
 Most of this guide was taken from
 https://github.com/nunopenim/nunopenim/blob/main/GUIDE_ArchLinuxInstallation.md
