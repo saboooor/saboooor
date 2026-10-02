@@ -15,7 +15,7 @@
   "type": "module",
   "author": "saboooor",
   "scripts": {
-    "build": "qwik build",
+    "build": "vp run cf-typegen && qwik build",
     "build.client": "vp build",
     "build.preview": "vp build --ssr src/entry.preview.tsx",
     "build.server": "qwik check-client src dist && vp build -c adapters/cloudflare-pages/vite.config.ts",
