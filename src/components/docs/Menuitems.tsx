@@ -1,7 +1,7 @@
 import { component$, QRL, useSignal, useContextProvider } from '@qwik.dev/core';
 import { ContentMenu, Link } from '@qwik.dev/router';
 import { MarkdownItems } from '~/routes/docs/layout';
-import Accordion, { openItemsContext } from '../Elements/Accordion';
+import Accordion, { openItemsContext } from './Accordion';
 
 const DAYS = 24 * 60 * 60 * 1000;
 
