@@ -12,15 +12,16 @@ export const Nav = component$(() => {
 
   return (
     <div
-      class="fixed right-4 bottom-4 z-100"
+      class="fixed right-4 bottom-4 z-100 md:top-4 md:bottom-auto"
       style={{
         '--lum-border-radius': '1.2rem',
       }}
     >
       <nav
         class={{
-          'absolute right-0 bottom-full flex flex-col gap-1 transition-all': true,
-          'pointer-events-none -mb-2 opacity-0': !opened.value,
+          'absolute right-0 bottom-full flex flex-col gap-1 transition-all md:top-full md:bottom-auto md:mt-2 md:flex-col-reverse': true,
+          'pointer-events-none translate-y-2 opacity-0 md:-translate-y-2':
+            !opened.value,
         }}
       >
         <div class="lum-card lum-grad-bg-gray-900/50 flex gap-1 p-1 backdrop-blur-lg">
@@ -69,7 +70,7 @@ export const Nav = component$(() => {
         </div>
       </nav>
       <button
-        class="lum-btn lum-grad-bg-gray-900/50 mt-2 p-2 backdrop-blur-lg sm:p-4"
+        class="lum-btn lum-grad-bg-gray-900/50 mt-2 p-2 backdrop-blur-lg sm:p-4 md:mt-0"
         onClick$={() => (opened.value = !opened.value)}
       >
         <Menu size={32} />
