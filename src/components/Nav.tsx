@@ -24,7 +24,13 @@ export const Nav = component$(() => {
         }}
       >
         <div class="lum-card lum-grad-bg-gray-900/50 flex gap-1 p-1 backdrop-blur-lg">
-          <Socials class="rounded-lum-1" addLabels="right" color size={18} />
+          <Socials
+            class="rounded-lum-1"
+            addLabels="right"
+            color
+            size={18}
+            key="nav"
+          />
         </div>
         <div class="lum-card lum-grad-bg-gray-900/50 flex gap-1 p-1 backdrop-blur-lg">
           <Link

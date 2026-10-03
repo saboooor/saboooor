@@ -11,7 +11,7 @@ export default component$(() => {
         </p>
       </div>
       <div class="flex items-center gap-2 md:items-end">
-        <Socials class="rounded-lum-6" />
+        <Socials class="rounded-lum-6" key="footer" />
       </div>
     </footer>
   );

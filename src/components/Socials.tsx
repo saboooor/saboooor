@@ -105,11 +105,13 @@ export default component$(
     addLabels,
     color,
     size,
+    key,
   }: {
     class?: string;
     addLabels?: 'right' | 'left';
     color?: boolean;
     size?: number;
+    key: string;
   }) => {
     const loc = useLocation();
 
@@ -124,7 +126,7 @@ export default component$(
           target="_blank"
           href={social.href}
           title={social.name}
-          key={social.name}
+          key={social.name + key}
           class={{
             'lum-btn lum-bg-transparent fill-current': true,
             'p-2': !addLabels,
@@ -133,6 +135,8 @@ export default component$(
         >
           {addLabels === 'left' && (social.username ?? social.name)}
           <social.icon
+            id={social.name + key}
+            key={social.name + key}
             size={size ?? 20}
             class={color ? social.color : undefined}
           />

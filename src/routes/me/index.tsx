@@ -113,7 +113,7 @@ export default component$(() => {
           <hr class="border-lum-border/10 my-2" />
 
           <div class="flex flex-wrap justify-evenly">
-            <Socials class="rounded-lum-6" />
+            <Socials class="rounded-lum-6" key="me" />
           </div>
         </div>
       </section>
