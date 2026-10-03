@@ -1,7 +1,7 @@
 import type { MusicActivity } from '~/components/Activity/LastMusic';
 
 const fallbackTitle = "Hi, I'm Saboor. (aka sab)";
-const fallbackDescription =
+const description =
   "See what's playing, preview songs, and like your favorites from the songs other people have caught me playing. I think my music taste is pretty good if I say so myself :p";
 const fallbackImage = 'https://avatars.githubusercontent.com/u/42164502';
 
@@ -11,20 +11,9 @@ export function musicHead(
   url: URL
 ) {
   const song = current?.details ? current : last;
-  const live = Boolean(current?.details);
   const title = song?.details
     ? `${song.details}${song.state ? ` - ${song.state}` : ''}`
     : fallbackTitle;
-  const description = song?.details
-    ? [
-        live ? 'Now listening' : 'Last listened to',
-        song.assets?.large_text
-          ? `Album: ${song.assets.large_text}`
-          : undefined,
-      ]
-        .filter(Boolean)
-        .join(' · ') + `. ${fallbackDescription}`
-    : fallbackDescription;
   const image = song?.assets?.large_image || fallbackImage;
   let imageUrl = fallbackImage;
   try {
