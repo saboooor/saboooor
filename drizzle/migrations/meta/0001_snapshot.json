@@ -1,0 +1,118 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "16a043f2-a2a1-481e-a41e-be789067c7f6",
+  "prevId": "a9ba70a3-0546-4582-8faf-4dfea545ebf1",
+  "tables": {
+    "music_likes": {
+      "name": "music_likes",
+      "columns": {
+        "play_id": {
+          "name": "play_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "visitor_id": {
+          "name": "visitor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "music_likes_play_id_music_plays_id_fk": {
+          "name": "music_likes_play_id_music_plays_id_fk",
+          "tableFrom": "music_likes",
+          "tableTo": "music_plays",
+          "columnsFrom": ["play_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "music_likes_play_id_visitor_id_pk": {
+          "columns": ["play_id", "visitor_id"],
+          "name": "music_likes_play_id_visitor_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "music_plays": {
+      "name": "music_plays",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "song_key": {
+          "name": "song_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "session_key": {
+          "name": "session_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "activity_json": {
+          "name": "activity_json",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "caught_at": {
+          "name": "caught_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "music_plays_session_key_unique": {
+          "name": "music_plays_session_key_unique",
+          "columns": ["session_key"],
+          "isUnique": true
+        },
+        "music_plays_recent": {
+          "name": "music_plays_recent",
+          "columns": ["id"],
+          "isUnique": false
+        },
+        "music_plays_song_recent": {
+          "name": "music_plays_song_recent",
+          "columns": ["song_key", "id"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

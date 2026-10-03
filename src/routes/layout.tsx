@@ -1,3 +1,4 @@
+import { getDB } from '~/util/db';
 import {
   component$,
   createContextId,
@@ -9,8 +10,11 @@ import {
 } from '@qwik.dev/core';
 import { routeLoader$, server$ } from '@qwik.dev/router';
 import {
-  musicIdentity,
-  syncLastMusic,
+  musicSessionIdentity,
+  catchMusic,
+  musicHistory,
+  likeMusic,
+  type MusicPlay,
   type MusicActivity,
 } from '~/components/Activity/LastMusic';
 import {
@@ -21,45 +25,127 @@ import Footer from '~/components/Footer';
 import Banner from '~/components/Banner';
 import { Nav } from '~/components/Nav';
 
-export const useData = routeLoader$(async ({ request, platform }) => {
+export const useData = routeLoader$(async ({ request, platform, cookie }) => {
   const isSafari = request.headers.get('user-agent')?.includes('Safari');
   const lanyard = await getLanyardData(isSafari);
-  let lastMusic: MusicActivity | null = null;
+  let history: MusicPlay[] = [];
+  let mostLiked: MusicPlay[] = [];
+  const db = (platform.env as Env | undefined)?.music ? getDB() : undefined;
   try {
-    lastMusic = await syncLastMusic(
-      (platform.env as Env | undefined)?.waves,
-      lanyard?.activities.find((activity: MusicActivity) => activity.type === 2)
-    );
+    if (db) {
+      await catchMusic(
+        db,
+        lanyard?.activities.find(
+          (activity: MusicActivity) => activity.type === 2
+        )
+      );
+      history = await musicHistory(
+        db,
+        cookie.get('music-visitor')?.value || ''
+      );
+      mostLiked = await musicHistory(
+        db,
+        cookie.get('music-visitor')?.value || '',
+        undefined,
+        true
+      );
+    }
   } catch (error) {
-    console.error('Unable to save last played song:', error);
+    console.error('Unable to load music history:', error);
   }
   return {
     lanyard,
-    lastMusic,
+    lastMusic: history[0]?.activity || null,
+    history,
+    mostLiked,
   };
 });
 
+export const loadMostLikedMusic = server$(async function () {
+  const db = (this.platform.env as Env | undefined)?.music
+    ? getDB()
+    : undefined;
+  return db
+    ? musicHistory(
+        db,
+        this.cookie.get('music-visitor')?.value || '',
+        undefined,
+        true
+      )
+    : [];
+});
+
 export const refreshLastMusic = server$(async function () {
+  const db = (this.platform.env as Env | undefined)?.music
+    ? getDB()
+    : undefined;
+  if (!db) return [];
   const lanyard = await getLanyardData();
-  return syncLastMusic(
-    (this.platform.env as Env | undefined)?.waves,
+  await catchMusic(
+    db,
     lanyard?.activities.find((activity: MusicActivity) => activity.type === 2)
   );
+  return musicHistory(db, this.cookie.get('music-visitor')?.value || '');
+});
+
+export const loadOlderMusic = server$(async function (before: number) {
+  if (!Number.isSafeInteger(before) || before < 1)
+    throw new Error('Invalid history cursor');
+  const db = (this.platform.env as Env | undefined)?.music
+    ? getDB()
+    : undefined;
+  return db
+    ? musicHistory(db, this.cookie.get('music-visitor')?.value || '', before)
+    : [];
+});
+
+export const likeSong = server$(async function (id: number) {
+  const db = (this.platform.env as Env | undefined)?.music
+    ? getDB()
+    : undefined;
+  if (!db) throw new Error('Music database unavailable');
+  let visitor = this.cookie.get('music-visitor')?.value;
+  if (!visitor) {
+    visitor = crypto.randomUUID();
+    this.cookie.set('music-visitor', visitor, {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: this.url.protocol === 'https:',
+      maxAge: 31536000,
+    });
+  }
+  return likeMusic(db, id, visitor);
 });
 
 export const DiscordContext = createContextId<Signal<any>>('discord-context');
 export const LastMusicContext =
   createContextId<Signal<MusicActivity | null>>('last-music-context');
+export const MusicHistoryContext = createContextId<Signal<MusicPlay[]>>(
+  'music-history-context'
+);
+export const MostLikedMusicContext = createContextId<Signal<MusicPlay[]>>(
+  'most-liked-music-context'
+);
 export const NowContext = createContextId<Signal<number>>('now-context');
 export const Bg = '/banner';
 export default component$(() => {
   const {
-    value: { lanyard, lastMusic: savedMusic },
+    value: {
+      lanyard,
+      lastMusic: savedMusic,
+      history: savedHistory,
+      mostLiked: savedMostLiked,
+    },
   } = useData();
   const discord = useSignal<any>(lanyard);
   useContextProvider(DiscordContext, discord);
   const lastMusic = useSignal(savedMusic);
   useContextProvider(LastMusicContext, lastMusic);
+  const history = useSignal(savedHistory);
+  useContextProvider(MusicHistoryContext, history);
+  const mostLiked = useSignal(savedMostLiked);
+  useContextProvider(MostLikedMusicContext, mostLiked);
   const now = useSignal(Date.now());
   useContextProvider(NowContext, now);
 
@@ -77,7 +163,7 @@ export default component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(
     ({ cleanup }) => {
-      let previousSong = musicIdentity(
+      let previousSong = musicSessionIdentity(
         discord.value?.activities.find(
           (activity: MusicActivity) => activity.type === 2
         )
@@ -92,16 +178,21 @@ export default component$(() => {
             const current = d.data.activities.find(
               (activity: MusicActivity) => activity.type === 2
             );
-            const identity = musicIdentity(current);
+            const identity = musicSessionIdentity(current);
             if (identity && identity !== previousSong) {
               lastMusic.value = {
                 ...current,
                 timestamps: undefined,
                 lastPlayed: true,
               };
-              void refreshLastMusic().catch((error: unknown) => {
-                console.error('Unable to save last played song:', error);
-              });
+              void refreshLastMusic()
+                .then((entries) => {
+                  history.value = entries;
+                  if (entries[0]) lastMusic.value = entries[0].activity;
+                })
+                .catch((error: unknown) => {
+                  console.error('Unable to save last played song:', error);
+                });
             }
             previousSong = identity;
           },

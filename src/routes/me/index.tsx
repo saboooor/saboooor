@@ -15,7 +15,7 @@ export default component$(() => {
 
   return (
     <>
-      <section class="relative mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 px-4 pt-8 pb-12 md:pt-40 md:pb-20">
+      <section class="relative mx-auto grid min-h-svh max-w-7xl grid-cols-1 items-start gap-8 px-4 pt-40 pb-28 lg:grid-cols-2">
         <div class="lum-card lum-grad-bg-orange-950/10 hover:lum-bg-orange-900/10 relative pt-24 transition-all duration-300 md:p-12 md:pt-48">
           <Banner
             width={1280}

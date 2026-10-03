@@ -5,45 +5,53 @@ import Balloon from 'lucide-icons-qwik/icons/Balloon';
 import ChevronUp from 'lucide-icons-qwik/icons/ChevronUp';
 import Music from 'lucide-icons-qwik/icons/Music';
 import { Link, useLocation } from '@qwik.dev/router';
+import type { MusicActivity } from '~/components/Activity/LastMusic';
 
 export default component$(() => {
   const discord = useContext(DiscordContext);
   const lastMusic = useContext(LastMusicContext);
   const loc = useLocation();
   const hidden = useSignal(false);
+  const onMusicPage = /^\/me\/music(?:\/|$)/.test(loc.url.pathname);
+  const activities: MusicActivity[] = discord.value?.activities || [];
+  const visibleActivities = activities.filter(
+    (activity) => activity.type !== 4 && !(onMusicPage && activity.type === 2)
+  );
+  const showLastMusic =
+    !onMusicPage &&
+    !activities.some((activity) => activity.type === 2) &&
+    Boolean(lastMusic.value);
+  const showActivityBar = visibleActivities.length > 0 || showLastMusic;
 
   return (
     <>
-      <div class="relative z-40 w-full px-4 pt-5 md:fixed md:top-5 md:pt-0">
-        <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-2">
-          <div class="rounded-lum-4 lum-grad-bg-yellow-950/0 relative h-16 w-16">
-            <img
-              src={`https://cdn.discordapp.com/avatars/249638347306303499/${discord.value?.discord_user?.avatar}.png?size=128`}
-              alt="Saboor's avatar"
-              width={64}
-              height={64}
-              class="rounded-lum-4 absolute -z-1"
-            />
-          </div>
-          {discord.value?.activities.map((activity: any) => {
-            if (activity.type === 4) return;
-            return (
-              <ActivityCard
-                class={{
-                  '': !hidden.value,
-                  hidden: hidden.value,
-                }}
-                key={activity.id}
-                activity={activity}
-                fixedwidth
-                compact
+      {showActivityBar && (
+        <div class="relative z-40 w-full px-4 pt-5 md:fixed md:top-5 md:pt-0">
+          <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-2">
+            <div class="rounded-lum-4 lum-grad-bg-yellow-950/0 relative h-16 w-16">
+              <img
+                src={`https://cdn.discordapp.com/avatars/249638347306303499/${discord.value?.discord_user?.avatar}.png?size=128`}
+                alt="Saboor's avatar"
+                width={64}
+                height={64}
+                class="rounded-lum-4 absolute -z-1"
               />
-            );
-          })}
-          {!discord.value?.activities.some(
-            (activity: any) => activity.type === 2
-          ) &&
-            lastMusic.value && (
+            </div>
+            {visibleActivities.map((activity) => {
+              return (
+                <ActivityCard
+                  class={{
+                    '': !hidden.value,
+                    hidden: hidden.value,
+                  }}
+                  key={activity.id}
+                  activity={activity}
+                  fixedwidth
+                  compact
+                />
+              );
+            })}
+            {showLastMusic && lastMusic.value && (
               <ActivityCard
                 class={{ hidden: hidden.value }}
                 activity={lastMusic.value}
@@ -51,21 +59,22 @@ export default component$(() => {
                 compact
               />
             )}
-          <button
-            class="lum-btn rounded-lum-4 lum-grad-bg-gray-900/50 hover:lum-bg-gray-800 p-3 drop-shadow-2xl backdrop-blur-lg"
-            onClick$={() => (hidden.value = !hidden.value)}
-          >
-            <span
-              class={{
-                'transition-all duration-300': true,
-                'rotate-180': hidden.value,
-              }}
+            <button
+              class="lum-btn rounded-lum-4 lum-grad-bg-gray-900/50 hover:lum-bg-gray-800 p-3 drop-shadow-2xl backdrop-blur-lg"
+              onClick$={() => (hidden.value = !hidden.value)}
             >
-              <ChevronUp size={38} />
-            </span>
-          </button>
+              <span
+                class={{
+                  'transition-all duration-300': true,
+                  'rotate-180': hidden.value,
+                }}
+              >
+                <ChevronUp size={38} />
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <Slot />
       <div class="pointer-events-none fixed bottom-5 z-50 flex w-full justify-center">
         <div class="lum-grad-bg-gray-900 rounded-lum pointer-events-auto flex items-center gap-1 p-1">

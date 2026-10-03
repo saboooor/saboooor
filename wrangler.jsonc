@@ -32,6 +32,15 @@
       "remote": true,
     },
   ],
+  "d1_databases": [
+    {
+      "binding": "music",
+      "database_name": "music",
+      "database_id": "d609ff6f-d62c-44d8-9f74-d671405f897c",
+      "migrations_dir": "drizzle/migrations",
+      "remote": true,
+    },
+  ],
   /**
    * Smart Placement
    * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

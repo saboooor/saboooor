@@ -11,6 +11,8 @@ import X from 'lucide-icons-qwik/icons/X';
 import { NowContext } from '~/routes/layout';
 import './ActivityCard.css';
 import MusicPreview from './MusicPreview';
+import MusicPlayDetails from './MusicPlayDetails';
+import type { MusicPlay } from './LastMusic';
 
 import { squigglePath } from './ProgressWave';
 
@@ -20,10 +22,11 @@ interface ActivityCardProps extends PropsOf<'div'> {
   fixedwidth?: boolean;
   compact?: boolean;
   previewOpen?: boolean;
+  musicPlay?: MusicPlay;
 }
 
 export default component$<ActivityCardProps>(
-  ({ activity, fixedwidth, compact, class: Class, ...props }) => {
+  ({ activity, fixedwidth, compact, musicPlay, class: Class, ...props }) => {
     const activityType =
       activityTypes[activity.type as keyof typeof activityTypes];
     const modalRef = useSignal<HTMLDialogElement>();
@@ -34,7 +37,7 @@ export default component$<ActivityCardProps>(
       <div
         key={activity.id}
         class={{
-          'lum-card lum-grad-bg-gray-950/80 rounded-lum-2 relative p-2 transition-all duration-300': true,
+          'lum-card lum-grad-bg-gray-950/80 rounded-lum-2 relative flex-row justify-between p-2 transition-all duration-300': true,
           'min-w-full flex-1 md:max-w-2/3 md:min-w-1/3': !fixedwidth,
           'w-80': fixedwidth,
           ...getClassObject(Class),
@@ -72,7 +75,7 @@ export default component$<ActivityCardProps>(
             {activity.lastPlayed ? 'Last listened to' : activityType?.text}{' '}
             <b>{activity.name}</b>
           </p>
-          {activityType?.icon && (
+          {activityType?.icon && !musicPlay && (
             <activityType.icon size={24} class="lum-btn p-1" />
           )}
         </div>
@@ -157,6 +160,11 @@ export default component$<ActivityCardProps>(
             )}
           </div>
         </div>
+        {musicPlay && (
+          <div class="relative z-20">
+            <MusicPlayDetails key={musicPlay.id} play={musicPlay} />
+          </div>
+        )}
         <dialog
           ref={modalRef}
           onClose$={() => {
@@ -176,6 +184,7 @@ export default component$<ActivityCardProps>(
             activity={activity}
             modalRef={modalRef}
             previewOpen={previewOpen.value}
+            musicPlay={musicPlay}
           />
         </dialog>
       </div>
@@ -184,7 +193,7 @@ export default component$<ActivityCardProps>(
 );
 
 export const ExpandedCard = component$<ActivityCardProps>(
-  ({ activity, modalRef, previewOpen }) => {
+  ({ activity, modalRef, previewOpen, musicPlay }) => {
     const activityType =
       activityTypes[activity.type as keyof typeof activityTypes];
     const now = useContext(NowContext);
@@ -334,6 +343,9 @@ export const ExpandedCard = component$<ActivityCardProps>(
                   !(activity.timestamps?.start && activity.timestamps?.end)
                 }
               />
+            )}
+            {musicPlay && (
+              <MusicPlayDetails key={musicPlay.id} play={musicPlay} showDate />
             )}
           </div>
         </div>
