@@ -42,9 +42,9 @@ export default component$<ActivityCardProps>(
           }}
           aria-label={'Expand'}
         />
-        <div class="rounded-lum-2 absolute inset-0 -z-10 h-full w-full overflow-clip object-cover saturate-200">
+        <div class="rounded-lum-2 absolute inset-0 -z-10 h-full w-full overflow-clip object-cover">
           <img
-            class="animation-duration-[10s] absolute inset-0 -translate-y-1/3 animate-spin saturate-200"
+            class="animation-duration-[10s] absolute inset-0 -translate-y-1/3 animate-spin"
             src={activity.assets?.large_image}
             alt={activity.assets?.large_text}
             width={400}
@@ -128,7 +128,7 @@ export default component$<ActivityCardProps>(
             {activity.timestamps?.start && activity.timestamps?.end && (
               <div class="lum-grad-bg-gray-950/10 rounded-lum-6 relative mt-1 mr-2 min-h-1 overflow-x-clip">
                 <div
-                  class="absolute inset-0 rounded-[7px] brightness-200 backdrop-saturate-200 transition-all duration-1000 ease-linear"
+                  class="backdrop- absolute inset-0 rounded-[7px] brightness-200 transition-all duration-1000 ease-linear"
                   style={{
                     width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
                   }}
@@ -161,16 +161,16 @@ export const ExpandedCard = component$<ActivityCardProps>(
 
     return (
       <div class="lum-card lum-grad-bg-gray-950/60 rounded-lum-2 relative h-full w-full p-12 transition-all duration-300">
-        <div class="rounded-lum-2 absolute inset-0 -z-10 h-full w-full overflow-clip object-cover saturate-200">
+        <div class="rounded-lum-2 absolute inset-0 -z-10 h-full w-full overflow-clip object-cover">
           <img
-            class="animation-duration-[15s] absolute top-0 right-0 -translate-y-1/3 scale-150 animate-spin saturate-200"
+            class="animation-duration-[15s] absolute top-0 right-0 -translate-y-1/3 scale-150 animate-spin"
             src={activity.assets?.large_image}
             alt={activity.assets?.large_text}
             width={1024}
             height={1024}
           />
           <img
-            class="animate-spin-cc animation-duration-[20s] absolute bottom-0 left-0 translate-y-1/3 scale-150 saturate-200"
+            class="animate-spin-cc animation-duration-[20s] absolute bottom-0 left-0 translate-y-1/3 scale-150"
             src={activity.assets?.large_image}
             alt={activity.assets?.large_text}
             width={1024}
@@ -248,7 +248,7 @@ export const ExpandedCard = component$<ActivityCardProps>(
           <div class="mt-7">
             <div class="lum-grad-bg-gray-950/10 relative mb-1 min-h-4 overflow-x-clip rounded-full">
               <div
-                class="absolute inset-0 rounded-full brightness-200 backdrop-saturate-200 transition-all duration-1000 ease-linear"
+                class="backdrop- absolute inset-0 rounded-full brightness-200 transition-all duration-1000 ease-linear"
                 style={{
                   width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
                 }}

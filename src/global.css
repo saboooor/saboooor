@@ -4,6 +4,10 @@
 @import 'tw-animate-css';
 @import '@luminescent/ui';
 
+.markdown {
+  @import '@luminescent/ui/formatting';
+}
+
 @source "../node_modules/@luminescent/ui-qwik";
 
 @theme {
