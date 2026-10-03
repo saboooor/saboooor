@@ -175,7 +175,7 @@ export default component$(() => {
             <hr class="border-lum-border/10 my-2" />
 
             <div class="flex flex-wrap justify-evenly">
-              <Socials class="rounded-lum-6" key="maincard" />
+              <Socials class="rounded-lum-6" idPrefix="maincard" />
               <a
                 href="https://drive.proton.me/urls/6MRBRAEMD0#PLKDoX2KJnOk"
                 target="_blank"

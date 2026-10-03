@@ -29,7 +29,7 @@ export const Nav = component$(() => {
             addLabels="right"
             color
             size={18}
-            key="nav"
+            idPrefix="nav"
           />
         </div>
         <div class="lum-card lum-grad-bg-gray-900/50 flex gap-1 p-1 backdrop-blur-lg">

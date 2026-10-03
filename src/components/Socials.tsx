@@ -19,20 +19,17 @@ const socials = [
     color: 'fill-white',
     username: '@saboooor',
     href: 'https://github.com/saboooor',
-    icon: SiGithub,
   },
   {
     name: 'Discord',
     color: 'fill-[#5865F2]',
     username: '@saboor.',
     href: '/discord',
-    icon: SiDiscord,
   },
   {
     name: 'LinkedIn',
     color: 'fill-blue-600',
     href: 'https://www.linkedin.com/in/saboorb/',
-    icon: LinkedIn,
     personal: false,
   },
   {
@@ -40,14 +37,12 @@ const socials = [
     color: 'text-luminescent-300',
     username: 'hi@saboor.ca',
     href: 'mailto:hi@saboor.ca',
-    icon: Mail,
     personal: false,
   },
   {
     name: 'Luminescent',
     color: 'text-luminescent-200',
     href: 'https://luminescent.dev',
-    icon: Luminescent,
     personal: false,
   },
   {
@@ -55,14 +50,12 @@ const socials = [
     color: 'fill-l',
     username: '@sabudahar',
     href: 'https://steamcommunity.com/id/sabudahar',
-    icon: SiSteam,
     personal: true,
   },
   {
     name: 'Spotify',
     color: 'fill-[#1ED760]',
     href: 'https://open.spotify.com/user/onj1gkral4ceeu1mie9whf91d',
-    icon: SiSpotify,
     personal: true,
   },
   {
@@ -70,7 +63,6 @@ const socials = [
     color: 'fill-[#FE0132]',
     username: '@sabooor',
     href: 'https://music.youtube.com/@sabooor',
-    icon: SiYoutubemuSic,
     personal: true,
   },
   {
@@ -78,7 +70,6 @@ const socials = [
     color: 'fill-[#FA243C]',
     username: '@sabooor',
     href: 'https://music.apple.com/profile/sabooor',
-    icon: SiApplemuSic,
     personal: true,
   },
   {
@@ -86,7 +77,6 @@ const socials = [
     color: 'fill-[#D93900]',
     username: 'u/saboor_',
     href: 'https://www.reddit.com/user/saboor_',
-    icon: SiReddit,
     personal: true,
   },
   {
@@ -94,10 +84,41 @@ const socials = [
     color: 'fill-[#00E054]',
     username: '@sabooor',
     href: 'https://letterboxd.com/sabooor/',
-    icon: SiLetterboxd,
     personal: true,
   },
 ];
+
+// Keep explicit JSX references so Qwik can resume newly added icons after navigation.
+const SocialIcon = component$(
+  (props: { name: string; id: string; size: number; class?: string }) => {
+    switch (props.name) {
+      case 'GitHub':
+        return <SiGithub {...props} />;
+      case 'Discord':
+        return <SiDiscord {...props} />;
+      case 'LinkedIn':
+        return <LinkedIn {...props} />;
+      case 'Email':
+        return <Mail {...props} />;
+      case 'Luminescent':
+        return <Luminescent {...props} />;
+      case 'Steam':
+        return <SiSteam {...props} />;
+      case 'Spotify':
+        return <SiSpotify {...props} />;
+      case 'Youtube Music':
+        return <SiYoutubemuSic {...props} />;
+      case 'Apple Music':
+        return <SiApplemuSic {...props} />;
+      case 'Reddit':
+        return <SiReddit {...props} />;
+      case 'Letterboxd':
+        return <SiLetterboxd {...props} />;
+      default:
+        return null;
+    }
+  }
+);
 
 export default component$(
   ({
@@ -105,13 +126,13 @@ export default component$(
     addLabels,
     color,
     size,
-    key,
+    idPrefix,
   }: {
     class?: string;
     addLabels?: 'right' | 'left';
     color?: boolean;
     size?: number;
-    key: string;
+    idPrefix: string;
   }) => {
     const loc = useLocation();
 
@@ -126,7 +147,7 @@ export default component$(
           target="_blank"
           href={social.href}
           title={social.name}
-          key={social.name + key}
+          key={`${idPrefix}-${social.name.toLowerCase().replaceAll(' ', '-')}`}
           class={{
             'lum-btn lum-bg-transparent fill-current': true,
             'p-2': !addLabels,
@@ -134,9 +155,10 @@ export default component$(
           }}
         >
           {addLabels === 'left' && (social.username ?? social.name)}
-          <social.icon
-            id={social.name + key}
-            key={social.name + key}
+          <SocialIcon
+            name={social.name}
+            id={`${idPrefix}-${social.name.toLowerCase().replaceAll(' ', '-')}`}
+            key={`${idPrefix}-${social.name.toLowerCase().replaceAll(' ', '-')}`}
             size={size ?? 20}
             class={color ? social.color : undefined}
           />
