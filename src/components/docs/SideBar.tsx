@@ -63,7 +63,7 @@ export const DocsSidebar = component$(() => {
   });
 
   return (
-    <aside class="lum-card bg-lum-card-bg/50 fixed top-0 z-40 w-full rounded-none border-l-0 px-0 pt-14 pb-0 backdrop-blur-lg lg:sticky lg:h-dvh lg:w-100 lg:border-y-0 lg:px-6 lg:pt-20">
+    <aside class="lum-card bg-lum-card-bg/50 fixed top-0 z-40 w-full rounded-none border-l-0 px-0 pt-14 pb-0 backdrop-blur-lg lg:sticky lg:h-dvh lg:w-100 lg:border-y-0 lg:px-6 lg:pt-10">
       <nav id="docs-sidebar" class="invisible relative min-h-full">
         <div class="flex items-center gap-3 border-b border-gray-700 px-2 py-3">
           <Book class="ml-2 lg:ml-0" />

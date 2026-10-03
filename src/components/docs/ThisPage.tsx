@@ -65,7 +65,7 @@ export const OnThisPage = component$(({ readOnly }: { readOnly?: boolean }) => {
   const activeId = useActiveItem(contentHeadings.map((h) => h.id));
 
   return (
-    <aside class="lum-card sticky top-0 z-40 hidden h-dvh w-1/4 rounded-none border-r-0 bg-transparent px-0 pt-14 pb-0 sm:flex sm:border-y-0 sm:px-6 sm:pt-20">
+    <aside class="lum-card sticky top-0 z-40 hidden h-dvh w-1/4 rounded-none border-r-0 bg-transparent px-0 pt-14 pb-0 sm:flex sm:border-y-0 sm:px-6 sm:pt-10">
       {contentHeadings.length > 0 ? (
         <>
           <h6 class="border-b border-b-gray-700 py-3">On this page</h6>
