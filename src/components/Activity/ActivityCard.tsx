@@ -8,11 +8,15 @@ import {
 import { activityTypes, convertTime } from './Lanyard';
 import { getClassObject } from '@luminescent/ui-qwik';
 import X from 'lucide-icons-qwik/icons/X';
-import { NowContext } from '~/routes/layout';
+import {
+  NowContext,
+  MusicHistoryContext,
+  MostLikedMusicContext,
+} from '~/routes/layout';
 import './ActivityCard.css';
 import MusicPreview from './MusicPreview';
 import MusicPlayDetails from './MusicPlayDetails';
-import type { MusicPlay } from './LastMusic';
+import { musicIdentity, type MusicPlay } from './LastMusic';
 
 import { squigglePath } from './ProgressWave';
 
@@ -26,7 +30,26 @@ interface ActivityCardProps extends PropsOf<'div'> {
 }
 
 export default component$<ActivityCardProps>(
-  ({ activity, fixedwidth, compact, musicPlay, class: Class, ...props }) => {
+  ({
+    activity,
+    fixedwidth,
+    compact,
+    musicPlay: suppliedPlay,
+    class: Class,
+    ...props
+  }) => {
+    const history = useContext(MusicHistoryContext);
+    const mostLiked = useContext(MostLikedMusicContext);
+    const musicPlay =
+      activity.type === 2
+        ? history.value.find(
+            (play) => musicIdentity(play.activity) === musicIdentity(activity)
+          ) ||
+          mostLiked.value.find(
+            (play) => musicIdentity(play.activity) === musicIdentity(activity)
+          ) ||
+          suppliedPlay
+        : undefined;
     const activityType =
       activityTypes[activity.type as keyof typeof activityTypes];
     const modalRef = useSignal<HTMLDialogElement>();
@@ -193,7 +216,19 @@ export default component$<ActivityCardProps>(
 );
 
 export const ExpandedCard = component$<ActivityCardProps>(
-  ({ activity, modalRef, previewOpen, musicPlay }) => {
+  ({ activity, modalRef, previewOpen, musicPlay: suppliedPlay }) => {
+    const history = useContext(MusicHistoryContext);
+    const mostLiked = useContext(MostLikedMusicContext);
+    const musicPlay =
+      activity.type === 2
+        ? history.value.find(
+            (play) => musicIdentity(play.activity) === musicIdentity(activity)
+          ) ||
+          mostLiked.value.find(
+            (play) => musicIdentity(play.activity) === musicIdentity(activity)
+          ) ||
+          suppliedPlay
+        : undefined;
     const activityType =
       activityTypes[activity.type as keyof typeof activityTypes];
     const now = useContext(NowContext);

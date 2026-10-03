@@ -28,16 +28,32 @@ export default component$(() => {
   const latestPlay = history.value.find(
     (play) => musicIdentity(play.activity) === musicIdentity(musicActivity)
   );
-  const groups = new Map<string, typeof history.value>();
+  const days = new Map<string, typeof history.value>();
+  const dateFormatter = new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'America/Toronto',
+  });
+  const hourFormatter = new Intl.DateTimeFormat('en-CA', {
+    hour: 'numeric',
+    timeZone: 'America/Toronto',
+  });
   for (const play of history.value) {
     if (musicIdentity(play.activity) === musicIdentity(musicActivity)) continue;
-    const date = new Intl.DateTimeFormat('en-CA', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      timeZone: 'America/Toronto',
-    }).format(play.caughtAt);
-    groups.set(date, [...(groups.get(date) || []), play]);
+    const date = dateFormatter.format(play.caughtAt);
+    days.set(date, [...(days.get(date) || []), play]);
+  }
+  const groups = new Map<string, typeof history.value>();
+  for (const [date, plays] of days) {
+    if (plays.length <= 6) {
+      groups.set(date, plays);
+      continue;
+    }
+    for (const play of plays) {
+      const hour = `${date} · ${hourFormatter.format(play.caughtAt)}`;
+      groups.set(hour, [...(groups.get(hour) || []), play]);
+    }
   }
 
   return (
