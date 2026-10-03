@@ -4,7 +4,6 @@ import { useMarkdownItems } from '~/routes/docs/layout';
 import { buildMenu } from '.';
 import { MenuItems } from './Menuitems';
 import Book from 'lucide-icons-qwik/icons/Book';
-import Menu from 'lucide-icons-qwik/icons/Menu';
 import Search from 'lucide-icons-qwik/icons/Search';
 
 export const DocsSidebar = component$(() => {
