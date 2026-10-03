@@ -9,6 +9,14 @@ import { activityTypes, convertTime } from './Lanyard';
 import { getClassObject } from '@luminescent/ui-qwik';
 import X from 'lucide-icons-qwik/icons/X';
 import { NowContext } from '~/routes/layout';
+import './ActivityCard.css';
+
+// No viewBox: wave coordinates stay in pixels as the SVG viewport reveals progress.
+const squigglePath =
+  'M0 6 Q6 2 12 6 ' +
+  Array.from({ length: 1023 }, (_, index) => `T${(index + 2) * 12} 6`).join(
+    ' '
+  );
 
 interface ActivityCardProps extends PropsOf<'div'> {
   activity: any;
@@ -36,7 +44,7 @@ export default component$<ActivityCardProps>(
         {...props}
       >
         <button
-          class="rounded-lum-2 absolute inset-0 z-10 cursor-pointer"
+          class="lum-btn lum-bg-transparent hover:lum-bg-transparent active:lum-bg-transparent rounded-lum-2 absolute inset-0 z-10 cursor-pointer p-0 motion-safe:active:scale-100"
           onClick$={() => {
             modalRef.value?.showModal();
           }}
@@ -126,13 +134,25 @@ export default component$<ActivityCardProps>(
               </>
             )}
             {activity.timestamps?.start && activity.timestamps?.end && (
-              <div class="lum-grad-bg-gray-950/10 rounded-lum-6 relative mt-1 mr-2 min-h-1 overflow-x-clip">
-                <div
-                  class="backdrop- absolute inset-0 rounded-[7px] brightness-200 transition-all duration-1000 ease-linear"
+              <div class="mt-1 mr-2 flex h-3 items-center gap-1 overflow-hidden">
+                <svg
+                  aria-hidden="true"
+                  class="h-3 shrink-0 overflow-hidden text-violet-300 transition-[width] duration-1000 ease-linear"
                   style={{
-                    width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
+                    width: `${Math.min(100, Math.max(0, ((now.value - activity.timestamps.start) / Math.max(1, activity.timestamps.end - activity.timestamps.start)) * 100))}%`,
                   }}
-                />
+                >
+                  <path
+                    class="activity-progress-wave"
+                    d={squigglePath}
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+                <div class="h-0.5 flex-1 rounded-full bg-white/20" />
               </div>
             )}
           </div>
@@ -140,8 +160,8 @@ export default component$<ActivityCardProps>(
         <dialog
           ref={modalRef}
           class={{
-            'text-lum-text m-auto hidden overflow-visible open:flex': true,
-            'max-w-2/3 bg-transparent drop-shadow-2xl lg:max-w-1/2 2xl:max-w-1/3': true,
+            'activity-player-dialog text-lum-text m-auto hidden open:flex': true,
+            'w-[calc(100%-2rem)] max-w-2xl bg-transparent p-0 shadow-2xl': true,
             'open:animate-in open:fade-in open:slide-in-from-top-8 open:duration-300': true,
             'animate-out fade-out slide-in-from-top-8 duration-300': true,
           }}
@@ -160,110 +180,142 @@ export const ExpandedCard = component$<ActivityCardProps>(
     const now = useContext(NowContext);
 
     return (
-      <div class="lum-card lum-grad-bg-gray-950/60 rounded-lum-2 relative h-full w-full p-12 transition-all duration-300">
-        <div class="rounded-lum-2 absolute inset-0 -z-10 h-full w-full overflow-clip object-cover">
-          <img
-            class="animation-duration-[15s] absolute top-0 right-0 -translate-y-1/3 scale-150 animate-spin"
-            src={activity.assets?.large_image}
-            alt={activity.assets?.large_text}
-            width={1024}
-            height={1024}
-          />
-          <img
-            class="animate-spin-cc animation-duration-[20s] absolute bottom-0 left-0 translate-y-1/3 scale-150"
-            src={activity.assets?.large_image}
-            alt={activity.assets?.large_text}
-            width={1024}
-            height={1024}
-          />
-        </div>
-        <div class="rounded-lum-2 absolute inset-0 -z-10 backdrop-blur-2xl" />
-
-        <div class="-mt-5 mb-3 flex">
+      <div class="activity-player lum-card rounded-lum relative isolate w-full gap-6 overflow-hidden p-5 sm:p-7">
+        {activity.assets?.large_image && (
           <div
-            class={{
-              'top-2 right-2 z-2 flex flex-1 items-center gap-2': true,
-            }}
+            class="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+            aria-hidden="true"
           >
-            {activityType?.icon && <activityType.icon />}
-            <b>{activity.name}</b>
+            {[0, 1, 2, 3].map((layer) => (
+              <img
+                key={layer}
+                class={`activity-player-art activity-player-art-${layer}`}
+                src={activity.assets.large_image}
+                alt={
+                  activity.assets.large_text || 'Activity artwork background'
+                }
+                width={640}
+                height={640}
+              />
+            ))}
+            <div class="lum-grad-bg-gray-950/80 rounded-lum absolute inset-0 backdrop-blur-3xl" />
+          </div>
+        )}
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex min-w-0 items-center gap-3">
+            {activityType?.icon && (
+              <span class="lum-bg-gray-900/50 rounded-lum-4 flex h-9 w-9 shrink-0 items-center justify-center text-violet-200">
+                <activityType.icon size={18} />
+              </span>
+            )}
+            <div class="min-w-0">
+              <p class="text-xs text-gray-400">
+                {activityType?.text || 'Activity'}
+              </p>
+              <p class="truncate text-sm font-semibold">{activity.name}</p>
+            </div>
           </div>
           {modalRef && (
             <button
-              class="rounded-lum-2 lum-btn lum-bg-transparent p-2"
+              class="lum-btn lum-bg-gray-900/50 rounded-lum-4 shrink-0 cursor-pointer p-2"
               onClick$={() => {
                 modalRef.value?.close();
               }}
-              aria-label={'Close'}
+              aria-label="Close player"
             >
-              <X />
+              <X size={18} />
             </button>
           )}
         </div>
-
-        {activity.assets?.large_image && (
-          <a
-            class={{
-              'lum-grad-bg-yellow-500/0 rounded-lum-4 relative h-auto w-full': true,
-            }}
-            href={activity.assets.large_url}
-          >
-            <img
-              src={activity.assets.large_image.replace('128x128', '1024x1024')}
-              alt={activity.assets.large_text}
-              width={1024}
-              height={1024}
-              class={{
-                'rounded-lum-4 top-0 -z-1 h-auto w-full': true,
-              }}
-            />
-          </a>
-        )}
-        <div class="mt-7 flex flex-1 flex-col text-xs">
-          {activity.details && (
-            <p class="text-2xl font-semibold xl:text-4xl">{activity.details}</p>
-          )}
-          {activity.state && (
-            <p class="overflow-hidden text-xl text-ellipsis text-gray-400 xl:text-2xl">
-              {activity.state}
-            </p>
-          )}
-          {activity.assets?.large_text && (
-            <p class="text-lg text-gray-500 xl:text-xl">
-              {activity.assets.large_text}
-            </p>
-          )}
-          {activity.timestamps?.start && !activity.timestamps?.end && (
-            <p class="text-xl text-violet-300/50">
-              {convertTime(now.value - activity.timestamps.start)} elapsed
-            </p>
-          )}
-          {activity.timestamps?.end && !activity.timestamps?.start && (
-            <p class="text-xl text-violet-300/50">
-              {convertTime((now.value - activity.timestamps.end) * -1)} left
-            </p>
-          )}
-        </div>
-        {activity.timestamps?.start && activity.timestamps?.end && (
-          <div class="mt-7">
-            <div class="lum-grad-bg-gray-950/10 relative mb-1 min-h-4 overflow-x-clip rounded-full">
-              <div
-                class="backdrop- absolute inset-0 rounded-full brightness-200 transition-all duration-1000 ease-linear"
-                style={{
-                  width: `${((now.value - activity.timestamps.start) / (activity.timestamps.end - activity.timestamps.start)) * 100}%`,
-                }}
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
+          {activity.assets?.large_image && (
+            <a
+              class="relative mx-auto block w-full max-w-64 shrink-0 sm:mx-0 sm:w-2/5"
+              href={activity.assets.large_url}
+            >
+              <img
+                src={activity.assets.large_image.replace(
+                  '128x128',
+                  '1024x1024'
+                )}
+                alt={activity.assets.large_text || activity.name}
+                width={1024}
+                height={1024}
+                class="aspect-square w-full rounded-2xl object-cover shadow-xl ring-1 ring-white/10"
               />
+              {activity.assets?.small_image && (
+                <img
+                  src={activity.assets.small_image}
+                  alt={activity.assets.small_text || activity.name}
+                  width={36}
+                  height={36}
+                  class="absolute -right-2 -bottom-2 rounded-xl border-4 border-gray-950"
+                />
+              )}
+            </a>
+          )}
+          <div class="flex min-w-0 flex-1 flex-col gap-5">
+            <div class="flex flex-col gap-1">
+              {activity.details && (
+                <p class="text-2xl leading-tight font-semibold tracking-tight break-words">
+                  {activity.details}
+                </p>
+              )}
+              {activity.state && (
+                <p class="text-base leading-relaxed break-words text-gray-300">
+                  {activity.state}
+                </p>
+              )}
+              {activity.assets?.large_text && (
+                <p class="text-sm leading-relaxed break-words text-gray-400">
+                  {activity.assets.large_text}
+                </p>
+              )}
+              {activity.timestamps?.start && !activity.timestamps?.end && (
+                <p class="mt-2 text-xs text-violet-200/70">
+                  {convertTime(now.value - activity.timestamps.start)} elapsed
+                </p>
+              )}
+              {activity.timestamps?.end && !activity.timestamps?.start && (
+                <p class="mt-2 text-xs text-violet-200/70">
+                  {convertTime((now.value - activity.timestamps.end) * -1)} left
+                </p>
+              )}
             </div>
-            <div class="mx-1 flex justify-between">
-              <p class="text-xl text-gray-400/50">
-                {convertTime(now.value - activity.timestamps.start)}
-              </p>
-              <p class="text-xl text-gray-400/50">
-                {convertTime((now.value - activity.timestamps.end) * -1)}
-              </p>
-            </div>
+            {activity.timestamps?.start && activity.timestamps?.end && (
+              <div class="pt-1">
+                <div class="mb-1 flex h-3 items-center gap-1 overflow-hidden">
+                  <svg
+                    aria-hidden="true"
+                    class="h-3 shrink-0 overflow-hidden text-violet-300 transition-[width] duration-1000 ease-linear"
+                    style={{
+                      width: `${Math.min(100, Math.max(0, ((now.value - activity.timestamps.start) / Math.max(1, activity.timestamps.end - activity.timestamps.start)) * 100))}%`,
+                    }}
+                  >
+                    <path
+                      class="activity-progress-wave"
+                      d={squigglePath}
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      vector-effect="non-scaling-stroke"
+                    />
+                  </svg>
+                  <div class="h-0.5 flex-1 rounded-full bg-white/20" />
+                </div>
+                <div class="mx-1 flex justify-between">
+                  <p class="text-xs text-gray-400 tabular-nums">
+                    {convertTime(now.value - activity.timestamps.start)}
+                  </p>
+                  <p class="text-xs text-gray-400 tabular-nums">
+                    {convertTime((now.value - activity.timestamps.end) * -1)}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     );
   }

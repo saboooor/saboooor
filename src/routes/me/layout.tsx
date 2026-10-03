@@ -13,7 +13,7 @@ export default component$(() => {
 
   return (
     <>
-      <div class="fixed top-5 z-100 w-full">
+      <div class="relative z-40 w-full px-4 pt-5 md:fixed md:top-5 md:pt-0">
         <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-2">
           <div class="rounded-lum-4 lum-grad-bg-yellow-950/0 relative h-16 w-16">
             <img
@@ -55,8 +55,8 @@ export default component$(() => {
         </div>
       </div>
       <Slot />
-      <div class="fixed bottom-5 flex w-full justify-center">
-        <div class="lum-grad-bg-gray-900 rounded-lum flex items-center gap-1 p-1">
+      <div class="pointer-events-none fixed bottom-5 z-50 flex w-full justify-center">
+        <div class="lum-grad-bg-gray-900 rounded-lum pointer-events-auto flex items-center gap-1 p-1">
           <Link
             href="/me"
             class={{

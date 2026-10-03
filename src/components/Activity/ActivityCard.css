@@ -1,0 +1,84 @@
+@keyframes activity-wave-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-24px);
+  }
+}
+
+.activity-progress-wave {
+  animation: activity-wave-drift 2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-progress-wave {
+    animation: none;
+  }
+}
+
+.activity-player-dialog {
+  max-height: calc(100svh - 2rem);
+  overflow-y: auto;
+  border-radius: calc(var(--lum-border-radius) - 0.5rem);
+}
+
+.activity-player-dialog::backdrop {
+  background: rgb(3 7 18 / 65%);
+  backdrop-filter: blur(8px);
+}
+
+.activity-player {
+  white-space: normal;
+}
+
+@keyframes activity-art-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.activity-player-art {
+  position: absolute;
+  width: 85%;
+  height: 110%;
+  object-fit: cover;
+  animation: activity-art-spin 28s linear infinite;
+}
+
+.activity-player-art-0 {
+  top: -35%;
+  left: -25%;
+}
+
+.activity-player-art-1 {
+  top: -35%;
+  right: -25%;
+  animation-direction: reverse;
+  animation-duration: 34s;
+  animation-delay: -8s;
+}
+
+.activity-player-art-2 {
+  bottom: -35%;
+  left: -25%;
+  animation-direction: reverse;
+  animation-duration: 40s;
+  animation-delay: -16s;
+}
+
+.activity-player-art-3 {
+  bottom: -35%;
+  right: -25%;
+  animation-duration: 32s;
+  animation-delay: -24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-player-art {
+    animation: none;
+  }
+}

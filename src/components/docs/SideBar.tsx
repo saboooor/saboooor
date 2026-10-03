@@ -63,42 +63,42 @@ export const DocsSidebar = component$(() => {
   });
 
   return (
-    <aside class="lum-card bg-lum-card-bg/50 fixed top-0 z-40 w-full rounded-none border-l-0 px-0 pt-14 pb-0 backdrop-blur-lg lg:sticky lg:h-dvh lg:w-100 lg:border-y-0 lg:px-6 lg:pt-10">
+    <aside class="lum-card lum-bg-transparent lg:bg-lum-card-bg/50 fixed top-3 right-3 z-40 rounded-none border-y-0 border-l-0 px-0 pt-0 pb-0 lg:sticky lg:h-dvh lg:w-100 lg:px-6 lg:pt-10 lg:backdrop-blur-lg">
       <nav id="docs-sidebar" class="invisible relative min-h-full">
-        <div class="flex items-center gap-3 border-b border-gray-700 px-2 py-3">
+        <div class="mb-4 hidden items-center gap-3 border-b border-gray-700 px-2 py-3 lg:flex">
           <Book class="ml-2 lg:ml-0" />
           <h5 class="flex flex-1">Documentation</h5>
-
-          <button
-            class="lum-btn lum-bg-transparent p-2 lg:hidden"
-            onClick$={() => {
-              store.sideMenuOpen = !store.sideMenuOpen;
-              const abortController = new AbortController();
-              document.addEventListener(
-                'click',
-                (e) => {
-                  if (
-                    !e
-                      .composedPath()
-                      .includes(document.querySelector('aside')!) ||
-                    e.target instanceof HTMLAnchorElement
-                  ) {
-                    store.sideMenuOpen = false;
-                    abortController.abort();
-                  }
-                },
-                { signal: abortController.signal }
-              );
-            }}
-            aria-label="Toggle Menu"
-          >
-            <Menu />
-          </button>
         </div>
+
+        <button
+          class="lum-btn lum-bg-lum-card-bg lg:lum-bg-transparent ml-auto p-2 lg:hidden"
+          onClick$={() => {
+            store.sideMenuOpen = !store.sideMenuOpen;
+            const abortController = new AbortController();
+            document.addEventListener(
+              'click',
+              (e) => {
+                if (
+                  !e
+                    .composedPath()
+                    .includes(document.querySelector('aside')!) ||
+                  e.target instanceof HTMLAnchorElement
+                ) {
+                  store.sideMenuOpen = false;
+                  abortController.abort();
+                }
+              },
+              { signal: abortController.signal }
+            );
+          }}
+          aria-label="Toggle Menu"
+        >
+          <Book />
+        </button>
 
         <div
           class={{
-            'mx-4 my-4 flex-col gap-3 lg:mx-0': true,
+            'lum-card lum-bg-lum-card-bg/50 lg:lum-bg-transparent p-2 backdrop-blur-xl': true,
             'hidden lg:flex': !store.sideMenuOpen,
             flex: store.sideMenuOpen,
           }}

@@ -4,6 +4,8 @@ import Balloon from 'lucide-icons-qwik/icons/Balloon';
 import Laptop from 'lucide-icons-qwik/icons/Laptop';
 import Menu from 'lucide-icons-qwik/icons/Menu';
 import Socials from './Socials';
+import Book from 'lucide-icons-qwik/icons/Book';
+import Home from 'lucide-icons-qwik/icons/Home';
 
 export const Nav = component$(() => {
   const loc = useLocation();
@@ -34,19 +36,19 @@ export const Nav = component$(() => {
                 loc.url.pathname === '/',
             }}
           >
-            <Laptop size={18} />
-            Professional
+            <Home size={18} />
+            Home
           </Link>
           <Link
-            href="/me"
+            href="/docs"
             class={{
               'lum-btn lum-bg-transparent rounded-lum-1': true,
               'lum-grad-bg-lum-accent hover:lum-bg-lum-accent':
-                loc.url.pathname.includes('/me'),
+                loc.url.pathname.includes('/docs'),
             }}
           >
-            <Balloon size={18} />
-            Personal
+            <Book size={18} />
+            Docs
           </Link>
         </div>
       </nav>

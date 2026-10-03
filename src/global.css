@@ -27,16 +27,10 @@
   --color-gray-800: oklch(27.8% 0.036 290);
   --color-gray-900: oklch(21% 0.036 295);
   --color-gray-950: oklch(13% 0.03 292);
-  --color-lum-accent: var(--color-violet-800);
+  --color-lum-accent: var(--color-violet-400);
   --color-lum-text-secondary: --alpha(var(--color-lum-text) / 70%);
   --lum-border-superellipse: 2;
   --lum-depth: 2;
-}
-
-@supports (corner-shape: squircle) {
-  :root {
-    --lum-border-radius: 4rem;
-  }
 }
 
 @keyframes spin-cc {

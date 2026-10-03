@@ -25,7 +25,7 @@ export const Breadcrumbs = component$(() => {
 
   return (
     <nav
-      class="lum-card lum-btn-p-2 fixed top-10 z-20 mb-6 w-full flex-row items-center gap-1 rounded-none text-sm backdrop-blur-lg sm:top-20 sm:w-auto sm:rounded-full sm:border sm:p-2"
+      class="lum-card lum-btn-p-2 fixed top-3 left-3 z-20 mb-6 flex-row items-center gap-1 rounded-full border p-2 text-sm backdrop-blur-lg sm:top-5 sm:left-20"
       aria-label="Breadcrumb"
     >
       <a href="/docs/" class="lum-btn lum-bg-transparent rounded-full p-1">

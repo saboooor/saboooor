@@ -13,6 +13,7 @@ import {
   getLanyardData,
 } from '~/components/Activity/Lanyard';
 import Footer from '~/components/Footer';
+import Banner from '~/components/Banner';
 import { Nav } from '~/components/Nav';
 
 export const useData = routeLoader$(async ({ request }) => {
@@ -66,8 +67,7 @@ export default component$(() => {
 
   return (
     <>
-      <img
-        src={Bg}
+      <Banner
         width={1280}
         height={720}
         alt="Saboor's banner"

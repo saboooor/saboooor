@@ -10,7 +10,8 @@ import Projects from '~/components/Projects/ProjectsSection';
 import Technologies from '~/components/Technologies/TechnologiesSection';
 import Credentials from '~/components/Credentials/CredentialsSection';
 import SabCutout from '~/components/images/sab-cutout.png?jsx';
-import { Bg, DiscordContext } from './layout';
+import { DiscordContext } from './layout';
+import Banner from '~/components/Banner';
 
 export const messages = [
   'hey pookie :3',
@@ -64,12 +65,11 @@ export default component$(() => {
 
         <div class="flex flex-col gap-4 md:flex-1">
           <div class="lum-card lum-grad-bg-violet-950/10 hover:lum-bg-violet-900/10 relative pt-24 transition-all duration-300 md:p-12 md:pt-48">
-            <img
-              src={Bg}
+            <Banner
               width={1280}
               height={720}
               alt="Saboor's banner"
-              class="rounded-lum absolute top-0 left-0 -z-1 mb-4 max-h-128 rounded-b-none mask-b-from-60% object-cover opacity-50"
+              class="rounded-lum-t absolute top-0 left-0 -z-1 mb-4 max-h-128 rounded-b-none mask-b-from-60% object-cover opacity-50"
             />
 
             <h1 class="animate-in fade-in slide-in-from-top-5 flex items-center gap-2 text-xl font-bold duration-800 text-shadow-lg/30 md:text-3xl">

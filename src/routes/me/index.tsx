@@ -3,7 +3,8 @@ import { DocumentHead } from '@qwik.dev/router';
 import Hand from 'lucide-icons-qwik/icons/Hand';
 import Socials from '~/components/Socials';
 import { addWave, messages } from '..';
-import { Bg, DiscordContext } from '../layout';
+import { DiscordContext } from '../layout';
+import Banner from '~/components/Banner';
 
 export default component$(() => {
   const waves = useSignal(undefined as number | undefined);
@@ -14,10 +15,9 @@ export default component$(() => {
 
   return (
     <>
-      <section class="relative mx-auto flex min-h-svh max-w-3xl flex-col items-center justify-center gap-4 px-4">
+      <section class="relative mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 px-4 pt-8 pb-12 md:pt-40 md:pb-20">
         <div class="lum-card lum-grad-bg-orange-950/10 hover:lum-bg-orange-900/10 relative pt-24 transition-all duration-300 md:p-12 md:pt-48">
-          <img
-            src={Bg}
+          <Banner
             width={1280}
             height={720}
             alt="Saboor's banner"
@@ -32,6 +32,7 @@ export default component$(() => {
                 waves.value = 1;
                 waves.value = await addWave();
               }}
+              aria-label="Wave hello to Saboor"
               data-umami-event="wave"
             >
               <Hand size={32} class="w-8 rotate-25" />
@@ -94,7 +95,7 @@ export default component$(() => {
           <p class="animate-in slide-in-from-top-5 text-gray-400 duration-1250 md:text-lg">
             <b class="text-white">welcome to my personal website!</b>
             <br />
-            you can find a lot about me here
+            about me, what I'm into, and where to find me.
           </p>
 
           <span
