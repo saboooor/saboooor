@@ -2,7 +2,7 @@ import type { MusicActivity } from '~/components/Activity/LastMusic';
 
 const fallbackTitle = "Hi, I'm Saboor. (aka sab)";
 const fallbackDescription =
-  "Welcome to Saboor's personal portfolio, music, and listening history.";
+  "See what's playing, preview songs, and like your favorites from the songs other people have caught me playing. I think my music taste is pretty good if I say so myself :p";
 const fallbackImage = 'https://avatars.githubusercontent.com/u/42164502';
 
 export function musicHead(
@@ -13,17 +13,17 @@ export function musicHead(
   const song = current?.details ? current : last;
   const live = Boolean(current?.details);
   const title = song?.details
-    ? `${live ? 'Now listening to' : 'Last listened to'} ${song.details}${song.state ? ` by ${song.state}` : ''} · Saboor`
+    ? `${song.details}${song.state ? ` by ${song.state}` : ''} · Saboor`
     : fallbackTitle;
   const description = song?.details
     ? [
-        live ? 'Currently playing' : 'Last song caught playing',
-        song.details,
-        song.state,
-        song.assets?.large_text,
+        live ? 'Now listening' : 'Last listened to',
+        song.assets?.large_text
+          ? `Album: ${song.assets.large_text}`
+          : undefined,
       ]
         .filter(Boolean)
-        .join(' · ')
+        .join(' · ') + `. ${fallbackDescription}`
     : fallbackDescription;
   const image = song?.assets?.large_image || fallbackImage;
   let imageUrl = fallbackImage;
