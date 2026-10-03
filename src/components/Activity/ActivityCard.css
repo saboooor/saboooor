@@ -32,6 +32,23 @@
   white-space: normal;
 }
 
+.activity-art-background {
+  position: absolute;
+  inset: 1px;
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+  corner-shape: inherit;
+  isolation: isolate;
+  /* Force transformed artwork into a clipped compositing surface. */
+  mask-image: linear-gradient(#000, #000);
+}
+
+.activity-card-art {
+  filter: blur(16px);
+}
+
 @keyframes activity-art-spin {
   from {
     transform: rotate(0deg);
@@ -46,6 +63,7 @@
   width: 85%;
   height: 110%;
   object-fit: cover;
+  filter: blur(48px);
   animation: activity-art-spin 28s linear infinite;
 }
 

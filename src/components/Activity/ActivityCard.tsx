@@ -60,7 +60,7 @@ export default component$<ActivityCardProps>(
       <div
         key={activity.id}
         class={{
-          'lum-card lum-grad-bg-gray-950/80 rounded-lum-2 relative flex-row justify-between p-2 transition-all duration-300': true,
+          'lum-card lum-grad-bg-gray-950/80 rounded-lum-2 relative isolate flex-row justify-between p-2 transition-all duration-300': true,
           'min-w-full flex-1 md:max-w-2/3 md:min-w-1/3': !fixedwidth,
           'w-80': fixedwidth,
           ...getClassObject(Class),
@@ -75,16 +75,16 @@ export default component$<ActivityCardProps>(
           }}
           aria-label={'Expand'}
         />
-        <div class="rounded-lum-2 absolute inset-0 -z-10 h-full w-full overflow-clip object-cover">
+        <div class="activity-art-background" aria-hidden="true">
           <img
-            class="animation-duration-[10s] absolute inset-0 -translate-y-1/3 animate-spin"
+            class="activity-card-art animation-duration-[10s] absolute inset-0 -translate-y-1/3 animate-spin"
             src={activity.assets?.large_image}
             alt={activity.assets?.large_text}
             width={400}
             height={400}
           />
+          <div class="absolute inset-0 bg-gray-950/80" />
         </div>
-        <div class="rounded-lum-2 absolute inset-0 -z-10 backdrop-blur-lg" />
         <div
           class={{
             'group absolute top-2 right-2 z-2 flex items-center gap-2': true,
@@ -236,10 +236,7 @@ export const ExpandedCard = component$<ActivityCardProps>(
     return (
       <div class="activity-player lum-card rounded-lum relative isolate w-full gap-6 overflow-hidden p-5 sm:p-7">
         {activity.assets?.large_image && (
-          <div
-            class="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-            aria-hidden="true"
-          >
+          <div class="activity-art-background" aria-hidden="true">
             {[0, 1, 2, 3].map((layer) => (
               <img
                 key={layer}
@@ -252,7 +249,7 @@ export const ExpandedCard = component$<ActivityCardProps>(
                 height={640}
               />
             ))}
-            <div class="lum-grad-bg-gray-950/80 rounded-lum absolute inset-0 backdrop-blur-3xl" />
+            <div class="lum-grad-bg-gray-950/80 absolute inset-0 border-0 shadow-none" />
           </div>
         )}
         <div class="flex flex-wrap items-center justify-between gap-4">
