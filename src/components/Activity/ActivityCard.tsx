@@ -345,7 +345,7 @@ export const ExpandedCard = component$<ActivityCardProps>(
               />
             )}
             {musicPlay && (
-              <MusicPlayDetails key={musicPlay.id} play={musicPlay} showDate />
+              <MusicPlayDetails key={musicPlay.id} play={musicPlay} hideDate />
             )}
           </div>
         </div>

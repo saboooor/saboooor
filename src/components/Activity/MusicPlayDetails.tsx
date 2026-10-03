@@ -9,8 +9,8 @@ import {
 } from '~/routes/layout';
 import { musicIdentity } from './LastMusic';
 
-export default component$<{ play: MusicPlay; showDate?: boolean }>(
-  ({ play, showDate }) => {
+export default component$<{ play: MusicPlay; hideDate?: boolean }>(
+  ({ play, hideDate }) => {
     const liked = useSignal(play.liked);
     const likes = useSignal(play.likes);
     const busy = useSignal(false);
@@ -23,14 +23,16 @@ export default component$<{ play: MusicPlay; showDate?: boolean }>(
     });
     return (
       <div class="flex flex-col items-end gap-3 text-xs text-gray-400">
-        <p class="text-nowrap">
-          <time dateTime={new Date(play.caughtAt).toISOString()}>
-            {new Intl.DateTimeFormat('en-CA', {
-              dateStyle: showDate ? 'medium' : undefined,
-              timeStyle: 'short',
-            }).format(play.caughtAt)}{' '}
-          </time>
-        </p>
+        {!hideDate && (
+          <p class="text-nowrap">
+            <time dateTime={new Date(play.caughtAt).toISOString()}>
+              {new Intl.DateTimeFormat('en-CA', {
+                dateStyle: undefined,
+                timeStyle: 'short',
+              }).format(play.caughtAt)}{' '}
+            </time>
+          </p>
+        )}
         <button
           type="button"
           class={{
