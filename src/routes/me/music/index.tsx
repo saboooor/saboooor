@@ -1,3 +1,6 @@
+import { musicHead } from '~/util/musicHead';
+import { useData } from '~/routes/layout';
+import type { MusicActivity } from '~/components/Activity/LastMusic';
 import { component$, useContext, useSignal } from '@qwik.dev/core';
 import { DocumentHead } from '@qwik.dev/router';
 import ActivityCard, { ExpandedCard } from '~/components/Activity/ActivityCard';
@@ -135,22 +138,10 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: "Hi, I'm Saboor. (aka sab)",
-  meta: [
-    {
-      name: 'description',
-      content:
-        "I'm a self-taught full-stack software developer, I have always loved technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, cooking diverse cuisines and thriving in creative, collaborative environments. I like to experiment with stuff.",
-    },
-    {
-      name: 'og:description',
-      content:
-        "I'm a self-taught full-stack software developer, I have always loved technology, problem-solving, creativity, and design. Also a Culinary Arts graduate from NAIT, cooking diverse cuisines and thriving in creative, collaborative environments. I like to experiment with stuff.",
-    },
-    {
-      name: 'og:image',
-      content: 'https://avatars.githubusercontent.com/u/42164502',
-    },
-  ],
+export const head: DocumentHead = ({ resolveValue, url }) => {
+  const { lanyard, lastMusic } = resolveValue(useData);
+  const current: MusicActivity | undefined = lanyard?.activities.find(
+    (activity: MusicActivity) => activity.type === 2
+  );
+  return musicHead(current, lastMusic, url);
 };
