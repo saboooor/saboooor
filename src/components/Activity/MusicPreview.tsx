@@ -44,6 +44,11 @@ export default component$<{
     };
     const fadeIn = () => {
       stopFade();
+      if (document.hidden) {
+        player.pause();
+        playing.value = false;
+        return;
+      }
       fadeLevel.value = 0;
       player.volume = 0;
       const start = performance.now();
@@ -58,15 +63,31 @@ export default component$<{
     };
     const pause = () => {
       stopFade();
+      playing.value = false;
       fadeLevel.value = 1;
       player.volume = volume.value / 100;
     };
+    const pauseWhenHidden = () => {
+      if (document.hidden) {
+        player.pause();
+        pause();
+      }
+    };
     player.volume = 0;
+    player.addEventListener('play', pauseWhenHidden);
     player.addEventListener('playing', fadeIn);
     player.addEventListener('pause', pause);
-    if (!player.paused) fadeIn();
+    document.addEventListener('visibilitychange', pauseWhenHidden);
+    if (document.hidden) pauseWhenHidden();
+    else if (!player.paused) fadeIn();
+    else
+      void player.play().catch(() => {
+        playing.value = false;
+      });
     cleanup(() => {
       stopFade();
+      document.removeEventListener('visibilitychange', pauseWhenHidden);
+      player.removeEventListener('play', pauseWhenHidden);
       player.removeEventListener('playing', fadeIn);
       player.removeEventListener('pause', pause);
       player.pause();
@@ -129,12 +150,11 @@ export default component$<{
             ref={audio}
             src={preview.value.previewUrl}
             volume={0}
-            autoplay
             preload="none"
             class="hidden"
             aria-label="Song preview"
-            onPlay$={() => {
-              playing.value = true;
+            onPlay$={(_, player) => {
+              playing.value = !document.hidden && !player.paused;
             }}
             onPause$={() => {
               playing.value = false;
@@ -198,7 +218,7 @@ export default component$<{
               disabled={playbackError.value}
               onClick$={async () => {
                 const player = audio.value;
-                if (!player) return;
+                if (!player || document.hidden) return;
                 if (!player.paused) player.pause();
                 else {
                   try {
