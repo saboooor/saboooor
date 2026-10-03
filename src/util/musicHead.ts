@@ -13,7 +13,7 @@ export function musicHead(
   const song = current?.details ? current : last;
   const live = Boolean(current?.details);
   const title = song?.details
-    ? `${song.details}${song.state ? ` by ${song.state}` : ''} · Saboor`
+    ? `${song.details}${song.state ? ` - ${song.state}` : ''}`
     : fallbackTitle;
   const description = song?.details
     ? [
@@ -39,13 +39,13 @@ export function musicHead(
     meta: [
       { name: 'description', content: description },
       { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Saboor' },
+      { property: 'og:site_name', content: fallbackTitle },
       { property: 'og:url', content: `${url.origin}${url.pathname}` },
       { property: 'og:description', content: description },
       { property: 'og:image', content: imageUrl },
       {
         property: 'og:image:alt',
-        content: song?.assets?.large_text || song?.details || 'Saboor',
+        content: song?.assets?.large_text || song?.details || fallbackTitle,
       },
       { name: 'twitter:card', content: 'summary' },
       { name: 'twitter:title', content: title },
@@ -53,7 +53,7 @@ export function musicHead(
       { name: 'twitter:image', content: imageUrl },
       {
         name: 'twitter:image:alt',
-        content: song?.assets?.large_text || song?.details || 'Saboor',
+        content: song?.assets?.large_text || song?.details || fallbackTitle,
       },
     ],
   };
