@@ -5,8 +5,6 @@ last_updated: 09-26-2025
 description: Getting started with Arch Linux
 ---
 
-# Arch Linux Installation Guide
-
 I have since moved to CachyOS, which is based on Arch but without the headache of installing it whenever something breaks, but I keep this guide here for anyone who wants to install vanilla Arch Linux.
 
 Most of this guide was taken from [my friend nuno's guide](https://github.com/nunopenim/nunopenim/blob/main/GUIDE_ArchLinuxInstallation.md) and was tweaked a bit to make it a bit more opinionated and up to date :3 you're welcome to follow that guide as well if you _really_ want to
