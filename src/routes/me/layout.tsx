@@ -1,5 +1,5 @@
 import { component$, Slot, useContext, useSignal } from '@qwik.dev/core';
-import { DiscordContext } from '../layout';
+import { DiscordContext, LastMusicContext } from '../layout';
 import ActivityCard from '~/components/Activity/ActivityCard';
 import Balloon from 'lucide-icons-qwik/icons/Balloon';
 import ChevronUp from 'lucide-icons-qwik/icons/ChevronUp';
@@ -8,6 +8,7 @@ import { Link, useLocation } from '@qwik.dev/router';
 
 export default component$(() => {
   const discord = useContext(DiscordContext);
+  const lastMusic = useContext(LastMusicContext);
   const loc = useLocation();
   const hidden = useSignal(false);
 
@@ -39,6 +40,17 @@ export default component$(() => {
               />
             );
           })}
+          {!discord.value?.activities.some(
+            (activity: any) => activity.type === 2
+          ) &&
+            lastMusic.value && (
+              <ActivityCard
+                class={{ hidden: hidden.value }}
+                activity={lastMusic.value}
+                fixedwidth
+                compact
+              />
+            )}
           <button
             class="lum-btn rounded-lum-4 lum-grad-bg-gray-900/50 hover:lum-bg-gray-800 p-3 drop-shadow-2xl backdrop-blur-lg"
             onClick$={() => (hidden.value = !hidden.value)}

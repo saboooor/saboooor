@@ -1,19 +1,20 @@
 import { component$, useContext } from '@qwik.dev/core';
 import { DocumentHead } from '@qwik.dev/router';
 import { ExpandedCard } from '~/components/Activity/ActivityCard';
-import { DiscordContext } from '~/routes/layout';
+import { DiscordContext, LastMusicContext } from '~/routes/layout';
 
 export default component$(() => {
   const discord = useContext(DiscordContext);
-  const musicActivity = discord.value?.activities.find(
-    (activity: any) => activity.type === 2
-  );
+  const lastMusic = useContext(LastMusicContext);
+  const musicActivity =
+    discord.value?.activities.find((activity: any) => activity.type === 2) ||
+    lastMusic.value;
 
   return (
     <>
       <section class="relative mx-auto flex min-h-svh max-w-3xl flex-col items-center justify-center gap-4 px-4">
         {musicActivity ? (
-          <ExpandedCard activity={musicActivity} />
+          <ExpandedCard activity={musicActivity} previewOpen />
         ) : (
           <p class="text-gray-400">No music playing at the moment.</p>
         )}

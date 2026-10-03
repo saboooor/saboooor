@@ -10,19 +10,16 @@ import { getClassObject } from '@luminescent/ui-qwik';
 import X from 'lucide-icons-qwik/icons/X';
 import { NowContext } from '~/routes/layout';
 import './ActivityCard.css';
+import MusicPreview from './MusicPreview';
 
-// No viewBox: wave coordinates stay in pixels as the SVG viewport reveals progress.
-const squigglePath =
-  'M0 6 Q6 2 12 6 ' +
-  Array.from({ length: 1023 }, (_, index) => `T${(index + 2) * 12} 6`).join(
-    ' '
-  );
+import { squigglePath } from './ProgressWave';
 
 interface ActivityCardProps extends PropsOf<'div'> {
   activity: any;
   modalRef?: Signal<HTMLDialogElement | undefined>;
   fixedwidth?: boolean;
   compact?: boolean;
+  previewOpen?: boolean;
 }
 
 export default component$<ActivityCardProps>(
@@ -30,6 +27,7 @@ export default component$<ActivityCardProps>(
     const activityType =
       activityTypes[activity.type as keyof typeof activityTypes];
     const modalRef = useSignal<HTMLDialogElement>();
+    const previewOpen = useSignal(false);
     const now = useContext(NowContext);
 
     return (
@@ -47,6 +45,7 @@ export default component$<ActivityCardProps>(
           class="lum-btn lum-bg-transparent hover:lum-bg-transparent active:lum-bg-transparent rounded-lum-2 absolute inset-0 z-10 cursor-pointer p-0 motion-safe:active:scale-100"
           onClick$={() => {
             modalRef.value?.showModal();
+            previewOpen.value = true;
           }}
           aria-label={'Expand'}
         />
@@ -70,7 +69,8 @@ export default component$<ActivityCardProps>(
               'lum-btn lum-grad-bg-gray-900/50 lum-btn-p-1 pointer-events-none absolute top-0 right-7 -z-1 -translate-x-2 text-xs whitespace-nowrap opacity-0 backdrop-blur-sm group-hover:pointer-events-auto group-hover:translate-x-0 group-hover:opacity-100': true,
             }}
           >
-            {activityType?.text} <b>{activity.name}</b>
+            {activity.lastPlayed ? 'Last listened to' : activityType?.text}{' '}
+            <b>{activity.name}</b>
           </p>
           {activityType?.icon && (
             <activityType.icon size={24} class="lum-btn p-1" />
@@ -159,6 +159,12 @@ export default component$<ActivityCardProps>(
         </div>
         <dialog
           ref={modalRef}
+          onClose$={() => {
+            previewOpen.value = false;
+          }}
+          onCancel$={() => {
+            previewOpen.value = false;
+          }}
           class={{
             'activity-player-dialog text-lum-text m-auto hidden open:flex': true,
             'w-[calc(100%-2rem)] max-w-2xl bg-transparent p-0 shadow-2xl': true,
@@ -166,7 +172,11 @@ export default component$<ActivityCardProps>(
             'animate-out fade-out slide-in-from-top-8 duration-300': true,
           }}
         >
-          <ExpandedCard activity={activity} modalRef={modalRef} />
+          <ExpandedCard
+            activity={activity}
+            modalRef={modalRef}
+            previewOpen={previewOpen.value}
+          />
         </dialog>
       </div>
     );
@@ -174,7 +184,7 @@ export default component$<ActivityCardProps>(
 );
 
 export const ExpandedCard = component$<ActivityCardProps>(
-  ({ activity, modalRef }) => {
+  ({ activity, modalRef, previewOpen }) => {
     const activityType =
       activityTypes[activity.type as keyof typeof activityTypes];
     const now = useContext(NowContext);
@@ -201,7 +211,7 @@ export const ExpandedCard = component$<ActivityCardProps>(
             <div class="lum-grad-bg-gray-950/80 rounded-lum absolute inset-0 backdrop-blur-3xl" />
           </div>
         )}
-        <div class="flex items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
           <div class="flex min-w-0 items-center gap-3">
             {activityType?.icon && (
               <span class="lum-bg-gray-900/50 rounded-lum-4 flex h-9 w-9 shrink-0 items-center justify-center text-violet-200">
@@ -210,7 +220,9 @@ export const ExpandedCard = component$<ActivityCardProps>(
             )}
             <div class="min-w-0">
               <p class="text-xs text-gray-400">
-                {activityType?.text || 'Activity'}
+                {activity.lastPlayed
+                  ? 'Last listened to'
+                  : activityType?.text || 'Activity'}
               </p>
               <p class="truncate text-sm font-semibold">{activity.name}</p>
             </div>
@@ -313,6 +325,15 @@ export const ExpandedCard = component$<ActivityCardProps>(
                   </p>
                 </div>
               </div>
+            )}
+            {previewOpen && activity.type === 2 && activity.details && (
+              <MusicPreview
+                title={activity.details}
+                artist={activity.state || ''}
+                showProgress={
+                  !(activity.timestamps?.start && activity.timestamps?.end)
+                }
+              />
             )}
           </div>
         </div>

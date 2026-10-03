@@ -2,6 +2,7 @@ import { component$, useSignal } from '@qwik.dev/core';
 import { Link, useLocation } from '@qwik.dev/router';
 import Menu from 'lucide-icons-qwik/icons/Menu';
 import Socials from './Socials';
+import Balloon from 'lucide-icons-qwik/icons/Balloon';
 import Book from 'lucide-icons-qwik/icons/Book';
 import Home from 'lucide-icons-qwik/icons/Home';
 
@@ -47,6 +48,17 @@ export const Nav = component$(() => {
           >
             <Book size={18} />
             Docs
+          </Link>
+          <Link
+            href="/me"
+            class={{
+              'lum-btn lum-bg-transparent rounded-lum-1': true,
+              'lum-grad-bg-lum-accent hover:lum-bg-lum-accent':
+                loc.url.pathname.includes('/me'),
+            }}
+          >
+            <Balloon size={18} />
+            Personal
           </Link>
         </div>
       </nav>
