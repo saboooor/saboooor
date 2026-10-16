@@ -1,7 +1,7 @@
-import { component$, Slot } from '@qwik.dev/core';
+import { component$, Slot, useSignal } from '@qwik.dev/core';
 import { routeLoader$, useLocation } from '@qwik.dev/router';
-import { DocsSidebar } from '~/components/docs/SideBar';
 import { Breadcrumbs } from '~/components/docs/Breadcrumbs';
+import { DocsSidebar } from '~/components/docs/SideBar';
 import Contributors from '~/components/docs/Contributors';
 import { OnThisPage } from '~/components/docs/ThisPage';
 
@@ -54,6 +54,7 @@ export const getMarkdownItems = async () => {
 export const useMarkdownItems = routeLoader$(() => getMarkdownItems());
 
 export default component$(() => {
+  const sideMenuOpen = useSignal(false);
   const markdownItems = useMarkdownItems();
   const { url } = useLocation();
   const currentPath = url.pathname;
@@ -63,9 +64,9 @@ export default component$(() => {
   const title = currentItem ? currentItem[1].title : 'Docs';
   return (
     <div class="grid min-h-dvh grid-cols-1 items-start gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-8 xl:grid-cols-[16rem_minmax(0,1fr)_16rem]">
-      <DocsSidebar />
+      <DocsSidebar sideMenuOpen={sideMenuOpen} />
+      <Breadcrumbs sideMenuOpen={sideMenuOpen} />
       <main class="markdown mx-auto w-full max-w-4xl min-w-0 px-4 pt-24 pb-12 sm:px-6">
-        <Breadcrumbs />
         <article class="min-w-0 wrap-break-word [&_h2]:scroll-mt-24 [&_h3]:scroll-mt-24 [&_pre]:max-w-full [&_pre]:overflow-x-auto">
           <h1 class="border-b border-gray-700 pb-4 text-center font-bold">
             {title}
