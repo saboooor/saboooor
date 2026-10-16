@@ -25,7 +25,7 @@ export const Breadcrumbs = component$(() => {
 
   return (
     <nav
-      class="lum-card lum-btn-p-2 fixed top-3 left-3 z-20 mb-6 flex-row items-center gap-1 rounded-full border p-2 text-sm backdrop-blur-lg sm:top-5 sm:left-20"
+      class="lum-card lum-btn-p-2 mb-6 max-w-full flex-row flex-wrap items-center gap-1 rounded-2xl border p-2 text-sm backdrop-blur-lg"
       aria-label="Breadcrumb"
     >
       <a href="/docs/" class="lum-btn lum-bg-transparent rounded-full p-1">
@@ -33,12 +33,12 @@ export const Breadcrumbs = component$(() => {
       </a>
 
       {breadcrumbs.map((crumb, index) => (
-        <div class="flex items-center gap-1" key={index}>
-          <ChevronRight class="h-4 w-4 text-gray-400" />
+        <div class="flex min-w-0 items-center gap-1" key={index}>
+          <ChevronRight class="h-4 w-4 shrink-0 text-gray-400" />
           <Link
             href={crumb.href}
             class={{
-              'lum-btn lum-btn-p-1 rounded-full text-sm': true,
+              'lum-btn lum-btn-p-1 min-w-0 rounded-full text-sm whitespace-normal': true,
               'lum-bg-transparent': index < breadcrumbs.length - 1,
               'lum-grad-bg-blue/30': index === breadcrumbs.length - 1,
             }}

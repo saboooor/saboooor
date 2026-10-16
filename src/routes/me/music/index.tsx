@@ -112,6 +112,7 @@ export default component$(() => {
                       activity={play.activity}
                       musicPlay={play}
                       compact
+                      staticBackground
                       class="w-full min-w-0 md:max-w-full md:min-w-0"
                     />
                   ))}

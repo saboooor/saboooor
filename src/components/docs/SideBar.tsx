@@ -10,13 +10,14 @@ export const DocsSidebar = component$(() => {
   const store = useStore({
     sideMenuOpen: false,
     scrollPosition: 0,
-    menuItems: [] as ContentMenu[],
   });
 
   const { url } = useLocation();
   const markdownItems = useMarkdownItems();
+  const menuItems = buildMenu(markdownItems.value);
 
   const saveScrollPosition = $(() => {
+    store.sideMenuOpen = false;
     try {
       const scrollTop = document.getElementById('docs-sidebar')?.scrollTop || 0;
       sessionStorage.setItem('docs-sidebar', String(scrollTop));
@@ -28,19 +29,12 @@ export const DocsSidebar = component$(() => {
 
   // oxlint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    if (markdownItems.value && Object.keys(markdownItems.value).length > 0) {
-      store.menuItems = buildMenu(markdownItems.value);
-    } else {
-      console.log('No markdown items available to build menu');
-    }
-
     try {
       const val = sessionStorage.getItem('docs-sidebar');
       const savedScroll = !val || /null|NaN/.test(val) ? 0 : +val;
       const el = document.getElementById('docs-sidebar');
       if (el) {
         el.scrollTop = savedScroll;
-        el.classList.remove('invisible');
         store.scrollPosition = savedScroll;
       }
 
@@ -62,15 +56,15 @@ export const DocsSidebar = component$(() => {
   });
 
   return (
-    <aside class="lum-card lum-bg-transparent lg:bg-lum-card-bg/50 fixed top-3 right-3 z-40 rounded-none border-y-0 border-l-0 px-0 pt-0 pb-0 lg:sticky lg:h-dvh lg:w-100 lg:px-6 lg:pt-10 lg:backdrop-blur-lg">
-      <nav id="docs-sidebar" class="invisible relative min-h-full">
+    <aside class="lum-card lum-bg-transparent lg:bg-lum-card-bg/50 fixed top-4 left-4 z-40 max-w-[calc(100vw-2rem)] rounded-none border-y-0 border-l-0 px-0 pt-0 pb-0 lg:sticky lg:top-0 lg:left-auto lg:h-dvh lg:w-64 lg:px-4 lg:pt-10 lg:backdrop-blur-lg">
+      <nav id="docs-sidebar" class="relative lg:h-full lg:overflow-y-auto">
         <div class="mb-4 hidden items-center gap-3 border-b border-gray-700 px-2 py-3 lg:flex">
           <Book class="ml-2 lg:ml-0" />
           <h5 class="flex flex-1">Documentation</h5>
         </div>
 
         <button
-          class="lum-btn lum-bg-lum-card-bg lg:lum-bg-transparent ml-auto p-2 lg:hidden"
+          class="lum-btn lum-bg-lum-card-bg lg:lum-bg-transparent p-2 lg:hidden"
           onClick$={() => {
             store.sideMenuOpen = !store.sideMenuOpen;
             const abortController = new AbortController();
@@ -97,7 +91,7 @@ export const DocsSidebar = component$(() => {
 
         <div
           class={{
-            'lum-card lum-bg-lum-card-bg/50 lg:lum-bg-transparent p-2 backdrop-blur-xl': true,
+            'lum-card lum-bg-lum-card-bg/50 lg:lum-bg-transparent max-h-[calc(100dvh-6rem)] w-72 max-w-full overflow-y-auto p-2 backdrop-blur-xl lg:max-h-none lg:w-full lg:overflow-visible': true,
             'hidden lg:flex': !store.sideMenuOpen,
             flex: store.sideMenuOpen,
           }}
@@ -111,9 +105,9 @@ export const DocsSidebar = component$(() => {
             />
           </div>
 
-          {store.menuItems.length > 0 ? (
+          {menuItems.length > 0 ? (
             <MenuItems
-              items={store.menuItems}
+              items={menuItems}
               pathname={url.pathname}
               markdownItems={markdownItems.value}
               onClick$={saveScrollPosition}

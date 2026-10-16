@@ -25,6 +25,7 @@ interface ActivityCardProps extends PropsOf<'div'> {
   modalRef?: Signal<HTMLDialogElement | undefined>;
   fixedwidth?: boolean;
   compact?: boolean;
+  staticBackground?: boolean;
   previewOpen?: boolean;
   musicPlay?: MusicPlay;
 }
@@ -34,6 +35,7 @@ export default component$<ActivityCardProps>(
     activity,
     fixedwidth,
     compact,
+    staticBackground,
     musicPlay: suppliedPlay,
     class: Class,
     ...props
@@ -77,7 +79,10 @@ export default component$<ActivityCardProps>(
         />
         <div class="activity-art-background" aria-hidden="true">
           <img
-            class="activity-card-art animation-duration-[10s] absolute inset-0 -translate-y-1/3 animate-spin"
+            class={{
+              'activity-card-art absolute inset-0 -translate-y-1/3': true,
+              'animation-duration-[10s] animate-spin': !staticBackground,
+            }}
             src={activity.assets?.large_image}
             alt={activity.assets?.large_text}
             width={400}
