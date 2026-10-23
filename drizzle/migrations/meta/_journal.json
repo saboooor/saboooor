@@ -15,6 +15,13 @@
       "when": 1791054474128,
       "tag": "0002_music_song_index",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791054474129,
+      "tag": "0003_music_days",
+      "breakpoints": true
     }
   ]
 }

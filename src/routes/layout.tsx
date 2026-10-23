@@ -88,8 +88,8 @@ export const refreshLastMusic = server$(async function () {
   return musicHistory(db, this.cookie.get('music-visitor')?.value || '');
 });
 
-export const loadOlderMusic = server$(async function (before: number) {
-  if (!Number.isSafeInteger(before) || before < 1)
+export const loadOlderMusic = server$(async function (before: string) {
+  if (typeof before !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(before))
     throw new Error('Invalid history cursor');
   const db = (this.platform.env as Env | undefined)?.music
     ? getDB()
@@ -99,7 +99,7 @@ export const loadOlderMusic = server$(async function (before: number) {
     : [];
 });
 
-export const likeSong = server$(async function (id: number) {
+export const likeSong = server$(async function (id: string) {
   const db = (this.platform.env as Env | undefined)?.music
     ? getDB()
     : undefined;

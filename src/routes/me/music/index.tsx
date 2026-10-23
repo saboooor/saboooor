@@ -4,7 +4,7 @@ import type { MusicActivity } from '~/components/Activity/LastMusic';
 import { component$, useContext, useSignal } from '@qwik.dev/core';
 import { DocumentHead } from '@qwik.dev/router';
 import ActivityCard, { ExpandedCard } from '~/components/Activity/ActivityCard';
-import { musicIdentity } from '~/components/Activity/LastMusic';
+import { musicDate, musicIdentity } from '~/components/Activity/LastMusic';
 import {
   DiscordContext,
   LastMusicContext,
@@ -33,11 +33,11 @@ export default component$(() => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    timeZone: 'America/Toronto',
+    timeZone: 'UTC',
   });
   const hourFormatter = new Intl.DateTimeFormat('en-CA', {
     hour: 'numeric',
-    timeZone: 'America/Toronto',
+    timeZone: 'UTC',
   });
   for (const play of history.value) {
     if (musicIdentity(play.activity) === musicIdentity(musicActivity)) continue;
@@ -94,7 +94,7 @@ export default component$(() => {
             )}
           </div>
         </div>
-        {groups.size > 0 && (
+        {history.value.length > 0 && (
           <div class="flex w-full min-w-0 flex-col gap-4">
             <h2 class="text-2xl font-semibold">Previously caught playing</h2>
             <h3 class="text-lg">
@@ -119,7 +119,7 @@ export default component$(() => {
                 </div>
               </div>
             ))}
-            {more.value && history.value.length >= 50 && (
+            {more.value && history.value.length > 0 && (
               <button
                 type="button"
                 class="lum-btn lum-bg-gray-900/50 rounded-lum-4 self-center"
@@ -129,10 +129,12 @@ export default component$(() => {
                   error.value = '';
                   try {
                     const entries = await loadOlderMusic(
-                      history.value[history.value.length - 1].id
+                      musicDate(
+                        history.value[history.value.length - 1].caughtAt
+                      )
                     );
                     history.value = [...history.value, ...entries];
-                    more.value = entries.length === 50;
+                    more.value = entries.length > 0;
                   } catch {
                     error.value = 'Unable to load older songs. Try again.';
                   } finally {
@@ -140,7 +142,7 @@ export default component$(() => {
                   }
                 }}
               >
-                {loading.value ? 'Loading…' : 'Load older songs'}
+                {loading.value ? 'Loading…' : 'Load previous date'}
               </button>
             )}
             {error.value && (

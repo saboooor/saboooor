@@ -1,17 +1,24 @@
 import { drizzle } from 'drizzle-orm/d1';
 import * as schema from '../../../drizzle/schema';
-import { afterEach, expect, it } from 'vite-plus/test';
+import { afterEach, expect, it, vi } from 'vite-plus/test';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 import { catchMusic, musicHistory, likeMusic, type MusicActivity } from './LastMusic';
 
 const connections: DatabaseSync[] = [];
-afterEach(() => connections.splice(0).forEach((db) => db.close()));
-function database() {
+afterEach(() => { vi.restoreAllMocks(); connections.splice(0).forEach((db) => db.close()); });
+function database(seed = false) {
   const sql = new DatabaseSync(':memory:');
   connections.push(sql);
   sql.exec(readFileSync('drizzle/migrations/0001_music_history.sql', 'utf8'));
   sql.exec(readFileSync('drizzle/migrations/0002_music_song_index.sql', 'utf8'));
+  if (seed) {
+    const insert = sql.prepare('INSERT INTO music_plays (song_key, session_key, activity_json, caught_at) VALUES (?, ?, ?, ?)');
+    insert.run(JSON.stringify(['Song', 'Artist', 'Album']), 'session1', JSON.stringify(song), Date.parse('2026-10-20T12:00:00Z'));
+    insert.run(JSON.stringify(['Song', 'Artist', 'Album']), 'session2', JSON.stringify(song), Date.parse('2026-10-20T14:00:00Z'));
+    sql.exec("INSERT INTO music_likes VALUES (1, 'a'), (2, 'a'), (2, 'b')");
+  }
+  sql.exec(readFileSync('drizzle/migrations/0003_music_days.sql', 'utf8'));
   const prepare = (query: string) => {
     let values: (string | number | null)[] = [];
     const statement = {
@@ -42,17 +49,21 @@ it('logs one caught timestamp for repeated detections of a playback session', as
   expect(entries[0].activity.lastPlayed).toBe(true);
 });
 
-it('shows only the latest play per song, including across history pages', async () => {
+it('stores all songs for a date in one row and paginates complete dates', async () => {
   const db = database();
+  const now = vi.spyOn(Date, 'now').mockReturnValue(Date.parse('2026-10-20T12:00:00Z'));
   await catchMusic(db, song);
-  await catchMusic(db, { ...song, details: 'Another song', timestamps: { start: 250 } });
-  await catchMusic(db, { ...song, timestamps: { start: 300 } });
+  now.mockReturnValue(Date.parse('2026-10-21T12:00:00Z'));
+  for (let index = 0; index < 60; index++) {
+    await catchMusic(db, { ...song, details: `Song ${index}` });
+  }
   const entries = await musicHistory(db, 'visitor');
-  expect(entries).toHaveLength(2);
-  expect(entries[0].activity.details).toBe('Song');
-  expect(entries[1].activity.details).toBe('Another song');
-  expect(entries[0].id).toBeGreaterThan(entries[1].id);
-  expect(await musicHistory(db, 'visitor', entries[0].id)).toHaveLength(1);
+  expect(entries).toHaveLength(60);
+  expect(await db.select().from(schema.musicDays)).toHaveLength(2);
+  const older = await musicHistory(db, 'visitor', '2026-10-21');
+  expect(older).toHaveLength(1);
+  expect(older[0].activity.details).toBe('Song');
+  expect(await musicHistory(db, 'visitor', '2026-10-20')).toEqual([]);
 });
 
 it('deduplicates consecutive detections without a playback start', async () => {
@@ -80,9 +91,10 @@ it('preserves likes across repeat plays without counting a visitor twice', async
   await catchMusic(db, song);
   const [original] = await musicHistory(db, 'a');
   await likeMusic(db, original.id, 'a');
+  vi.spyOn(Date, 'now').mockReturnValue(Date.now() + 86400000);
   await catchMusic(db, { ...song, timestamps: { start: 400 } });
   const [latest] = await musicHistory(db, 'a');
-  expect(latest.id).not.toBe(original.id);
+  expect(latest.id).toBe(original.id);
   expect(latest).toMatchObject({ likes: 1, liked: true });
   expect(await likeMusic(db, latest.id, 'a')).toBe(1);
   expect(await likeMusic(db, latest.id, 'b')).toBe(2);
@@ -94,6 +106,7 @@ it('ranks liked songs across all history, including beyond the recent page', asy
   const [oldest] = await musicHistory(db, 'visitor');
   await likeMusic(db, oldest.id, 'a');
   await likeMusic(db, oldest.id, 'b');
+  vi.spyOn(Date, 'now').mockReturnValue(Date.now() + 86400000);
   for (let index = 0; index < 51; index++) {
     await catchMusic(db, { ...song, details: `Song ${index}`, timestamps: { start: 500 + index } });
   }
@@ -103,4 +116,13 @@ it('ranks liked songs across all history, including beyond the recent page', asy
   const ranked = await musicHistory(db, 'a', undefined, true);
   expect(ranked.map((entry) => entry.id)).toEqual([oldest.id, recent[0].id]);
   expect(ranked[0]).toMatchObject({ likes: 2, liked: true });
+});
+
+it('migrates legacy plays and preserves unique song likes', async () => {
+  const db = database(true);
+  const entries = await musicHistory(db, 'a');
+  expect(entries).toHaveLength(1);
+  expect(entries[0]).toMatchObject({ caughtAt: Date.parse('2026-10-20T14:00:00Z'), likes: 2, liked: true });
+  expect(await likeMusic(db, entries[0].id, 'a')).toBe(2);
+  expect(await db.select().from(schema.musicDays)).toHaveLength(1);
 });
