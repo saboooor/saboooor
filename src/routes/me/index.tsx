@@ -2,14 +2,22 @@ import { musicHead } from '~/util/musicHead';
 import { useData } from '~/routes/layout';
 import type { MusicActivity } from '~/components/Activity/LastMusic';
 import { component$, useContext, useSignal } from '@qwik.dev/core';
-import { DocumentHead } from '@qwik.dev/router';
+import { DocumentHead, routeLoader$ } from '@qwik.dev/router';
+import { dailyJournalEntry, journalContent } from '~/content/journal';
 import Hand from 'lucide-icons-qwik/icons/Hand';
 import Socials from '~/components/Socials';
 import { addWave, messages } from '..';
 import { DiscordContext } from '../layout';
 import Banner from '~/components/Banner';
 
+export const useDailyJournal = routeLoader$(() => dailyJournalEntry());
+
 export default component$(() => {
+  const journal = useDailyJournal();
+  const unwrapped = useSignal(false);
+  const JournalContent = journal.value
+    ? journalContent(journal.value.id)
+    : undefined;
   const waves = useSignal(undefined as number | undefined);
   const discord = useContext(DiscordContext);
   const customStatus = discord.value?.activities.find(
@@ -116,6 +124,59 @@ export default component$(() => {
             <Socials class="rounded-lum-6" idPrefix="me" />
           </div>
         </div>
+        <section
+          aria-label="Daily journal gift"
+          class={{
+            'lum-card lum-grad-bg-gray-950/10 flex min-w-0 flex-col gap-4': true,
+            'p-0 overflow-hidden': !unwrapped.value,
+            'md:p-12': unwrapped.value,
+          }}
+        >
+          {!unwrapped.value ? (
+            <button
+              type="button"
+              aria-label="Unwrap today's journal entry"
+              aria-expanded={false}
+              class="group rounded-lum relative isolate flex min-h-72 w-full cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden border border-gray-200/15 bg-gray-950 px-6 py-16 text-gray-100 transition duration-300 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-300 motion-reduce:transition-none"
+              onClick$={() => {
+                unwrapped.value = true;
+              }}
+            >
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-0 -z-10 opacity-20"
+                style="background-image: repeating-linear-gradient(45deg, transparent, transparent 18px, var(--color-gray-200) 18px, var(--color-gray-200) 19px);"
+              />
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-10 -translate-x-1/2 bg-gray-300/15 ring-1 ring-gray-200/15"
+              />
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-10 -translate-y-1/2 bg-gray-300/15 ring-1 ring-gray-200/15"
+              />
+            </button>
+          ) : journal.value ? (
+            <article class="animate-in fade-in flex flex-col gap-3 duration-500 motion-reduce:animate-none">
+              <h3 class="text-lg font-semibold">{journal.value.title}</h3>
+              {journal.value.date && (
+                <time
+                  dateTime={journal.value.date}
+                  class="text-lum-text-secondary text-sm"
+                >
+                  {journal.value.date}
+                </time>
+              )}
+              {JournalContent && (
+                <div class="markdown min-w-0 wrap-break-word">
+                  <JournalContent />
+                </div>
+              )}
+            </article>
+          ) : (
+            <p class="text-lum-text-secondary">Nothing to see here yet.</p>
+          )}
+        </section>
       </section>
     </>
   );

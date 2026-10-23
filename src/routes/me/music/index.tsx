@@ -72,7 +72,7 @@ export default component$(() => {
           <div class="flex flex-col gap-4">
             <h2 class="text-xl font-semibold">Most liked</h2>
             {mostLiked.value.length ? (
-              <ol class="flex flex-col gap-3">
+              <ol class="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
                 {mostLiked.value.map((play, index) => (
                   <li key={play.id} class="flex min-w-0 items-start gap-3">
                     <span class="pt-3 text-sm font-semibold text-violet-300 tabular-nums">
@@ -89,7 +89,7 @@ export default component$(() => {
               </ol>
             ) : (
               <p class="text-sm text-gray-400">
-                No likes yet. Like a song to start the list.
+                No likes yet. Like a song to start the grid.
               </p>
             )}
           </div>
