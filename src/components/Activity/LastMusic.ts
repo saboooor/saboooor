@@ -16,8 +16,7 @@ export interface MusicPlay {
   id: string;
   activity: MusicActivity;
   caughtAt: number;
-  likes: number;
-  liked: boolean;
+  plays: number;
 }
 
 export function musicIdentity(activity?: MusicActivity | null) {
@@ -59,6 +58,16 @@ export async function catchMusic(db: AppDatabase, current?: MusicActivity) {
     caughtAt,
     session: musicSessionIdentity(current),
   });
+  // A playback start identifies a session across visitors and repeated detections.
+  // Without a start timestamp, only one play per song per UTC day is knowable.
+  const session = current.timestamps?.start
+    ? musicSessionIdentity(current)
+    : `${id}:${date}`;
+  await db.run(sql`
+    INSERT INTO music_sessions (session_key, song_key, activity_json, caught_at)
+    VALUES (${session}, ${id}, ${JSON.stringify(activity)}, ${caughtAt})
+    ON CONFLICT(session_key) DO NOTHING
+  `);
   // One entry per song per day; duplicate detections never rewrite the day.
   await db.run(sql`
     INSERT INTO music_days (date, songs_json) VALUES (${date}, json_array(json(${entry})))
@@ -74,27 +83,24 @@ type StoredPlay = Pick<MusicPlay, 'id' | 'activity' | 'caughtAt'>;
 
 export async function musicHistory(
   db: AppDatabase,
-  visitor: string,
   before?: string,
-  mostLiked = false
+  mostPlayed = false
 ): Promise<MusicPlay[]> {
-  if (mostLiked) {
+  if (mostPlayed) {
     const rows = await db.all<{
       id: string;
       activity: string;
       caughtAt: number;
-      likes: number;
-      liked: number;
+      plays: number;
     }>(sql`
       SELECT song_key AS id, activity_json AS activity, max(caught_at) AS caughtAt,
-        count(*) AS likes, max(visitor_id = ${visitor}) AS liked
-      FROM music_favorites GROUP BY song_key
-      ORDER BY likes DESC, caughtAt DESC, song_key LIMIT 10
+        count(*) AS plays
+      FROM music_sessions GROUP BY song_key
+      ORDER BY plays DESC, caughtAt DESC, song_key LIMIT 10
     `);
     return rows.map((row) => ({
       ...row,
-      activity: JSON.parse(row.activity),
-      liked: Boolean(row.liked),
+      activity: { ...JSON.parse(row.activity), id: row.id },
     }));
   }
   const days = await db.all<{ songs: string }>(sql`
@@ -107,32 +113,14 @@ export async function musicHistory(
   );
   const keys = JSON.stringify(plays.map((play) => play.id));
   if (!plays.length) return [];
-  const likes = await db.all<{ id: string; likes: number; liked: number }>(sql`
-    SELECT song_key AS id, count(*) AS likes, max(visitor_id = ${visitor}) AS liked
-    FROM music_favorites WHERE song_key IN (SELECT value FROM json_each(${keys})) GROUP BY song_key
+  const totals = await db.all<{ id: string; plays: number }>(sql`
+    SELECT song_key AS id, count(*) AS plays
+    FROM music_sessions WHERE song_key IN (SELECT value FROM json_each(${keys})) GROUP BY song_key
   `);
-  const counts = new Map(likes.map((row) => [row.id, row]));
+  const counts = new Map(totals.map((row) => [row.id, row.plays]));
   return plays.map((play) => ({
     ...play,
     activity: { ...play.activity, id: play.id },
-    likes: counts.get(play.id)?.likes || 0,
-    liked: Boolean(counts.get(play.id)?.liked),
+    plays: counts.get(play.id) || 0,
   }));
-}
-
-export async function likeMusic(db: AppDatabase, id: string, visitor: string) {
-  if (typeof id !== 'string' || !id || id.length > 10000)
-    throw new Error('Invalid song');
-  await db.run(sql`
-    INSERT INTO music_favorites (song_key, visitor_id, activity_json, caught_at)
-    SELECT ${id}, ${visitor}, json_extract(value, '$.activity'), json_extract(value, '$.caughtAt')
-    FROM music_days, json_each(songs_json)
-    WHERE json_extract(value, '$.id') = ${id}
-    ORDER BY date DESC LIMIT 1
-    ON CONFLICT DO NOTHING
-  `);
-  const rows = await db.all<{ likes: number }>(sql`
-    SELECT count(*) AS likes FROM music_favorites WHERE song_key = ${id}
-  `);
-  return rows[0]?.likes || 0;
 }

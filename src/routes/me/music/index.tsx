@@ -9,7 +9,7 @@ import {
   DiscordContext,
   LastMusicContext,
   MusicHistoryContext,
-  MostLikedMusicContext,
+  MostPlayedMusicContext,
   loadOlderMusic,
 } from '~/routes/layout';
 
@@ -17,7 +17,7 @@ export default component$(() => {
   const discord = useContext(DiscordContext);
   const lastMusic = useContext(LastMusicContext);
   const history = useContext(MusicHistoryContext);
-  const mostLiked = useContext(MostLikedMusicContext);
+  const mostPlayed = useContext(MostPlayedMusicContext);
   const loading = useSignal(false);
   const more = useSignal(true);
   const error = useSignal('');
@@ -70,10 +70,10 @@ export default component$(() => {
             <p class="text-gray-400">No music playing at the moment.</p>
           )}
           <div class="flex flex-col gap-4">
-            <h2 class="text-xl font-semibold">Most liked</h2>
-            {mostLiked.value.length ? (
+            <h2 class="text-xl font-semibold">Most played</h2>
+            {mostPlayed.value.length ? (
               <ol class="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
-                {mostLiked.value.map((play, index) => (
+                {mostPlayed.value.map((play, index) => (
                   <li key={play.id} class="flex min-w-0 items-start gap-3">
                     <span class="pt-3 text-sm font-semibold text-violet-300 tabular-nums">
                       {index + 1}
@@ -88,9 +88,7 @@ export default component$(() => {
                 ))}
               </ol>
             ) : (
-              <p class="text-sm text-gray-400">
-                No likes yet. Like a song to start the grid.
-              </p>
+              <p class="text-sm text-gray-400">No plays recorded yet.</p>
             )}
           </div>
         </div>
@@ -98,9 +96,8 @@ export default component$(() => {
           <div class="flex w-full min-w-0 flex-col gap-4">
             <h2 class="text-2xl font-semibold">Previously caught playing</h2>
             <h3 class="text-lg">
-              I've been seen on this very website playing these songs 👀 go
-              ahead and press the like button on them if you like the song :) I
-              think my music taste is pretty good if I say so myself :p
+              I've been seen on this very website playing these songs 👀 I think
+              my music taste is pretty good if I say so myself :p
             </h3>
             {Array.from(groups, ([date, plays]) => (
               <div key={date} class="flex flex-col gap-3">

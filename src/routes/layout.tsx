@@ -13,7 +13,6 @@ import {
   musicSessionIdentity,
   catchMusic,
   musicHistory,
-  likeMusic,
   type MusicPlay,
   type MusicActivity,
 } from '~/components/Activity/LastMusic';
@@ -25,11 +24,11 @@ import Footer from '~/components/Footer';
 import Banner from '~/components/Banner';
 import { Nav } from '~/components/Nav';
 
-export const useData = routeLoader$(async ({ request, platform, cookie }) => {
+export const useData = routeLoader$(async ({ request, platform }) => {
   const isSafari = request.headers.get('user-agent')?.includes('Safari');
   const lanyard = await getLanyardData(isSafari);
   let history: MusicPlay[] = [];
-  let mostLiked: MusicPlay[] = [];
+  let mostPlayed: MusicPlay[] = [];
   const db = (platform.env as Env | undefined)?.music ? getDB() : undefined;
   try {
     if (db) {
@@ -39,16 +38,8 @@ export const useData = routeLoader$(async ({ request, platform, cookie }) => {
           (activity: MusicActivity) => activity.type === 2
         )
       );
-      history = await musicHistory(
-        db,
-        cookie.get('music-visitor')?.value || ''
-      );
-      mostLiked = await musicHistory(
-        db,
-        cookie.get('music-visitor')?.value || '',
-        undefined,
-        true
-      );
+      history = await musicHistory(db);
+      mostPlayed = await musicHistory(db, undefined, true);
     }
   } catch (error) {
     console.error('Unable to load music history:', error);
@@ -57,22 +48,15 @@ export const useData = routeLoader$(async ({ request, platform, cookie }) => {
     lanyard,
     lastMusic: history[0]?.activity || null,
     history,
-    mostLiked,
+    mostPlayed,
   };
 });
 
-export const loadMostLikedMusic = server$(async function () {
+export const loadMostPlayedMusic = server$(async function () {
   const db = (this.platform.env as Env | undefined)?.music
     ? getDB()
     : undefined;
-  return db
-    ? musicHistory(
-        db,
-        this.cookie.get('music-visitor')?.value || '',
-        undefined,
-        true
-      )
-    : [];
+  return db ? musicHistory(db, undefined, true) : [];
 });
 
 export const refreshLastMusic = server$(async function () {
@@ -85,7 +69,7 @@ export const refreshLastMusic = server$(async function () {
     db,
     lanyard?.activities.find((activity: MusicActivity) => activity.type === 2)
   );
-  return musicHistory(db, this.cookie.get('music-visitor')?.value || '');
+  return musicHistory(db);
 });
 
 export const loadOlderMusic = server$(async function (before: string) {
@@ -94,28 +78,7 @@ export const loadOlderMusic = server$(async function (before: string) {
   const db = (this.platform.env as Env | undefined)?.music
     ? getDB()
     : undefined;
-  return db
-    ? musicHistory(db, this.cookie.get('music-visitor')?.value || '', before)
-    : [];
-});
-
-export const likeSong = server$(async function (id: string) {
-  const db = (this.platform.env as Env | undefined)?.music
-    ? getDB()
-    : undefined;
-  if (!db) throw new Error('Music database unavailable');
-  let visitor = this.cookie.get('music-visitor')?.value;
-  if (!visitor) {
-    visitor = crypto.randomUUID();
-    this.cookie.set('music-visitor', visitor, {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: this.url.protocol === 'https:',
-      maxAge: 31536000,
-    });
-  }
-  return likeMusic(db, id, visitor);
+  return db ? musicHistory(db, before) : [];
 });
 
 export const DiscordContext = createContextId<Signal<any>>('discord-context');
@@ -124,8 +87,8 @@ export const LastMusicContext =
 export const MusicHistoryContext = createContextId<Signal<MusicPlay[]>>(
   'music-history-context'
 );
-export const MostLikedMusicContext = createContextId<Signal<MusicPlay[]>>(
-  'most-liked-music-context'
+export const MostPlayedMusicContext = createContextId<Signal<MusicPlay[]>>(
+  'most-played-music-context'
 );
 export const NowContext = createContextId<Signal<number>>('now-context');
 export const Bg = '/banner';
@@ -135,7 +98,7 @@ export default component$(() => {
       lanyard,
       lastMusic: savedMusic,
       history: savedHistory,
-      mostLiked: savedMostLiked,
+      mostPlayed: savedMostPlayed,
     },
   } = useData();
   const discord = useSignal<any>(lanyard);
@@ -144,8 +107,8 @@ export default component$(() => {
   useContextProvider(LastMusicContext, lastMusic);
   const history = useSignal(savedHistory);
   useContextProvider(MusicHistoryContext, history);
-  const mostLiked = useSignal(savedMostLiked);
-  useContextProvider(MostLikedMusicContext, mostLiked);
+  const mostPlayed = useSignal(savedMostPlayed);
+  useContextProvider(MostPlayedMusicContext, mostPlayed);
   const now = useSignal(Date.now());
   useContextProvider(NowContext, now);
 
@@ -186,8 +149,9 @@ export default component$(() => {
                 lastPlayed: true,
               };
               void refreshLastMusic()
-                .then((entries) => {
+                .then(async (entries) => {
                   history.value = entries;
+                  mostPlayed.value = await loadMostPlayedMusic();
                   if (entries[0]) lastMusic.value = entries[0].activity;
                 })
                 .catch((error: unknown) => {

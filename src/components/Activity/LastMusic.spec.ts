@@ -3,7 +3,7 @@ import * as schema from '../../../drizzle/schema';
 import { afterEach, expect, it, vi } from 'vite-plus/test';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
-import { catchMusic, musicHistory, likeMusic, type MusicActivity } from './LastMusic';
+import { catchMusic, musicHistory, type MusicActivity } from './LastMusic';
 
 const connections: DatabaseSync[] = [];
 afterEach(() => { vi.restoreAllMocks(); connections.splice(0).forEach((db) => db.close()); });
@@ -19,6 +19,7 @@ function database(seed = false) {
     sql.exec("INSERT INTO music_likes VALUES (1, 'a'), (2, 'a'), (2, 'b')");
   }
   sql.exec(readFileSync('drizzle/migrations/0003_music_days.sql', 'utf8'));
+  sql.exec(readFileSync('drizzle/migrations/0004_music_play_counts.sql', 'utf8'));
   const prepare = (query: string) => {
     let values: (string | number | null)[] = [];
     const statement = {
@@ -42,7 +43,7 @@ it('logs one caught timestamp for repeated detections of a playback session', as
   await catchMusic(db, song);
   await catchMusic(db, song);
   await catchMusic(db);
-  const entries = await musicHistory(db, 'visitor');
+  const entries = await musicHistory(db);
   expect(entries).toHaveLength(1);
   expect(entries[0].caughtAt).toBeGreaterThanOrEqual(before);
   expect(entries[0].activity).not.toHaveProperty('timestamps');
@@ -57,13 +58,13 @@ it('stores all songs for a date in one row and paginates complete dates', async 
   for (let index = 0; index < 60; index++) {
     await catchMusic(db, { ...song, details: `Song ${index}` });
   }
-  const entries = await musicHistory(db, 'visitor');
+  const entries = await musicHistory(db);
   expect(entries).toHaveLength(60);
   expect(await db.select().from(schema.musicDays)).toHaveLength(2);
-  const older = await musicHistory(db, 'visitor', '2026-10-21');
+  const older = await musicHistory(db, '2026-10-21');
   expect(older).toHaveLength(1);
   expect(older[0].activity.details).toBe('Song');
-  expect(await musicHistory(db, 'visitor', '2026-10-20')).toEqual([]);
+  expect(await musicHistory(db, '2026-10-20')).toEqual([]);
 });
 
 it('deduplicates consecutive detections without a playback start', async () => {
@@ -72,57 +73,44 @@ it('deduplicates consecutive detections without a playback start', async () => {
   await catchMusic(db, { ...song, timestamps: undefined });
   await catchMusic(db, { ...song, details: 'Another song', timestamps: undefined });
   await catchMusic(db, { ...song, timestamps: undefined });
-  expect(await musicHistory(db, 'visitor')).toHaveLength(2);
+  expect(await musicHistory(db)).toHaveLength(2);
 });
 
-it('counts only one like per visitor per entry', async () => {
+it('counts distinct playback sessions while retaining one daily history entry', async () => {
   const db = database();
   await catchMusic(db, song);
-  const [play] = await musicHistory(db, 'a');
-  expect(await likeMusic(db, play.id, 'a')).toBe(1);
-  expect(await likeMusic(db, play.id, 'a')).toBe(1);
-  expect(await likeMusic(db, play.id, 'b')).toBe(2);
-  expect((await musicHistory(db, 'a'))[0]).toMatchObject({ likes: 2, liked: true });
-  expect((await musicHistory(db, 'c'))[0].liked).toBe(false);
-});
-
-it('preserves likes across repeat plays without counting a visitor twice', async () => {
-  const db = database();
   await catchMusic(db, song);
-  const [original] = await musicHistory(db, 'a');
-  await likeMusic(db, original.id, 'a');
+  await catchMusic(db, { ...song, timestamps: { start: 400 } });
+  const entries = await musicHistory(db);
+  expect(entries).toHaveLength(1);
+  expect(entries[0].plays).toBe(2);
   vi.spyOn(Date, 'now').mockReturnValue(Date.now() + 86400000);
   await catchMusic(db, { ...song, timestamps: { start: 400 } });
-  const [latest] = await musicHistory(db, 'a');
-  expect(latest.id).toBe(original.id);
-  expect(latest).toMatchObject({ likes: 1, liked: true });
-  expect(await likeMusic(db, latest.id, 'a')).toBe(1);
-  expect(await likeMusic(db, latest.id, 'b')).toBe(2);
+  expect((await musicHistory(db))[0].plays).toBe(2);
+  await catchMusic(db, { ...song, timestamps: { start: 500 } });
+  expect((await musicHistory(db))[0].plays).toBe(3);
 });
 
-it('ranks liked songs across all history, including beyond the recent page', async () => {
+it('ranks songs across all history, including beyond the recent page', async () => {
   const db = database();
   await catchMusic(db, song);
-  const [oldest] = await musicHistory(db, 'visitor');
-  await likeMusic(db, oldest.id, 'a');
-  await likeMusic(db, oldest.id, 'b');
+  await catchMusic(db, { ...song, timestamps: { start: 400 } });
+  const [oldest] = await musicHistory(db);
   vi.spyOn(Date, 'now').mockReturnValue(Date.now() + 86400000);
   for (let index = 0; index < 51; index++) {
     await catchMusic(db, { ...song, details: `Song ${index}`, timestamps: { start: 500 + index } });
   }
-  const recent = await musicHistory(db, 'visitor');
-  expect(recent.some((entry) => entry.id === oldest.id)).toBe(false);
-  await likeMusic(db, recent[0].id, 'a');
-  const ranked = await musicHistory(db, 'a', undefined, true);
-  expect(ranked.map((entry) => entry.id)).toEqual([oldest.id, recent[0].id]);
-  expect(ranked[0]).toMatchObject({ likes: 2, liked: true });
+  expect((await musicHistory(db)).some((entry) => entry.id === oldest.id)).toBe(false);
+  const ranked = await musicHistory(db, undefined, true);
+  expect(ranked).toHaveLength(10);
+  expect(ranked[0]).toMatchObject({ id: oldest.id, plays: 2 });
 });
 
-it('migrates legacy plays and preserves unique song likes', async () => {
+it('migrates retained history to plays and removes stored likes', async () => {
   const db = database(true);
-  const entries = await musicHistory(db, 'a');
+  const entries = await musicHistory(db);
   expect(entries).toHaveLength(1);
-  expect(entries[0]).toMatchObject({ caughtAt: Date.parse('2026-10-20T14:00:00Z'), likes: 2, liked: true });
-  expect(await likeMusic(db, entries[0].id, 'a')).toBe(2);
+  expect(entries[0]).toMatchObject({ caughtAt: Date.parse('2026-10-20T14:00:00Z'), plays: 1 });
   expect(await db.select().from(schema.musicDays)).toHaveLength(1);
+  expect(connections[connections.length - 1].prepare("SELECT name FROM sqlite_master WHERE name = 'music_favorites'").all()).toEqual([]);
 });

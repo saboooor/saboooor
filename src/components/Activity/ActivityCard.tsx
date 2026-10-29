@@ -11,7 +11,7 @@ import X from 'lucide-icons-qwik/icons/X';
 import {
   NowContext,
   MusicHistoryContext,
-  MostLikedMusicContext,
+  MostPlayedMusicContext,
 } from '~/routes/layout';
 import './ActivityCard.css';
 import MusicPreview from './MusicPreview';
@@ -41,13 +41,13 @@ export default component$<ActivityCardProps>(
     ...props
   }) => {
     const history = useContext(MusicHistoryContext);
-    const mostLiked = useContext(MostLikedMusicContext);
+    const mostPlayed = useContext(MostPlayedMusicContext);
     const musicPlay =
       activity.type === 2
         ? history.value.find(
             (play) => musicIdentity(play.activity) === musicIdentity(activity)
           ) ||
-          mostLiked.value.find(
+          mostPlayed.value.find(
             (play) => musicIdentity(play.activity) === musicIdentity(activity)
           ) ||
           suppliedPlay
@@ -223,13 +223,13 @@ export default component$<ActivityCardProps>(
 export const ExpandedCard = component$<ActivityCardProps>(
   ({ activity, modalRef, previewOpen, musicPlay: suppliedPlay }) => {
     const history = useContext(MusicHistoryContext);
-    const mostLiked = useContext(MostLikedMusicContext);
+    const mostPlayed = useContext(MostPlayedMusicContext);
     const musicPlay =
       activity.type === 2
         ? history.value.find(
             (play) => musicIdentity(play.activity) === musicIdentity(activity)
           ) ||
-          mostLiked.value.find(
+          mostPlayed.value.find(
             (play) => musicIdentity(play.activity) === musicIdentity(activity)
           ) ||
           suppliedPlay

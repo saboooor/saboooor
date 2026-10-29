@@ -1,9 +1,4 @@
-import {
-  integer,
-  primaryKey,
-  sqliteTable,
-  text,
-} from 'drizzle-orm/sqlite-core';
+import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import type {
   MusicPlay,
   MusicActivity,
@@ -16,15 +11,15 @@ export const musicDays = sqliteTable('music_days', {
     .notNull(),
 });
 
-export const musicFavorites = sqliteTable(
-  'music_favorites',
+export const musicSessions = sqliteTable(
+  'music_sessions',
   {
+    sessionKey: text('session_key').primaryKey(),
     songKey: text('song_key').notNull(),
-    visitorId: text('visitor_id').notNull(),
     activity: text('activity_json', { mode: 'json' })
       .$type<MusicActivity>()
       .notNull(),
     caughtAt: integer('caught_at').notNull(),
   },
-  (table) => [primaryKey({ columns: [table.songKey, table.visitorId] })]
+  (table) => [index('music_sessions_song_key_idx').on(table.songKey)]
 );
